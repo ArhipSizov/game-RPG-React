@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { initializeFirestore } from "firebase/firestore";
 import './index.css'
-import App from './App.tsx'
+import App from './App/App.tsx'
 import firebaseConfig from "../firebaseConfig.ts";
 
 import { initializeApp } from "firebase/app";
