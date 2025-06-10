@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+
+import AllEnemyDB from "../Components/AllEnemy.json"
+import Enemy from "../Components/Enemy/Enemy";
+
+
+import "./App.scss";
 
 interface Ability {
   id: string;
@@ -18,7 +23,13 @@ interface Character {
 }
 
 function App() {
+  console.log(AllEnemyDB);
+  
   const [turn, setTurn] = useState<number>(0);
+
+  function getRandomInt(max: number) {
+    return Math.floor(Math.random() * max);
+  }
 
   //declare ally
   const [Mage] = useState<Character>({
@@ -51,11 +62,11 @@ function App() {
   });
 
   //declare enemy
-  const [Goblin0] = useState<Character>({
+  const [Enemy1, setEnemy1] = useState<Character>({
     id: "1",
-    name: "goblin",
-    hp: 12,
-    maxHp: 12,
+    name: "none",
+    hp: 1,
+    maxHp: 1,
     position: 1,
     skills: [
       {
@@ -78,11 +89,11 @@ function App() {
       },
     ],
   });
-  const [Goblin1] = useState<Character>({
+  const [Enemy2, setEnemy2] = useState<Character>({
     id: "2",
-    name: "goblin",
-    hp: 12,
-    maxHp: 12,
+    name: "none",
+    hp: 1,
+    maxHp: 1,
     position: 1,
     skills: [
       {
@@ -105,11 +116,11 @@ function App() {
       },
     ],
   });
-  const [Goblin2] = useState<Character>({
+  const [Enemy3, setEnemy3] = useState<Character>({
     id: "3",
-    name: "goblin",
-    hp: 12,
-    maxHp: 12,
+    name: "none",
+    hp: 1,
+    maxHp: 1,
     position: 1,
     skills: [
       {
@@ -132,11 +143,11 @@ function App() {
       },
     ],
   });
-  const [Goblin3] = useState<Character>({
+  const [Enemy4, setEnemy4] = useState<Character>({
     id: "4",
-    name: "goblin",
-    hp: 12,
-    maxHp: 12,
+    name: "none",
+    hp: 1,
+    maxHp: 1,
     position: 1,
     skills: [
       {
@@ -159,7 +170,25 @@ function App() {
       },
     ],
   });
-  console.log(Goblin0, Goblin1, Goblin2, Goblin3);
+  const [allEnemy, setAllEnemy] = useState<Character[]>([Enemy1, Enemy2, Enemy3, Enemy4]);
+  useEffect(() => {
+    setAllEnemy([Enemy1, Enemy2, Enemy3, Enemy4])
+  }, [Enemy1, Enemy2, Enemy3, Enemy4]);
+  console.log(allEnemy);
+  if (Enemy1.name === "none") {
+    for (let i = 1; i < 5; i++) {
+      let enemyTrue;
+      if (getRandomInt(2) == 0) {
+        enemyTrue = { ...AllEnemyDB.StrongGoblin };
+      } else {
+        enemyTrue = { ...AllEnemyDB.Goblin };
+      }
+      const setEnemyTrue = eval("setEnemy" + i);
+      enemyTrue.id = i.toString();
+      setEnemyTrue(enemyTrue);
+    }
+  }
+  
 
   //enemy active
   const [enemy, setEnemy] = useState<string[]>([
@@ -206,8 +235,8 @@ function App() {
     let chooseEnemy;
     let damage;
 
-    for (let i = 0; i < 4; i++) {
-      const enemyTrue = "Goblin" + i;
+    for (let i = 1; i < 5; i++) {
+      const enemyTrue = "Enemy" + i;
       if (eval(enemyTrue + ".id") == enemy[0]) {
         chooseEnemy = eval(enemyTrue);
       }
@@ -236,17 +265,24 @@ function App() {
   }
 
   //hp bar
-  useEffect(() => {
-    const idEnemyName = "enemy" + enemy[0];
-    const idEnemy = document.getElementById(idEnemyName);
-    const enemyName = eval("Goblin" + (Number(enemy[0]) - 1));
-    const maxHp = enemyName.maxHp;
-    const hp = enemyName.hp;
-    const width = (hp / maxHp) * 100;
-    if (idEnemy) {
-      idEnemy.style.width = width + "%";
-    }
-  }, [turn]);
+  // useEffect(() => {
+  //   const idEnemyName = "enemy" + enemy[0];
+  //   const idEnemy = document.getElementById(idEnemyName);
+  //   const ally = document.getElementById("ally");
+  //   const enemyName = eval("Enemy" + Number(enemy[0]));
+  //   let maxHp = enemyName.maxHp;
+  //   let hp = enemyName.hp;
+  //   let width = (hp / maxHp) * 100;
+  //   if (idEnemy) {
+  //     idEnemy.style.width = width + "%";
+  //   }
+  //   maxHp = Mage.maxHp;
+  //   hp = Mage.hp;
+  //   width = (hp / maxHp) * 100;
+  //   if (ally) {
+  //     ally.style.width = width + "%";
+  //   }
+  // }, [turn]);
 
   //site
   return (
@@ -256,25 +292,20 @@ function App() {
           <div className="persone none"></div>
           <div className="persone none"></div>
           <div className="persone none"></div>
-          <div className="persone"></div>
+          <div className="persone">
+            <hr id="ally" className="hp_bar" />
+          </div>
         </div>
         <div className="enemy">
-          <div onClick={() => changeEnemyActive(1)} className={enemy[1]}>
-            <hr className="choose" />
-            <hr id="enemy1" className="hp_bar" />
-          </div>
-          <div onClick={() => changeEnemyActive(2)} className={enemy[2]}>
-            <hr className="choose" />
-            <hr id="enemy2" className="hp_bar" />
-          </div>
-          <div onClick={() => changeEnemyActive(3)} className={enemy[3]}>
-            <hr className="choose" />
-            <hr id="enemy3" className="hp_bar" />
-          </div>
-          <div onClick={() => changeEnemyActive(4)} className={enemy[4]}>
-            <hr className="choose" />
-            <hr id="enemy4" className="hp_bar" />
-          </div>
+              {allEnemy.map((item) => (
+                <Enemy
+                  {...item}
+                  changeEnemyActive={changeEnemyActive}
+                  enemy={enemy}
+                  turn={turn}
+                  key={item.id}
+                ></Enemy>
+              ))}
         </div>
       </div>
       <div className="ability_all">
