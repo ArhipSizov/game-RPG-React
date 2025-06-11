@@ -21,14 +21,41 @@
       border: none;
       background-color: rgb(136, 0, 0);
     }
-    .enemy_name {
+    .persone_name,
+    .persone_hp {
       color: #e6e6e6;
+      font-weight: 500;
+      margin-top: 2px;
+      cursor: default;
+    }
+    .description {
+      position: absolute;
+      margin: -20px 0 0 20px;
+      width: 200px;
+      color: #e6e6e600;
+      background-color: rgba(0, 0, 0, 0);
+      font-size: 0;
+      padding: 6px;
+      border-radius: 8px 8px 8px 2px;
+      transition: 0.4s;
+      transition-delay: 0.1s;
+      width: 0;
+      height: 0;
     }
   }
   .persone:hover {
     .choose {
       display: block;
       border-color: rgb(85, 85, 85);
+    }
+    .description {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #e6e6e6;
+      transition-delay: 0.4s;
+      width: auto;
+      max-width: 400px;
+      height: auto;
+      font-size: 18px;
     }
   }
   .active_persone {

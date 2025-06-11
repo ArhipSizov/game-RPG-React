@@ -1,55 +1,45 @@
 {
   "Goblin": {
     "id": "",
-    "name": "goblin",
+    "name": "Гоблин",
     "hp": 12,
     "maxHp": 12,
     "position": 0,
+    "description": "Простой гоблин, ничего особенного",
     "skills": [
       {
         "id": "1",
-        "name": "nothin",
-        "damage": 0,
-        "description": "none"
+        "name": "Удар правой",
+        "damage": 5,
+        "description": "Простой удар, не приятно"
       },
       {
         "id": "2",
-        "name": "nothin",
-        "damage": 0,
-        "description": "none"
-      },
-      {
-        "id": "3",
-        "name": "nothin",
-        "damage": 0,
-        "description": "none"
+        "name": "Удар левой",
+        "damage": 3,
+        "description": "Простой удар, немного приятно"
       }
     ]
   },
   "StrongGoblin": {
     "id": "",
-    "name": "StrongGoblin",
+    "name": "Прочный гоблин",
     "hp": 21,
     "maxHp": 21,
     "position": 0,
+    "description": "Простой гоблин с укреплённой кожей, будет посложнее обычного",
     "skills": [
       {
         "id": "1",
-        "name": "StrongNothin",
-        "damage": 0,
-        "description": "none"
+        "name": "Удар правой",
+        "damage": 4,
+        "description": "Простой удар, не приятно"
       },
       {
         "id": "2",
-        "name": "nothin",
-        "damage": 0,
-        "description": "none"
-      },
-      {
-        "id": "3",
-        "name": "nothin",
-        "damage": 0,
-        "description": "none"
+        "name": "Удар левой",
+        "damage": 1,
+        "description": "Простой удар, приятно"
       }
     ]
   }

@@ -18,6 +18,7 @@ interface Character {
   hp: number;
   maxHp: number;
   position: number;
+  description: string;
   skills: [Ability, Ability, Ability];
 }
 
@@ -35,6 +36,7 @@ export default function Battle() {
     hp: 20,
     maxHp: 20,
     position: 1,
+    description: "",
     skills: [
       {
         id: "1",
@@ -63,6 +65,7 @@ export default function Battle() {
     hp: 1,
     maxHp: 1,
     position: 1,
+    description: "",
     skills: [
       {
         id: "1",
@@ -90,6 +93,7 @@ export default function Battle() {
     hp: 1,
     maxHp: 1,
     position: 1,
+    description: "",
     skills: [
       {
         id: "1",
@@ -117,6 +121,7 @@ export default function Battle() {
     hp: 1,
     maxHp: 1,
     position: 1,
+    description: "",
     skills: [
       {
         id: "1",
@@ -170,6 +175,7 @@ export default function Battle() {
     hp: 1,
     maxHp: 1,
     position: 1,
+    description: "",
     skills: [
       {
         id: "1",
@@ -197,6 +203,7 @@ export default function Battle() {
     hp: 1,
     maxHp: 1,
     position: 1,
+    description: "",
     skills: [
       {
         id: "1",
@@ -224,6 +231,7 @@ export default function Battle() {
     hp: 1,
     maxHp: 1,
     position: 1,
+    description: "",
     skills: [
       {
         id: "1",
@@ -251,6 +259,7 @@ export default function Battle() {
     hp: 1,
     maxHp: 1,
     position: 1,
+    description: "",
     skills: [
       {
         id: "1",
@@ -297,6 +306,20 @@ export default function Battle() {
   //update persone
 
   useEffect(() => {
+    //fix TS bug with uncorrect error, for deploy
+    console.log(
+      "\n!!!fix TS bug with uncorrect error, for deploy!!!\n\n\n",
+      setEnemy1,
+      setEnemy2,
+      setEnemy3,
+      setEnemy4,
+      setAlly5,
+      setAlly6,
+      setAlly7,
+      setAlly8
+    );
+    // end fix
+
     setAllEnemy([Enemy1, Enemy2, Enemy3, Enemy4]);
     setAllAlly([Ally5, Ally6, Ally7, Ally8]);
   }, [Enemy1, Enemy2, Enemy3, Enemy4, Ally5, Ally6, Ally7, Ally8]);

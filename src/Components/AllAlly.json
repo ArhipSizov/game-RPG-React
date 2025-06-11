@@ -5,24 +5,25 @@
     "hp": 20,
     "maxHp": 20,
     "position": 1,
+    "description": "Маг огня, горяч",
     "skills": [
       {
         "id": "1",
-        "name": "Firebol",
+        "name": "Огненный шар",
         "damage": 5,
-        "description": "very long textvery long textvery long textvery long textvery long textvery long text"
+        "description": "Невероятно оригинальный, крайне незаурядный, умопомрачительный шар огня"
       },
       {
         "id": "2",
-        "name": "Kick",
+        "name": "Удар",
         "damage": 2,
-        "description": "ewrewrew"
+        "description": "Просто удар, почему бы и нет?"
       },
       {
         "id": "3",
-        "name": "Fire",
+        "name": "Огонь",
         "damage": 1,
-        "description": "fdshhgkjjg"
+        "description": "Удобно всегда при себе иметь зажигалку"
       }
     ]
   },
@@ -32,24 +33,25 @@
     "hp": 20,
     "maxHp": 20,
     "position": 1,
+    "description": "Земляной маг, на удивление, кидается камнями",
     "skills": [
       {
         "id": "1",
-        "name": "Earthbol",
+        "name": "Кусок земли",
         "damage": 4,
-        "description": "very long textvery long textvery long textvery long textvery long textvery long text"
+        "description": "Скорее небольшой камень, чем просто кусок земли"
       },
       {
         "id": "2",
-        "name": "Kick",
+        "name": "Удар",
         "damage": 2,
-        "description": "ewrewrew"
+        "description": "Просто удар, почему бы и нет?"
       },
       {
         "id": "3",
-        "name": "Fire",
+        "name": "Горящая ветка",
         "damage": 1,
-        "description": "fdshhgkjjg"
+        "description": "Кто её поджёг?"
       }
     ]
   },
@@ -59,24 +61,25 @@
     "hp": 20,
     "maxHp": 20,
     "position": 1,
+    "description": "Маг воды, поможет освежится",
     "skills": [
       {
         "id": "1",
-        "name": "Woterbol",
+        "name": "Струя воды",
         "damage": 4,
-        "description": "very long textvery long textvery long textvery long textvery long textvery long text"
+        "description": "Обмочи своих противников!"
       },
       {
         "id": "2",
-        "name": "Kick",
+        "name": "Удар",
         "damage": 2,
-        "description": "ewrewrew"
+        "description": "Просто удар, почему бы и да?"
       },
       {
         "id": "3",
-        "name": "Cry",
+        "name": "Плач",
         "damage": 1,
-        "description": "fdshhgkjjg"
+        "description": "Ну поплач ;("
       }
     ]
   }
