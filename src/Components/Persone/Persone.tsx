@@ -1,4 +1,4 @@
-import "./Enemy.scss";
+import "./Persone.scss";
 import { useEffect } from "react";
 
 interface Character {
@@ -8,16 +8,17 @@ interface Character {
   maxHp: number;
   position: number;
   changeEnemyActive: any;
-  enemy: string[];
+  persone: string[];
   turn: number;
+  who: string;
   skills: [];
 }
 
-export default function Enemy(item: Character) {
-  console.log(item);
+export default function Persone(item: Character) {
   //hp bar
   useEffect(() => {
-    if (item.id !== "0") {
+    
+    if (item.id !== "0" && item.who == "enemy") {
       const idEnemy = document.getElementById(item.id);
       const width = (item.hp / item.maxHp) * 100;
       if (idEnemy) {
@@ -29,7 +30,7 @@ export default function Enemy(item: Character) {
   return (
     <div
       onClick={() => item.changeEnemyActive(item.id)}
-      className={item.enemy[Number(item.id)]}
+      className={item.persone[Number(item.id)]}
     >
       <hr className="choose" />
       <hr id={item.id} className="hp_bar" />

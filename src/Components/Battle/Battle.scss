@@ -1,0 +1,79 @@
+.battle {
+  background-color: slategray;
+  width: 100%;
+  height: 100vh;
+  padding-top: 35vh;
+  .none {
+    background-color: rgba(0, 0, 0, 0) !important;
+  }
+  .none_true{
+    display: none;
+  }
+  .sqare {
+    display: flex;
+    justify-content: space-between;
+    height: 20vh;
+  }
+  .ability_all {
+    background-color: gray;
+    width: 100%;
+    height: 40vh;
+    margin-top: 5vh;
+    .ability_persone_all {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      width: 100%;
+      padding: 5vh 30% 0 30%;
+      justify-items: center;
+      .ability_persone {
+        background-color: black;
+        width: 50px;
+        height: 50px;
+        transition: 0.1s;
+      }
+      .ability_persone:hover {
+        scale: 1.1;
+        border: 2px solid rgb(85, 85, 85);
+      }
+      .active_ability {
+        scale: 1.1;
+        border: 2px solid rgb(150, 0, 0) !important;
+      }
+    }
+    .ability_description{
+      width: 50%;
+      margin: 2vh 25%;
+      p{
+        color: #e6e6e6;
+      }
+      .name{
+        font-size: 26px;
+      }
+      .description{
+        font-size: 16px;
+      }
+      .damage{
+        font-size: 22px;
+      }
+    }
+    .and_turn {
+      background-color: rgb(17, 85, 0);
+      width: 40%;
+      height: 50px;
+      margin: 0 30%;
+      transition: 0.3s;
+      p{
+        display: block;
+        text-align: center;
+        color: #e6e6e6;
+        font-size: 20px;
+        padding-top: 12px;
+        font-weight: 600;
+      }
+    }
+    .and_turn:hover {
+      background-color: rgb(22, 105, 1);
+      scale: 1.02;
+    }
+  }
+}

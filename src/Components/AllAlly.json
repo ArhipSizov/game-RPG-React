@@ -1,0 +1,83 @@
+{
+  "FireMage": {
+    "id": "",
+    "name": "маг1",
+    "hp": 20,
+    "maxHp": 20,
+    "position": 1,
+    "skills": [
+      {
+        "id": "1",
+        "name": "Firebol",
+        "damage": 5,
+        "description": "very long textvery long textvery long textvery long textvery long textvery long text"
+      },
+      {
+        "id": "2",
+        "name": "Kick",
+        "damage": 2,
+        "description": "ewrewrew"
+      },
+      {
+        "id": "3",
+        "name": "Fire",
+        "damage": 1,
+        "description": "fdshhgkjjg"
+      }
+    ]
+  },
+  "EarthMage": {
+    "id": "",
+    "name": "маг2",
+    "hp": 20,
+    "maxHp": 20,
+    "position": 1,
+    "skills": [
+      {
+        "id": "1",
+        "name": "Earthbol",
+        "damage": 4,
+        "description": "very long textvery long textvery long textvery long textvery long textvery long text"
+      },
+      {
+        "id": "2",
+        "name": "Kick",
+        "damage": 2,
+        "description": "ewrewrew"
+      },
+      {
+        "id": "3",
+        "name": "Fire",
+        "damage": 1,
+        "description": "fdshhgkjjg"
+      }
+    ]
+  },
+  "WoterMage": {
+    "id": "",
+    "name": "маг3",
+    "hp": 20,
+    "maxHp": 20,
+    "position": 1,
+    "skills": [
+      {
+        "id": "1",
+        "name": "Woterbol",
+        "damage": 4,
+        "description": "very long textvery long textvery long textvery long textvery long textvery long text"
+      },
+      {
+        "id": "2",
+        "name": "Kick",
+        "damage": 2,
+        "description": "ewrewrew"
+      },
+      {
+        "id": "3",
+        "name": "Cry",
+        "damage": 1,
+        "description": "fdshhgkjjg"
+      }
+    ]
+  }
+}
