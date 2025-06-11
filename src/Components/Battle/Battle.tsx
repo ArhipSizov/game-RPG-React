@@ -5,7 +5,6 @@ import AllEnemyDB from "../AllEnemy.json";
 import AllAllyDB from "../AllAlly.json";
 import Persone from "../Persone/Persone";
 
-
 interface Ability {
   id: string;
   name: string;
@@ -22,9 +21,7 @@ interface Character {
   skills: [Ability, Ability, Ability];
 }
 
-
 export default function Battle() {
-
   const [turn, setTurn] = useState<number>(0);
 
   function getRandomInt(max: number) {
@@ -352,7 +349,7 @@ export default function Battle() {
     ];
     newArr[num] = "persone active_persone";
     for (let i = 5; i < 9; i++) {
-      if (enemy[i] == "none_true") {
+      if (ally[i] == "none_true") {
         newArr[i] = "none_true";
       }
     }
@@ -405,15 +402,80 @@ export default function Battle() {
       chooseEnemy.hp -= damage;
     }
 
+    let randomAllyNum = getRandomInt(4);
+    while (allAlly[randomAllyNum].hp <= 0) {
+      randomAllyNum = getRandomInt(4);
+    }
+    allAlly[randomAllyNum].hp -= getRandomInt(4) + 5;
+
     if (chooseEnemy.hp <= 0) {
-      const newArr = ["1", "persone", "persone", "persone", "persone"];
-      newArr[chooseEnemy.id] = "none_true";
-      for (let i = 1; i < 5; i++) {
-        if (enemy[i] == "none_true") {
-          newArr[i] = "none_true";
+      if (
+        allEnemy[0].hp <= 0 &&
+        allEnemy[1].hp <= 0 &&
+        allEnemy[2].hp <= 0 &&
+        allEnemy[3].hp <= 0
+      ) {
+        alert("Win!");
+        location.reload();
+      } else {
+        let randomEnemyNumNewChoise = getRandomInt(4);
+        while (allEnemy[randomEnemyNumNewChoise].hp <= 0) {
+          randomEnemyNumNewChoise = getRandomInt(4);
         }
+        randomEnemyNumNewChoise += 1;
+        const newArr = [
+          randomEnemyNumNewChoise.toString(),
+          "persone",
+          "persone",
+          "persone",
+          "persone",
+        ];
+        newArr[chooseEnemy.id] = "none_true";
+        for (let i = 1; i < 5; i++) {
+          if (enemy[i] == "none_true") {
+            newArr[i] = "none_true";
+          }
+        }
+        setEnemy(newArr);
       }
-      setEnemy(newArr);
+    }
+    if (allAlly[randomAllyNum].hp <= 0) {
+      if (
+        allAlly[0].hp <= 0 &&
+        allAlly[1].hp <= 0 &&
+        allAlly[2].hp <= 0 &&
+        allAlly[3].hp <= 0
+      ) {
+        alert("game over");
+        location.reload();
+      } else {
+        const newArr = [
+          ally[0],
+          "",
+          "",
+          "",
+          "",
+          "persone",
+          "persone",
+          "persone",
+          "persone",
+        ];
+        if (allAlly[Number(ally[0]) - 5].hp <= 0) {
+          let randomAllyNumNewChoise = getRandomInt(4);
+          while (allAlly[randomAllyNumNewChoise].hp <= 0) {
+            randomAllyNumNewChoise = getRandomInt(4);
+          }
+          randomAllyNumNewChoise += 5;
+          newArr[0] = randomAllyNumNewChoise.toString();
+        }
+        newArr[Number(allAlly[randomAllyNum].id)] = "none_true";
+        for (let i = 5; i < 9; i++) {
+          if (ally[i] == "none_true") {
+            newArr[i] = "none_true";
+          }
+        }
+        setAlly(newArr);
+      }
     }
   }
 

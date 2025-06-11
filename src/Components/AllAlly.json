@@ -1,7 +1,7 @@
 {
   "FireMage": {
     "id": "",
-    "name": "маг1",
+    "name": "Игний",
     "hp": 20,
     "maxHp": 20,
     "position": 1,
@@ -28,7 +28,7 @@
   },
   "EarthMage": {
     "id": "",
-    "name": "маг2",
+    "name": "Эртхий",
     "hp": 20,
     "maxHp": 20,
     "position": 1,
@@ -55,7 +55,7 @@
   },
   "WoterMage": {
     "id": "",
-    "name": "маг3",
+    "name": "Вотерхей",
     "hp": 20,
     "maxHp": 20,
     "position": 1,

@@ -17,8 +17,7 @@ interface Character {
 export default function Persone(item: Character) {
   //hp bar
   useEffect(() => {
-    
-    if (item.id !== "0" && item.who == "enemy") {
+    if (item.id !== "0") {
       const idEnemy = document.getElementById(item.id);
       const width = (item.hp / item.maxHp) * 100;
       if (idEnemy) {
