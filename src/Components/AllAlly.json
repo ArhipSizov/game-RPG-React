@@ -10,19 +10,22 @@
       {
         "id": "1",
         "name": "Огненный шар",
-        "damage": 5,
+        "min_damage": 4,
+        "max_damage": 7,
         "description": "Невероятно оригинальный, крайне незаурядный, умопомрачительный шар огня"
       },
       {
         "id": "2",
         "name": "Удар",
-        "damage": 2,
+        "min_damage": 2,
+        "max_damage": 3,
         "description": "Просто удар, почему бы и нет?"
       },
       {
         "id": "3",
         "name": "Огонь",
-        "damage": 1,
+        "min_damage": 1,
+        "max_damage": 1,
         "description": "Удобно всегда при себе иметь зажигалку"
       }
     ]
@@ -38,19 +41,22 @@
       {
         "id": "1",
         "name": "Кусок земли",
-        "damage": 4,
+        "min_damage": 4,
+        "max_damage": 6,
         "description": "Скорее небольшой камень, чем просто кусок земли"
       },
       {
         "id": "2",
         "name": "Удар",
-        "damage": 2,
+        "min_damage": 2,
+        "max_damage": 10,
         "description": "Просто удар, почему бы и нет?"
       },
       {
         "id": "3",
         "name": "Горящая ветка",
-        "damage": 1,
+        "min_damage": 1,
+        "max_damage": 1,
         "description": "Кто её поджёг?"
       }
     ]
@@ -66,19 +72,22 @@
       {
         "id": "1",
         "name": "Струя воды",
-        "damage": 4,
+        "min_damage": 5,
+        "max_damage": 5,
         "description": "Обмочи своих противников!"
       },
       {
         "id": "2",
         "name": "Удар",
-        "damage": 2,
+        "min_damage": 2,
+        "max_damage": 3,
         "description": "Просто удар, почему бы и да?"
       },
       {
         "id": "3",
         "name": "Плач",
-        "damage": 1,
+        "min_damage": 1,
+        "max_damage": 10,
         "description": "Ну поплач ;("
       }
     ]

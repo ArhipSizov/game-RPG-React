@@ -1,10 +1,11 @@
 import "./Persone.scss";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface Ability {
   id: string;
   name: string;
-  damage: number;
+  min_damage: number;
+  max_damage: number;
   description: string;
 }
 
@@ -19,18 +20,37 @@ interface Character {
   persone: string[];
   turn: number;
   who: string;
+  addAtackViewEnemy: string[];
+  addAtackViewAlly: string[];
   skills: [Ability, Ability, Ability];
 }
 
 export default function Persone(item: Character) {
-  //hp bar
+  const [atackView, setAtackView] = useState<string>("damage");
+  const [personeAlly, setPersoneAlly] = useState<boolean | undefined>(
+    undefined
+  );
+  if (item.who == "ally" && personeAlly == undefined) {
+    setPersoneAlly(true);
+  }
+
   useEffect(() => {
+    //hp bar
     if (item.id !== "0") {
       const idEnemy = document.getElementById(item.id);
       const width = (item.hp / item.maxHp) * 100;
       if (idEnemy) {
         idEnemy.style.width = width + "%";
       }
+    }
+
+    //View atack
+
+    if (item.addAtackViewEnemy[0] == item.id || item.addAtackViewAlly[0] == item.id) {
+      setAtackView("damage damage_add");
+      setTimeout(() => {
+        setAtackView("damage");
+      }, 500);
     }
   }, [item.turn]);
 
@@ -39,6 +59,9 @@ export default function Persone(item: Character) {
       onClick={() => item.changeEnemyActive(Number(item.id))}
       className={item.persone[Number(item.id)]}
     >
+      {(personeAlly && (
+        <p className={atackView}>-{item.addAtackViewAlly[1]}hp</p>
+      )) || <p className={atackView}>-{item.addAtackViewEnemy[1]}hp</p>}
       <div className="description">
         <p>{item.description}</p>
       </div>

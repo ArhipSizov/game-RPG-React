@@ -8,7 +8,8 @@ import Persone from "../Persone/Persone";
 interface Ability {
   id: string;
   name: string;
-  damage: number;
+  min_damage: number;
+  max_damage: number;
   description: string;
 }
 
@@ -41,20 +42,23 @@ export default function Battle() {
       {
         id: "1",
         name: "Firebol",
-        damage: 4,
+        min_damage: 1,
+        max_damage: 1,
         description:
           "very long textvery long textvery long textvery long textvery long textvery long text",
       },
       {
         id: "2",
         name: "Kick",
-        damage: 2,
+        min_damage: 1,
+        max_damage: 1,
         description: "ewrewrew",
       },
       {
         id: "3",
         name: "Fire",
-        damage: 1,
+        min_damage: 1,
+        max_damage: 1,
         description: "fdshhgkjjg",
       },
     ],
@@ -70,19 +74,22 @@ export default function Battle() {
       {
         id: "1",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
       {
         id: "2",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
       {
         id: "3",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
     ],
@@ -98,19 +105,22 @@ export default function Battle() {
       {
         id: "1",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
       {
         id: "2",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
       {
         id: "3",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
     ],
@@ -126,19 +136,22 @@ export default function Battle() {
       {
         id: "1",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
       {
         id: "2",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
       {
         id: "3",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
     ],
@@ -180,19 +193,22 @@ export default function Battle() {
       {
         id: "1",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
       {
         id: "2",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
       {
         id: "3",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
     ],
@@ -208,19 +224,22 @@ export default function Battle() {
       {
         id: "1",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
       {
         id: "2",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
       {
         id: "3",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
     ],
@@ -236,19 +255,22 @@ export default function Battle() {
       {
         id: "1",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
       {
         id: "2",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
       {
         id: "3",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
     ],
@@ -264,19 +286,22 @@ export default function Battle() {
       {
         id: "1",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
       {
         id: "2",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
       {
         id: "3",
         name: "nothin",
-        damage: 0,
+        min_damage: 1,
+        max_damage: 1,
         description: "none",
       },
     ],
@@ -398,7 +423,11 @@ export default function Battle() {
     setAbility(newArr);
   }
 
-  //atack
+  //atack [id, atack]
+  const [addAtackViewEnemy] = useState<string[]>(["0", "0"]);
+  const [addAtackViewAlly] = useState<string[]>(["0", "0"]);
+  
+
   function atack() {
     setTurn(turn + 1);
     let chooseEnemy;
@@ -408,6 +437,7 @@ export default function Battle() {
       const enemyTrue = "Enemy" + i;
       if (eval(enemyTrue + ".id") == enemy[0]) {
         chooseEnemy = eval(enemyTrue);
+        addAtackViewEnemy[0] = i.toString();
       }
     }
 
@@ -415,7 +445,12 @@ export default function Battle() {
       if (ally[0] == element.id) {
         element.skills.forEach((elem) => {
           if (ability[0] == elem.id) {
-            damage = element.skills[Number(ability[0]) - 1].damage;
+            damage =
+              getRandomInt(
+                element.skills[Number(ability[0]) - 1].max_damage -
+                  element.skills[Number(ability[0]) - 1].min_damage +
+                  1
+              ) + element.skills[Number(ability[0]) - 1].min_damage;
           }
         });
       }
@@ -423,24 +458,38 @@ export default function Battle() {
 
     if (damage) {
       chooseEnemy.hp -= damage;
+      addAtackViewEnemy[1] = damage;
     }
 
-    let randomAllyNum = getRandomInt(4);
-    while (allAlly[randomAllyNum].hp <= 0) {
-      randomAllyNum = getRandomInt(4);
-    }
-    allAlly[randomAllyNum].hp -= getRandomInt(4) + 5;
+    if (
+      allEnemy[0].hp <= 0 &&
+      allEnemy[1].hp <= 0 &&
+      allEnemy[2].hp <= 0 &&
+      allEnemy[3].hp <= 0
+    ) {
+      alert("Win!");
+      location.reload();
+    } else {
+      let randomAllyNum = getRandomInt(4);
+      while (allAlly[randomAllyNum].hp <= 0) {
+        randomAllyNum = getRandomInt(4);
+      }
+      let randomEnemy = eval("Enemy" + (getRandomInt(4) + 1));
+      while (randomEnemy.hp <= 0) {
+        randomEnemy = eval("Enemy" + (getRandomInt(4) + 1));
+      }
+      const randomEnemySkill = getRandomInt(2);
+      const damage =
+        getRandomInt(
+          randomEnemy.skills[randomEnemySkill].max_damage -
+            randomEnemy.skills[randomEnemySkill].min_damage +
+            1
+        ) + randomEnemy.skills[randomEnemySkill].min_damage;
+      allAlly[randomAllyNum].hp -= damage;
+      addAtackViewAlly[0] = allAlly[randomAllyNum].id;
+      addAtackViewAlly[1] = damage;
 
-    if (chooseEnemy.hp <= 0) {
-      if (
-        allEnemy[0].hp <= 0 &&
-        allEnemy[1].hp <= 0 &&
-        allEnemy[2].hp <= 0 &&
-        allEnemy[3].hp <= 0
-      ) {
-        alert("Win!");
-        location.reload();
-      } else {
+      if (chooseEnemy.hp <= 0) {
         let randomEnemyNumNewChoise = getRandomInt(4);
         while (allEnemy[randomEnemyNumNewChoise].hp <= 0) {
           randomEnemyNumNewChoise = getRandomInt(4);
@@ -461,43 +510,43 @@ export default function Battle() {
         }
         setEnemy(newArr);
       }
-    }
-    if (allAlly[randomAllyNum].hp <= 0) {
-      if (
-        allAlly[0].hp <= 0 &&
-        allAlly[1].hp <= 0 &&
-        allAlly[2].hp <= 0 &&
-        allAlly[3].hp <= 0
-      ) {
-        alert("game over");
-        location.reload();
-      } else {
-        const newArr = [
-          ally[0],
-          "",
-          "",
-          "",
-          "",
-          "persone",
-          "persone",
-          "persone",
-          "persone",
-        ];
-        if (allAlly[Number(ally[0]) - 5].hp <= 0) {
-          let randomAllyNumNewChoise = getRandomInt(4);
-          while (allAlly[randomAllyNumNewChoise].hp <= 0) {
-            randomAllyNumNewChoise = getRandomInt(4);
+      if (allAlly[randomAllyNum].hp <= 0) {
+        if (
+          allAlly[0].hp <= 0 &&
+          allAlly[1].hp <= 0 &&
+          allAlly[2].hp <= 0 &&
+          allAlly[3].hp <= 0
+        ) {
+          alert("game over");
+          location.reload();
+        } else {
+          const newArr = [
+            ally[0],
+            "",
+            "",
+            "",
+            "",
+            "persone",
+            "persone",
+            "persone",
+            "persone",
+          ];
+          if (allAlly[Number(ally[0]) - 5].hp <= 0) {
+            let randomAllyNumNewChoise = getRandomInt(4);
+            while (allAlly[randomAllyNumNewChoise].hp <= 0) {
+              randomAllyNumNewChoise = getRandomInt(4);
+            }
+            randomAllyNumNewChoise += 5;
+            newArr[0] = randomAllyNumNewChoise.toString();
           }
-          randomAllyNumNewChoise += 5;
-          newArr[0] = randomAllyNumNewChoise.toString();
-        }
-        newArr[Number(allAlly[randomAllyNum].id)] = "none_true";
-        for (let i = 5; i < 9; i++) {
-          if (ally[i] == "none_true") {
-            newArr[i] = "none_true";
+          newArr[Number(allAlly[randomAllyNum].id)] = "none_true";
+          for (let i = 5; i < 9; i++) {
+            if (ally[i] == "none_true") {
+              newArr[i] = "none_true";
+            }
           }
+          setAlly(newArr);
         }
-        setAlly(newArr);
       }
     }
   }
@@ -514,6 +563,8 @@ export default function Battle() {
               persone={ally}
               turn={turn}
               who={"ally"}
+              addAtackViewEnemy={addAtackViewEnemy}
+              addAtackViewAlly={addAtackViewAlly}
               key={item.id}
             ></Persone>
           ))}
@@ -526,6 +577,8 @@ export default function Battle() {
               persone={enemy}
               turn={turn}
               who={"enemy"}
+              addAtackViewEnemy={addAtackViewEnemy}
+              addAtackViewAlly={addAtackViewAlly}
               key={item.id}
             ></Persone>
           ))}
@@ -557,8 +610,16 @@ export default function Battle() {
             }
           </p>
           <p className="damage">
-            Урон -{" "}
-            {allAlly[Number(ally[0]) - 5].skills[Number(ability[0]) - 1].damage}
+            Урон:
+            {
+              allAlly[Number(ally[0]) - 5].skills[Number(ability[0]) - 1]
+                .min_damage
+            }
+            -
+            {
+              allAlly[Number(ally[0]) - 5].skills[Number(ability[0]) - 1]
+                .max_damage
+            }
           </p>
         </div>
         <div onClick={() => atack()} className="and_turn">

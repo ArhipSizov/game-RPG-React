@@ -10,13 +10,15 @@
       {
         "id": "1",
         "name": "Удар правой",
-        "damage": 5,
+        "min_damage": 5,
+        "max_damage": 7,
         "description": "Простой удар, не приятно"
       },
       {
         "id": "2",
         "name": "Удар левой",
-        "damage": 3,
+        "min_damage": 3,
+        "max_damage": 4,
         "description": "Простой удар, немного приятно"
       }
     ]
@@ -32,13 +34,15 @@
       {
         "id": "1",
         "name": "Удар правой",
-        "damage": 4,
+        "min_damage": 4,
+        "max_damage": 6,
         "description": "Простой удар, не приятно"
       },
       {
         "id": "2",
         "name": "Удар левой",
-        "damage": 1,
+        "min_damage": 0,
+        "max_damage": 1,
         "description": "Простой удар, приятно"
       }
     ]

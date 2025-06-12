@@ -9,6 +9,21 @@
     height: 100px;
     background-color: black;
     transition: 0.1s;
+    .damage{
+      display: inline-block;
+      position: absolute;
+      color: #6e000000;
+      margin-top: -10px;
+      font-size: 10px;
+      width: 50px;
+      text-align: right;
+    }
+    .damage_add{
+      color: #6e0000;
+      margin-top: -40px;
+      font-size: 18px;
+      transition: 0.5s;
+    }
     .choose {
       border-color: rgba(0, 0, 0, 0);
       transition: 0.2s;
