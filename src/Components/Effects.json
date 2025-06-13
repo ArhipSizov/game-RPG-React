@@ -1,0 +1,12 @@
+{
+    "blood":{
+        "name": "Кровотечение",
+        "type": "damage",
+        "count": 1
+    },
+    "shield":{
+        "name": "Щит",
+        "type": "defense",
+        "count": 1
+    }
+}

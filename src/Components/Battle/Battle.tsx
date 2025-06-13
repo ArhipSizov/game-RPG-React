@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import AllEnemyDB from "../AllEnemy.json";
 import AllAllyDB from "../AllAlly.json";
-import Persone from "../Persone/Persone";
+import Persone from "./Persone/Persone.tsx";
 
 interface Ability {
   id: string;
@@ -369,8 +369,14 @@ export default function Battle() {
     setEnemy(newArr);
   }
 
-  //ally active
-
+  //abilites active
+  const [ability, setAbility] = useState<string[]>([
+    "1",
+    "ability_persone active_ability",
+    "ability_persone",
+    "ability_persone",
+    "ability_persone",
+  ]);
   const [ally, setAlly] = useState<string[]>([
     "5",
     "",
@@ -382,6 +388,34 @@ export default function Battle() {
     "persone",
     "persone",
   ]);
+
+  function changeAbilityActive(num: number) {
+    const numString = num.toString();
+    const newArrAbility = [];
+    for (let i = 0; i < allAlly[Number(ally[0]) - 5].skills.length + 1; i++) {
+      newArrAbility[0] = numString;
+      newArrAbility[i] = "ability_persone";
+      console.log(allAlly[Number(ally[0]) - 5].skills);
+    }
+    newArrAbility[num] = "ability_persone active_ability";
+    setAbility(newArrAbility);
+  }
+
+  useEffect(() => {
+    const newArrAbility = [];
+    for (let i = 0; i < allAlly[0].skills.length + 1; i++) {
+      newArrAbility[0] = "1";
+      newArrAbility[i] = "ability_persone";
+      console.log(allAlly[0]);
+    }
+    newArrAbility[1] = "ability_persone active_ability";
+    setAbility(newArrAbility);
+    console.log(32);
+    
+  }, [allAlly]);
+
+  //ally active
+
   function changeAllyActive(num: number) {
     const numString = num.toString();
     const newArr = [
@@ -395,6 +429,13 @@ export default function Battle() {
       "persone",
       "persone",
     ];
+    const newArrAbility = [];
+    for (let i = 0; i < allAlly[num - 5].skills.length + 1; i++) {
+      newArrAbility[0] = "1";
+      newArrAbility[i] = "ability_persone";
+    }
+    newArrAbility[1] = "ability_persone active_ability";
+    setAbility(newArrAbility);
     newArr[num] = "persone active_persone";
     for (let i = 5; i < 9; i++) {
       if (ally[i] == "none_true") {
@@ -404,29 +445,10 @@ export default function Battle() {
     setAlly(newArr);
   }
 
-  //abilites active
-  const [ability, setAbility] = useState<string[]>([
-    "1",
-    "ability_persone active_ability",
-    "ability_persone",
-    "ability_persone",
-  ]);
-  function changeAbilityActive(num: number) {
-    const numString = num.toString();
-    const newArr = [
-      numString,
-      "ability_persone",
-      "ability_persone",
-      "ability_persone",
-    ];
-    newArr[num] = "ability_persone active_ability";
-    setAbility(newArr);
-  }
-
   //atack [id, atack]
+
   const [addAtackViewEnemy] = useState<string[]>(["0", "0"]);
   const [addAtackViewAlly] = useState<string[]>(["0", "0"]);
-  
 
   function atack() {
     setTurn(turn + 1);
@@ -597,6 +619,10 @@ export default function Battle() {
           <div
             onClick={() => changeAbilityActive(3)}
             className={ability[3]}
+          ></div>
+          <div
+            onClick={() => changeAbilityActive(4)}
+            className={ability[4]}
           ></div>
         </div>
         <div className="ability_description">

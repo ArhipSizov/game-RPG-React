@@ -23,7 +23,7 @@
       }
     ]
   },
-  "StrongGoblin": {
+  "GoblinDefence": {
     "id": "",
     "name": "Прочный гоблин",
     "hp": 21,
@@ -44,6 +44,30 @@
         "min_damage": 0,
         "max_damage": 1,
         "description": "Простой удар, приятно"
+      }
+    ]
+  },
+  "StrongGoblin": {
+    "id": "",
+    "name": "Сильный гоблин",
+    "hp": 9,
+    "maxHp": 9,
+    "position": 0,
+    "description": "Сильный гоблин, больно бьёт",
+    "skills": [
+      {
+        "id": "1",
+        "name": "Сильный удар",
+        "min_damage": 6,
+        "max_damage": 10,
+        "description": "Сильный удар, больно"
+      },
+      {
+        "id": "2",
+        "name": "Насмешка",
+        "min_damage": 0,
+        "max_damage": 6,
+        "description": "Очень обидно ;("
       }
     ]
   }

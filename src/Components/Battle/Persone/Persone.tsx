@@ -1,6 +1,8 @@
 import "./Persone.scss";
 import { useEffect, useState } from "react";
 
+import Description from "../Description/Description";
+
 interface Ability {
   id: string;
   name: string;
@@ -9,7 +11,7 @@ interface Ability {
   description: string;
 }
 
-interface Character {
+interface ItemCharacter {
   id: string;
   name: string;
   hp: number;
@@ -25,8 +27,9 @@ interface Character {
   skills: [Ability, Ability, Ability];
 }
 
-export default function Persone(item: Character) {
+export default function Persone(item: ItemCharacter) {
   const [atackView, setAtackView] = useState<string>("damage");
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(false);
   const [personeAlly, setPersoneAlly] = useState<boolean | undefined>(
     undefined
   );
@@ -46,7 +49,10 @@ export default function Persone(item: Character) {
 
     //View atack
 
-    if (item.addAtackViewEnemy[0] == item.id || item.addAtackViewAlly[0] == item.id) {
+    if (
+      item.addAtackViewEnemy[0] == item.id ||
+      item.addAtackViewAlly[0] == item.id
+    ) {
       setAtackView("damage damage_add");
       setTimeout(() => {
         setAtackView("damage");
@@ -54,17 +60,30 @@ export default function Persone(item: Character) {
     }
   }, [item.turn]);
 
+  // description
+
+  const handleRightClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    console.log(event);
+
+    if (event.button === 2) {
+      event.preventDefault();
+      setIsDescriptionOpen(true);
+    }
+    console.log(1);
+  };
   return (
     <div
-      onClick={() => item.changeEnemyActive(Number(item.id))}
+      onClick={() => {
+        item.changeEnemyActive(Number(item.id));
+        setIsDescriptionOpen(false);
+      }}
+      onContextMenu={handleRightClick}
       className={item.persone[Number(item.id)]}
     >
+      {isDescriptionOpen && <Description {...item} />}
       {(personeAlly && (
         <p className={atackView}>-{item.addAtackViewAlly[1]}hp</p>
       )) || <p className={atackView}>-{item.addAtackViewEnemy[1]}hp</p>}
-      <div className="description">
-        <p>{item.description}</p>
-      </div>
       <hr className="choose" />
       <hr id={item.id} className="hp_bar" />
       <p className="persone_hp">
