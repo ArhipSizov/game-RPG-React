@@ -53,23 +53,25 @@ export default function Persone(item: ItemCharacter) {
       item.addAtackViewEnemy[0] == item.id ||
       item.addAtackViewAlly[0] == item.id
     ) {
-      setAtackView("damage damage_add");
-      setTimeout(() => {
-        setAtackView("damage");
-      }, 500);
+      if (
+        (item.addAtackViewAlly[1] != "0" || item.who == "enemy") &&
+        (item.addAtackViewEnemy[1] != "0" || item.who == "ally")
+      ) {
+        setAtackView("damage damage_add");
+        setTimeout(() => {
+          setAtackView("damage");
+        }, 500);
+      }
     }
   }, [item.turn]);
 
   // description
 
   const handleRightClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    console.log(event);
-
     if (event.button === 2) {
       event.preventDefault();
       setIsDescriptionOpen(true);
     }
-    console.log(1);
   };
   return (
     <div

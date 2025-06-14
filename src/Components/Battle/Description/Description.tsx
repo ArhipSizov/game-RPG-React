@@ -25,21 +25,18 @@ interface ItemCharacter {
   skills: [Ability, Ability, Ability];
 }
 export default function Description(item: ItemCharacter) {
-  console.log(item.skills);
 
   useEffect(() => {
     let doOneTime = 0;
     if (doOneTime === 0) {
       doOneTime = 1;
-      console.log(doOneTime);
-      
       const parentDiv = document.getElementById("abilitys_description");
       let newNameAbility;
       let newDescriptionAbility;
       let newDamageAbility;
       for (let i = 0; i < item.skills.length; i++) {
         newNameAbility = document.createElement("h3");
-        newNameAbility.textContent = "Название - " + item.skills[i].name;
+        newNameAbility.textContent = item.skills[i].name;
         newDescriptionAbility = document.createElement("p");
         newDescriptionAbility.textContent = item.skills[i].description;
         newDamageAbility = document.createElement("p");

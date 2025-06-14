@@ -9,7 +9,8 @@
     height: 100px;
     background-color: black;
     transition: 0.1s;
-    .damage{
+    cursor: pointer;
+    .damage {
       display: inline-block;
       position: absolute;
       color: #6e000000;
@@ -18,7 +19,7 @@
       width: 50px;
       text-align: right;
     }
-    .damage_add{
+    .damage_add {
       color: #6e0000;
       margin-top: -40px;
       font-size: 18px;
@@ -41,7 +42,6 @@
       color: #e6e6e6;
       font-weight: 500;
       margin-top: 2px;
-      cursor: default;
     }
   }
   .persone:hover {

@@ -25,6 +25,7 @@ interface Character {
 
 export default function Battle() {
   const [turn, setTurn] = useState<number>(0);
+  const [round, setRound] = useState<number>(0);
 
   function getRandomInt(max: number) {
     return Math.floor(Math.random() * max);
@@ -158,23 +159,10 @@ export default function Battle() {
   });
   if (Ally6.name === "none") {
     for (let i = 5; i < 9; i++) {
-      let allyTrue;
-      switch (getRandomInt(3)) {
-        case 0:
-          allyTrue = { ...AllAllyDB.FireMage };
-          break;
-        case 1:
-          allyTrue = { ...AllAllyDB.EarthMage };
-          break;
-        case 2:
-          allyTrue = { ...AllAllyDB.WoterMage };
-          break;
-      }
-
+      const ArrAllyTrue = Object.values(AllAllyDB);
+      const allyTrue = { ...ArrAllyTrue[getRandomInt(ArrAllyTrue.length)] };
       const setAllyTrue = eval("setAlly" + i);
-      if (allyTrue) {
-        allyTrue.id = i.toString();
-      }
+      allyTrue.id = i.toString();
       setAllyTrue(allyTrue);
     }
   }
@@ -316,12 +304,8 @@ export default function Battle() {
 
   if (Enemy1.name === "none") {
     for (let i = 1; i < 5; i++) {
-      let enemyTrue;
-      if (getRandomInt(2) == 0) {
-        enemyTrue = { ...AllEnemyDB.StrongGoblin };
-      } else {
-        enemyTrue = { ...AllEnemyDB.Goblin };
-      }
+      const ArrAllEnemys = Object.values(AllEnemyDB);
+      const enemyTrue = { ...ArrAllEnemys[getRandomInt(ArrAllEnemys.length)] };
       const setEnemyTrue = eval("setEnemy" + i);
       enemyTrue.id = i.toString();
       setEnemyTrue(enemyTrue);
@@ -395,7 +379,6 @@ export default function Battle() {
     for (let i = 0; i < allAlly[Number(ally[0]) - 5].skills.length + 1; i++) {
       newArrAbility[0] = numString;
       newArrAbility[i] = "ability_persone";
-      console.log(allAlly[Number(ally[0]) - 5].skills);
     }
     newArrAbility[num] = "ability_persone active_ability";
     setAbility(newArrAbility);
@@ -406,12 +389,9 @@ export default function Battle() {
     for (let i = 0; i < allAlly[0].skills.length + 1; i++) {
       newArrAbility[0] = "1";
       newArrAbility[i] = "ability_persone";
-      console.log(allAlly[0]);
     }
     newArrAbility[1] = "ability_persone active_ability";
     setAbility(newArrAbility);
-    console.log(32);
-    
   }, [allAlly]);
 
   //ally active
@@ -478,10 +458,11 @@ export default function Battle() {
       }
     });
 
-    if (damage) {
-      chooseEnemy.hp -= damage;
-      addAtackViewEnemy[1] = damage;
+    if (!damage) {
+      damage = 0;
     }
+    chooseEnemy.hp -= damage;
+    addAtackViewEnemy[1] = damage.toString();
 
     if (
       allEnemy[0].hp <= 0 &&
@@ -489,8 +470,26 @@ export default function Battle() {
       allEnemy[2].hp <= 0 &&
       allEnemy[3].hp <= 0
     ) {
-      alert("Win!");
-      location.reload();
+      //and round
+      for (let i = 1; i < 5; i++) {
+        let enemyTrue;
+        if (getRandomInt(2) == 0) {
+          enemyTrue = { ...AllEnemyDB.StrongGoblin };
+        } else {
+          enemyTrue = { ...AllEnemyDB.Goblin };
+        }
+        const setEnemyTrue = eval("setEnemy" + i);
+        enemyTrue.id = i.toString();
+        setEnemyTrue(enemyTrue);
+      }
+      setEnemy([
+        "1",
+        "persone active_persone",
+        "persone",
+        "persone",
+        "persone",
+      ]);
+      setRound(round + 1);
     } else {
       let randomAllyNum = getRandomInt(4);
       while (allAlly[randomAllyNum].hp <= 0) {
@@ -539,7 +538,7 @@ export default function Battle() {
           allAlly[2].hp <= 0 &&
           allAlly[3].hp <= 0
         ) {
-          alert("game over");
+          alert("Проиграл спустя " + turn + " ходов и " + round + " раунд");
           location.reload();
         } else {
           const newArr = [
@@ -576,6 +575,10 @@ export default function Battle() {
   //site
   return (
     <div className="battle">
+      <p className="turn">Раунд {turn}</p>
+      <div className="pleer">
+        {/* <audio controls src="/shared-assets/audio/t-rex-roar.mp3"></audio> */}
+      </div>
       <div className="sqare">
         <div className="ally">
           {allAlly.map((item) => (
