@@ -1,8 +1,8 @@
 import "./Battle.scss";
 import { useEffect, useState } from "react";
 
-import AllEnemyDB from "../AllEnemy.json";
-import AllAllyDB from "../AllAlly.json";
+import AllEnemyDB from "./DataBase/AllEnemy.json";
+import AllAllyDB from "./DataBase/AllAlly.json";
 import Persone from "./Persone/Persone.tsx";
 
 interface Ability {
@@ -576,9 +576,6 @@ export default function Battle() {
   return (
     <div className="battle">
       <p className="turn">Раунд {turn}</p>
-      <div className="pleer">
-        {/* <audio controls src="/shared-assets/audio/t-rex-roar.mp3"></audio> */}
-      </div>
       <div className="sqare">
         <div className="ally">
           {allAlly.map((item) => (
