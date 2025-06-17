@@ -5,6 +5,10 @@ import AllEnemyDB from "./DataBase/AllEnemy.json";
 import AllAllyDB from "./DataBase/AllAlly.json";
 import Persone from "./Persone/Persone.tsx";
 
+interface tipe {
+  difficult: number
+}
+
 interface Ability {
   id: string;
   name: string;
@@ -20,10 +24,11 @@ interface Character {
   maxHp: number;
   position: number;
   description: string;
+  difficult: number;
   skills: [Ability, Ability, Ability];
 }
 
-export default function Battle() {
+export default function Battle({ difficult }: tipe) {
   const [turn, setTurn] = useState<number>(0);
   const [round, setRound] = useState<number>(0);
 
@@ -39,6 +44,7 @@ export default function Battle() {
     maxHp: 20,
     position: 1,
     description: "",
+    difficult: 0,
     skills: [
       {
         id: "1",
@@ -71,6 +77,7 @@ export default function Battle() {
     maxHp: 1,
     position: 1,
     description: "",
+    difficult: 0,
     skills: [
       {
         id: "1",
@@ -102,6 +109,7 @@ export default function Battle() {
     maxHp: 1,
     position: 1,
     description: "",
+    difficult: 0,
     skills: [
       {
         id: "1",
@@ -133,6 +141,7 @@ export default function Battle() {
     maxHp: 1,
     position: 1,
     description: "",
+    difficult: 0,
     skills: [
       {
         id: "1",
@@ -177,6 +186,7 @@ export default function Battle() {
     maxHp: 1,
     position: 1,
     description: "",
+    difficult: 0,
     skills: [
       {
         id: "1",
@@ -208,6 +218,7 @@ export default function Battle() {
     maxHp: 1,
     position: 1,
     description: "",
+    difficult: 0,
     skills: [
       {
         id: "1",
@@ -239,6 +250,7 @@ export default function Battle() {
     maxHp: 1,
     position: 1,
     description: "",
+    difficult: 0,
     skills: [
       {
         id: "1",
@@ -270,6 +282,7 @@ export default function Battle() {
     maxHp: 1,
     position: 1,
     description: "",
+    difficult: 0,
     skills: [
       {
         id: "1",
@@ -302,15 +315,25 @@ export default function Battle() {
     Enemy4,
   ]);
 
-  if (Enemy1.name === "none") {
+  function addEnemy() {
     for (let i = 1; i < 5; i++) {
       const ArrAllEnemys = Object.values(AllEnemyDB);
-      const enemyTrue = { ...ArrAllEnemys[getRandomInt(ArrAllEnemys.length)] };
+      let enemyTrue = { ...ArrAllEnemys[getRandomInt(ArrAllEnemys.length)] };
+      while (enemyTrue.difficult != difficult) {
+        enemyTrue = { ...ArrAllEnemys[getRandomInt(ArrAllEnemys.length)] };
+      }
       const setEnemyTrue = eval("setEnemy" + i);
       enemyTrue.id = i.toString();
       setEnemyTrue(enemyTrue);
     }
   }
+
+  if (Enemy1.name === "none") {
+    addEnemy();
+  }
+  useEffect(() => {
+    addEnemy();
+  }, [difficult]);
 
   //update persone
 
@@ -425,7 +448,7 @@ export default function Battle() {
     setAlly(newArr);
   }
 
-  //atack [id, atack]
+  //atack
 
   const [addAtackViewEnemy] = useState<string[]>(["0", "0"]);
   const [addAtackViewAlly] = useState<string[]>(["0", "0"]);
@@ -471,17 +494,7 @@ export default function Battle() {
       allEnemy[3].hp <= 0
     ) {
       //and round
-      for (let i = 1; i < 5; i++) {
-        let enemyTrue;
-        if (getRandomInt(2) == 0) {
-          enemyTrue = { ...AllEnemyDB.StrongGoblin };
-        } else {
-          enemyTrue = { ...AllEnemyDB.Goblin };
-        }
-        const setEnemyTrue = eval("setEnemy" + i);
-        enemyTrue.id = i.toString();
-        setEnemyTrue(enemyTrue);
-      }
+      addEnemy();
       setEnemy([
         "1",
         "persone active_persone",
@@ -499,7 +512,7 @@ export default function Battle() {
       while (randomEnemy.hp <= 0) {
         randomEnemy = eval("Enemy" + (getRandomInt(4) + 1));
       }
-      const randomEnemySkill = getRandomInt(2);
+      const randomEnemySkill = getRandomInt(randomEnemy.skills.length);
       const damage =
         getRandomInt(
           randomEnemy.skills[randomEnemySkill].max_damage -

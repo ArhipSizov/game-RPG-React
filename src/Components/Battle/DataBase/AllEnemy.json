@@ -5,21 +5,15 @@
     "hp": 12,
     "maxHp": 12,
     "position": 0,
+    "difficult": 2,
     "description": "Простой гоблин, ничего особенного",
     "skills": [
       {
         "id": "1",
-        "name": "Удар правой",
+        "name": "Удар",
         "min_damage": 5,
         "max_damage": 7,
         "description": "Простой удар, не приятно"
-      },
-      {
-        "id": "2",
-        "name": "Удар левой",
-        "min_damage": 3,
-        "max_damage": 4,
-        "description": "Простой удар, немного приятно"
       }
     ]
   },
@@ -29,6 +23,7 @@
     "hp": 21,
     "maxHp": 21,
     "position": 0,
+    "difficult": 3,
     "description": "Простой гоблин с укреплённой кожей, будет посложнее обычного",
     "skills": [
       {
@@ -53,6 +48,7 @@
     "hp": 9,
     "maxHp": 9,
     "position": 0,
+    "difficult": 2,
     "description": "Сильный гоблин, больно бьёт",
     "skills": [
       {
@@ -68,6 +64,31 @@
         "min_damage": 0,
         "max_damage": 6,
         "description": "Очень обидно ;("
+      }
+    ]
+  },
+  "Slime": {
+    "id": "",
+    "name": "Слайм",
+    "hp": 4,
+    "maxHp": 4,
+    "position": 0,
+    "difficult": 1,
+    "description": "Слайм, база",
+    "skills": [
+      {
+        "id": "1",
+        "name": "Блоб",
+        "min_damage": 1,
+        "max_damage": 3,
+        "description": ""
+      },
+      {
+        "id": "2",
+        "name": "Блюб",
+        "min_damage": 2,
+        "max_damage": 2,
+        "description": ""
       }
     ]
   }

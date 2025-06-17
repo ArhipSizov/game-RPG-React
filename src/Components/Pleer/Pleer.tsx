@@ -52,7 +52,6 @@ function Pleer() {
     if (!audioRef.current) return;
     setIsPlaying(true);
     audioRef.current.play();
-    console.log(12);
   }
 
   function changeMusic(where: number) {
