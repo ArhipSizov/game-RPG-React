@@ -9,6 +9,7 @@ interface Ability {
   min_damage: number;
   max_damage: number;
   description: string;
+  health: boolean;
 }
 
 interface ItemCharacter {
@@ -16,20 +17,20 @@ interface ItemCharacter {
   name: string;
   hp: number;
   maxHp: number;
-  position: number;
   description: string;
   changeEnemyActive: (num: number) => void;
   persone: string[];
   turn: number;
   who: string;
-  addAtackViewEnemy: string[];
-  addAtackViewAlly: string[];
+  addAtackView: string[];
+  addHealthView: string[];
   round: number;
-  skills: [Ability, Ability, Ability];
+  skills: [Ability];
 }
 
 export default function Persone(item: ItemCharacter) {
   const [atackView, setAtackView] = useState<string>("damage");
+  const [healthView, setHealthView] = useState<string>("health");
   const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(false);
   const [personeAlly, setPersoneAlly] = useState<boolean | undefined>(
     undefined
@@ -48,7 +49,6 @@ export default function Persone(item: ItemCharacter) {
     }
   }, [item.round]);
 
-
   useEffect(() => {
     //hp bar
     if (item.id !== "0") {
@@ -61,19 +61,22 @@ export default function Persone(item: ItemCharacter) {
 
     //View atack
 
-    if (
-      item.addAtackViewEnemy[0] == item.id ||
-      item.addAtackViewAlly[0] == item.id
-    ) {
-      if (
-        (item.addAtackViewAlly[1] != "0" || item.who == "enemy") &&
-        (item.addAtackViewEnemy[1] != "0" || item.who == "ally")
-      ) {
-        setAtackView("damage damage_add");
-        setTimeout(() => {
-          setAtackView("damage");
-        }, 500);
-      }
+    if (item.addAtackView[0] == item.id && item.addAtackView[1] != "0") {
+      setAtackView("damage damage_add");
+      setTimeout(() => {
+        setAtackView("damage");
+        item.addAtackView[0] = "0";
+      }, 500);
+    }
+
+    //View health
+
+    if (item.addHealthView[0] == item.id) {
+      setHealthView("health health_add");
+      setTimeout(() => {
+        setHealthView("health");
+        item.addHealthView[0] = "0";
+      }, 500);
     }
   }, [item.turn]);
 
@@ -95,9 +98,8 @@ export default function Persone(item: ItemCharacter) {
       className={item.persone[Number(item.id)]}
     >
       {isDescriptionOpen && <Description {...item} />}
-      {(personeAlly && (
-        <p className={atackView}>-{item.addAtackViewAlly[1]}hp</p>
-      )) || <p className={atackView}>-{item.addAtackViewEnemy[1]}hp</p>}
+      <p className={atackView}>-{item.addAtackView[1]}hp</p>
+      <p className={healthView}>+{item.addHealthView[1]}hp</p>
       <hr className="choose" />
       <hr id={item.id} className="hp_bar" />
       <p className="persone_hp">

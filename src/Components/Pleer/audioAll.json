@@ -1,6 +1,5 @@
 [
-  ["0", "/audio/Aqua Caelestis.mp3"],
-  ["1", "/audio/Ennio Morricone.mp3"],
-  ["2", "/audio/River Flows In You.mp3"],
-  ["3", "/audio/Summer Wind.mp3"]
+  ["0", "/audio/doom_02.mp3"],
+  ["1", "/audio/doom_03.mp3"],
+  ["2", "/audio/MEGALOVANIA.mp3"]
 ]

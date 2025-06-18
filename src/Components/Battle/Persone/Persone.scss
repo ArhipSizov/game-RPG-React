@@ -10,20 +10,32 @@
     background-color: black;
     transition: 0.1s;
     cursor: pointer;
-    .damage {
+    .damage,
+    .health {
       display: inline-block;
       position: absolute;
       color: #6e000000;
       margin-top: -10px;
       font-size: 10px;
       width: 50px;
+    }.damage {
       text-align: right;
     }
-    .damage_add {
-      color: #6e0000;
+    .health {
+      text-align: left;
+      margin-left: -10px;
+    }
+    .damage_add,
+    .health_add {
       margin-top: -40px;
       font-size: 18px;
       transition: 0.5s;
+    }
+    .damage_add {
+      color: #6e0000;
+    }
+    .health_add {
+      color: rgb(17, 85, 0);
     }
     .choose {
       border-color: rgba(0, 0, 0, 0);

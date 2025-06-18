@@ -7,6 +7,7 @@ interface Ability {
   min_damage: number;
   max_damage: number;
   description: string;
+  health: boolean;
 }
 
 interface ItemCharacter {
@@ -14,18 +15,15 @@ interface ItemCharacter {
   name: string;
   hp: number;
   maxHp: number;
-  position: number;
   description: string;
   changeEnemyActive: (num: number) => void;
   persone: string[];
   turn: number;
   who: string;
-  addAtackViewEnemy: string[];
-  addAtackViewAlly: string[];
-  skills: [Ability, Ability, Ability];
+  addAtackView: string[];
+  skills: [Ability];
 }
 export default function Description(item: ItemCharacter) {
-
   useEffect(() => {
     let doOneTime = 0;
     if (doOneTime === 0) {
@@ -40,11 +38,19 @@ export default function Description(item: ItemCharacter) {
         newDescriptionAbility = document.createElement("p");
         newDescriptionAbility.textContent = item.skills[i].description;
         newDamageAbility = document.createElement("p");
-        newDamageAbility.textContent =
-          "Урон - " +
-          item.skills[i].min_damage +
-          "-" +
-          item.skills[i].max_damage;
+        if (item.skills[i].health == true) {
+          newDamageAbility.textContent =
+            "Лечение - " +
+            item.skills[i].min_damage +
+            "-" +
+            item.skills[i].max_damage;
+        } else {
+          newDamageAbility.textContent =
+            "Урон - " +
+            item.skills[i].min_damage +
+            "-" +
+            item.skills[i].max_damage;
+        }
         if (parentDiv) {
           parentDiv.appendChild(newNameAbility);
           parentDiv.appendChild(newDescriptionAbility);

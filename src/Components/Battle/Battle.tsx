@@ -15,6 +15,7 @@ interface Ability {
   min_damage: number;
   max_damage: number;
   description: string;
+  health: boolean;
 }
 
 interface Character {
@@ -22,10 +23,9 @@ interface Character {
   name: string;
   hp: number;
   maxHp: number;
-  position: number;
   description: string;
   difficult: number;
-  skills: [Ability, Ability, Ability];
+  skills: [Ability];
 }
 
 export default function Battle({ difficult }: tipe) {
@@ -42,7 +42,6 @@ export default function Battle({ difficult }: tipe) {
     name: "none",
     hp: 20,
     maxHp: 20,
-    position: 1,
     description: "",
     difficult: 0,
     skills: [
@@ -53,20 +52,7 @@ export default function Battle({ difficult }: tipe) {
         max_damage: 1,
         description:
           "very long textvery long textvery long textvery long textvery long textvery long text",
-      },
-      {
-        id: "2",
-        name: "Kick",
-        min_damage: 1,
-        max_damage: 1,
-        description: "ewrewrew",
-      },
-      {
-        id: "3",
-        name: "Fire",
-        min_damage: 1,
-        max_damage: 1,
-        description: "fdshhgkjjg",
+        health: false,
       },
     ],
   });
@@ -91,7 +77,6 @@ export default function Battle({ difficult }: tipe) {
     name: "none",
     hp: 1,
     maxHp: 1,
-    position: 1,
     description: "",
     difficult: 0,
     skills: [
@@ -101,20 +86,7 @@ export default function Battle({ difficult }: tipe) {
         min_damage: 1,
         max_damage: 1,
         description: "none",
-      },
-      {
-        id: "2",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-      {
-        id: "3",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
+        health: false,
       },
     ],
   });
@@ -261,6 +233,8 @@ export default function Battle({ difficult }: tipe) {
 
   const [addAtackViewEnemy] = useState<string[]>(["0", "0"]);
   const [addAtackViewAlly] = useState<string[]>(["0", "0"]);
+  const [addHealthViewEnemy] = useState<string[]>(["0", "0"]);
+  const [addHealthViewAlly] = useState<string[]>(["0", "0"]);
 
   function atack() {
     setTurn(turn + 1);
@@ -285,6 +259,15 @@ export default function Battle({ difficult }: tipe) {
                   element.skills[Number(ability[0]) - 1].min_damage +
                   1
               ) + element.skills[Number(ability[0]) - 1].min_damage;
+            if (elem.health === true) {
+              element.hp += damage;
+              addHealthViewAlly[0] = element.id;
+              addHealthViewAlly[1] = damage.toString();
+              damage = 0;
+              if (element.hp > element.maxHp) {
+                element.hp = element.maxHp;
+              }
+            }
           }
         });
       }
@@ -313,25 +296,33 @@ export default function Battle({ difficult }: tipe) {
       ]);
       setRound(round + 1);
     } else {
-      let randomAllyNum = getRandomInt(4);
-      while (allAlly[randomAllyNum].hp <= 0) {
-        randomAllyNum = getRandomInt(4);
-      }
       let randomEnemy = eval("Enemy" + (getRandomInt(4) + 1));
       while (randomEnemy.hp <= 0) {
         randomEnemy = eval("Enemy" + (getRandomInt(4) + 1));
       }
       const randomEnemySkill = getRandomInt(randomEnemy.skills.length);
-      const damage =
+      let damage =
         getRandomInt(
           randomEnemy.skills[randomEnemySkill].max_damage -
             randomEnemy.skills[randomEnemySkill].min_damage +
             1
         ) + randomEnemy.skills[randomEnemySkill].min_damage;
+      if (randomEnemy.skills[randomEnemySkill].health == true) {
+        addHealthViewEnemy[0] = randomEnemy.id
+        addHealthViewEnemy[1] = damage
+        randomEnemy.hp += damage
+        if (randomEnemy.hp > randomEnemy.maxHp) {
+          randomEnemy.hp = randomEnemy.maxHp
+        }
+        damage = 0
+      }
+      let randomAllyNum = getRandomInt(4);
+      while (allAlly[randomAllyNum].hp <= 0) {
+        randomAllyNum = getRandomInt(4);
+      }
       allAlly[randomAllyNum].hp -= damage;
       addAtackViewAlly[0] = allAlly[randomAllyNum].id;
       addAtackViewAlly[1] = damage;
-
       if (chooseEnemy.hp <= 0) {
         let randomEnemyNumNewChoise = getRandomInt(4);
         while (allEnemy[randomEnemyNumNewChoise].hp <= 0) {
@@ -407,8 +398,8 @@ export default function Battle({ difficult }: tipe) {
               persone={ally}
               turn={turn}
               who={"ally"}
-              addAtackViewEnemy={addAtackViewEnemy}
-              addAtackViewAlly={addAtackViewAlly}
+              addAtackView={addAtackViewAlly}
+              addHealthView={addHealthViewAlly}
               round={round}
               key={item.id}
             ></Persone>
@@ -422,8 +413,8 @@ export default function Battle({ difficult }: tipe) {
               persone={enemy}
               turn={turn}
               who={"enemy"}
-              addAtackViewEnemy={addAtackViewEnemy}
-              addAtackViewAlly={addAtackViewAlly}
+              addAtackView={addAtackViewEnemy}
+              addHealthView={addHealthViewEnemy}
               round={round}
               key={item.id}
             ></Persone>
@@ -460,7 +451,8 @@ export default function Battle({ difficult }: tipe) {
             }
           </p>
           <p className="damage">
-            Урон:
+            {allAlly[Number(ally[0]) - 5].skills[Number(ability[0]) - 1]
+              .health && ("Лечение ") ||("Урон ")}
             {
               allAlly[Number(ally[0]) - 5].skills[Number(ability[0]) - 1]
                 .min_damage
