@@ -6,7 +6,7 @@ import AllAllyDB from "./DataBase/AllAlly.json";
 import Persone from "./Persone/Persone.tsx";
 
 interface tipe {
-  difficult: number
+  difficult: number;
 }
 
 interface Ability {
@@ -39,7 +39,7 @@ export default function Battle({ difficult }: tipe) {
   //declare ally
   const [Ally5, setAlly5] = useState<Character>({
     id: "1",
-    name: "маг",
+    name: "none",
     hp: 20,
     maxHp: 20,
     position: 1,
@@ -70,103 +70,10 @@ export default function Battle({ difficult }: tipe) {
       },
     ],
   });
-  const [Ally6, setAlly6] = useState<Character>({
-    id: "1",
-    name: "none",
-    hp: 1,
-    maxHp: 1,
-    position: 1,
-    description: "",
-    difficult: 0,
-    skills: [
-      {
-        id: "1",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-      {
-        id: "2",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-      {
-        id: "3",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-    ],
-  });
-  const [Ally7, setAlly7] = useState<Character>({
-    id: "1",
-    name: "none",
-    hp: 1,
-    maxHp: 1,
-    position: 1,
-    description: "",
-    difficult: 0,
-    skills: [
-      {
-        id: "1",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-      {
-        id: "2",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-      {
-        id: "3",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-    ],
-  });
-  const [Ally8, setAlly8] = useState<Character>({
-    id: "1",
-    name: "none",
-    hp: 1,
-    maxHp: 1,
-    position: 1,
-    description: "",
-    difficult: 0,
-    skills: [
-      {
-        id: "1",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-      {
-        id: "2",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-      {
-        id: "3",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-    ],
-  });
-  if (Ally6.name === "none") {
+  const [Ally6, setAlly6] = useState<Character | undefined>();
+  const [Ally7, setAlly7] = useState<Character | undefined>();
+  const [Ally8, setAlly8] = useState<Character | undefined>();
+  if (Ally5.name === "none") {
     for (let i = 5; i < 9; i++) {
       const ArrAllyTrue = Object.values(AllAllyDB);
       const allyTrue = { ...ArrAllyTrue[getRandomInt(ArrAllyTrue.length)] };
@@ -211,109 +118,11 @@ export default function Battle({ difficult }: tipe) {
       },
     ],
   });
-  const [Enemy2, setEnemy2] = useState<Character>({
-    id: "2",
-    name: "none",
-    hp: 1,
-    maxHp: 1,
-    position: 1,
-    description: "",
-    difficult: 0,
-    skills: [
-      {
-        id: "1",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-      {
-        id: "2",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-      {
-        id: "3",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-    ],
-  });
-  const [Enemy3, setEnemy3] = useState<Character>({
-    id: "3",
-    name: "none",
-    hp: 1,
-    maxHp: 1,
-    position: 1,
-    description: "",
-    difficult: 0,
-    skills: [
-      {
-        id: "1",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-      {
-        id: "2",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-      {
-        id: "3",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-    ],
-  });
-  const [Enemy4, setEnemy4] = useState<Character>({
-    id: "4",
-    name: "none",
-    hp: 1,
-    maxHp: 1,
-    position: 1,
-    description: "",
-    difficult: 0,
-    skills: [
-      {
-        id: "1",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-      {
-        id: "2",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-      {
-        id: "3",
-        name: "nothin",
-        min_damage: 1,
-        max_damage: 1,
-        description: "none",
-      },
-    ],
-  });
+  const [Enemy2, setEnemy2] = useState<Character | undefined>();
+  const [Enemy3, setEnemy3] = useState<Character | undefined>();
+  const [Enemy4, setEnemy4] = useState<Character | undefined>();
 
-  const [allEnemy, setAllEnemy] = useState<Character[]>([
-    Enemy1,
-    Enemy2,
-    Enemy3,
-    Enemy4,
-  ]);
+  const [allEnemy, setAllEnemy] = useState<Character[]>([Enemy1]);
 
   function addEnemy() {
     for (let i = 1; i < 5; i++) {
@@ -335,10 +144,8 @@ export default function Battle({ difficult }: tipe) {
     addEnemy();
   }, [difficult]);
 
-  //update persone
-
+  //fix TS bug with uncorrect error, for deploy
   useEffect(() => {
-    //fix TS bug with uncorrect error, for deploy
     console.log(
       "\n!!!fix TS bug with uncorrect error, for deploy!!!\n\n\n",
       setEnemy1,
@@ -350,10 +157,18 @@ export default function Battle({ difficult }: tipe) {
       setAlly7,
       setAlly8
     );
-    // end fix
+  }, []);
+  // end fix
 
-    setAllEnemy([Enemy1, Enemy2, Enemy3, Enemy4]);
-    setAllAlly([Ally5, Ally6, Ally7, Ally8]);
+  //update persone
+
+  useEffect(() => {
+    if (Enemy2 != undefined && Enemy3 != undefined && Enemy4 != undefined) {
+      setAllEnemy([Enemy1, Enemy2, Enemy3, Enemy4]);
+    }
+    if (Ally6 != undefined && Ally7 != undefined && Ally8 != undefined) {
+      setAllAlly([Ally5, Ally6, Ally7, Ally8]);
+    }
   }, [Enemy1, Enemy2, Enemy3, Enemy4, Ally5, Ally6, Ally7, Ally8]);
 
   //enemy active
@@ -408,13 +223,7 @@ export default function Battle({ difficult }: tipe) {
   }
 
   useEffect(() => {
-    const newArrAbility = [];
-    for (let i = 0; i < allAlly[0].skills.length + 1; i++) {
-      newArrAbility[0] = "1";
-      newArrAbility[i] = "ability_persone";
-    }
-    newArrAbility[1] = "ability_persone active_ability";
-    setAbility(newArrAbility);
+    changeAllyActive(5);
   }, [allAlly]);
 
   //ally active
@@ -600,6 +409,7 @@ export default function Battle({ difficult }: tipe) {
               who={"ally"}
               addAtackViewEnemy={addAtackViewEnemy}
               addAtackViewAlly={addAtackViewAlly}
+              round={round}
               key={item.id}
             ></Persone>
           ))}
@@ -614,6 +424,7 @@ export default function Battle({ difficult }: tipe) {
               who={"enemy"}
               addAtackViewEnemy={addAtackViewEnemy}
               addAtackViewAlly={addAtackViewAlly}
+              round={round}
               key={item.id}
             ></Persone>
           ))}

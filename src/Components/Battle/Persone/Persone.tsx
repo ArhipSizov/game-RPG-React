@@ -24,6 +24,7 @@ interface ItemCharacter {
   who: string;
   addAtackViewEnemy: string[];
   addAtackViewAlly: string[];
+  round: number;
   skills: [Ability, Ability, Ability];
 }
 
@@ -36,6 +37,17 @@ export default function Persone(item: ItemCharacter) {
   if (item.who == "ally" && personeAlly == undefined) {
     setPersoneAlly(true);
   }
+
+  useEffect(() => {
+    //hp bar
+    if (item.id !== "0") {
+      const idEnemy = document.getElementById(item.id);
+      if (idEnemy) {
+        idEnemy.style.width = "100%";
+      }
+    }
+  }, [item.round]);
+
 
   useEffect(() => {
     //hp bar

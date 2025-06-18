@@ -29,11 +29,12 @@ export default function MainMenu({ difficult, setDifficult }: tipe) {
   return (
     <div>
       {(showMenu && (
-        <div className="main_menu">
-          <p onClick={() => setShowMenu(!showMenu)} className="close_menu">
-            Закрыть меню
-          </p>
-          <div className="main_menu_block">
+        <div onClick={() => setShowMenu(!showMenu)} className="main_menu">
+          <p className="close_menu">Закрыть меню</p>
+          <div
+            onClick={(event) =>  event.stopPropagation()}
+            className="main_menu_block"
+          >
             <h1>Главное меню</h1>
             <div className="difficult">
               <p>Выбор сложности </p>
