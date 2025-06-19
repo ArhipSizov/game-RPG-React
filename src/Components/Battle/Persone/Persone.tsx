@@ -89,23 +89,31 @@ export default function Persone(item: ItemCharacter) {
     }
   };
   return (
-    <div
-      onClick={() => {
-        item.changeEnemyActive(Number(item.id));
-        setIsDescriptionOpen(false);
-      }}
-      onContextMenu={handleRightClick}
-      className={item.persone[Number(item.id)]}
-    >
-      {isDescriptionOpen && <Description {...item} />}
-      <p className={atackView}>-{item.addAtackView[1]}hp</p>
-      <p className={healthView}>+{item.addHealthView[1]}hp</p>
-      <hr className="choose" />
-      <hr id={item.id} className="hp_bar" />
-      <p className="persone_hp">
-        {item.hp}/{item.maxHp}
-      </p>
-      <p className="persone_name">{item.name}</p>
+    <div className={item.persone[Number(item.id)]}>
+      <img
+        className="description_open"
+        onClick={() => setIsDescriptionOpen(true)}
+        src="/battle/question.svg"
+        alt=""
+      />
+      <div
+        onClick={() => {
+          item.changeEnemyActive(Number(item.id));
+          setIsDescriptionOpen(false);
+        }}
+        onContextMenu={handleRightClick}
+        className={item.persone[Number(item.id)]}
+      >
+        {isDescriptionOpen && <Description {...item} />}
+        <p className={atackView}>-{item.addAtackView[1]}hp</p>
+        <p className={healthView}>+{item.addHealthView[1]}hp</p>
+        <hr className="choose" />
+        <hr id={item.id} className="hp_bar" />
+        <p className="persone_hp">
+          {item.hp}/{item.maxHp}
+        </p>
+        <p className="persone_name">{item.name}</p>
+      </div>
     </div>
   );
 }

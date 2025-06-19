@@ -4,6 +4,9 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   width: 90%;
   margin: 0 5%;
+  .description_open {
+    display: none;
+  }
   .persone {
     width: 50px;
     height: 100px;
@@ -18,7 +21,8 @@
       margin-top: -10px;
       font-size: 10px;
       width: 50px;
-    }.damage {
+    }
+    .damage {
       text-align: right;
     }
     .health {
@@ -66,6 +70,25 @@
     .choose {
       display: block;
       border-color: rgb(82, 0, 0) !important;
+    }
+  }
+  @media (max-width: 600px) {
+    .persone {
+      width: 40px;
+      height: 80px;
+      font-size: 10px;
+      .choose {
+        margin-top: 85px;
+        width: 60px;
+      }
+    }
+  }
+  @media (max-width: 800px) {
+    .description_open {
+      display: block;
+      position: absolute;
+      width: 30px;
+      margin-top: -30px;
     }
   }
 }

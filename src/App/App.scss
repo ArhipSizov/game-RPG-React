@@ -1,3 +1,26 @@
-.app{
-    cursor: default;
+.app {
+  cursor: default;
+  .check_orientation {
+    display: none;
+  }
+  @media (orientation: portrait) {
+    .check_orientation {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: black;
+      z-index: 1000;
+      p {
+        color: #e6e6e6;
+        width: 100vw;
+        text-align: center;
+        font-size: 32px;
+        font-weight: 600;
+        margin-top: 200px;
+      }
+    }
+  }
 }

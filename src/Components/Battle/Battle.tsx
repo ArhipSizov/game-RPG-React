@@ -300,7 +300,13 @@ export default function Battle({ difficult }: tipe) {
       while (randomEnemy.hp <= 0) {
         randomEnemy = eval("Enemy" + (getRandomInt(4) + 1));
       }
-      const randomEnemySkill = getRandomInt(randomEnemy.skills.length);
+      let randomEnemySkill = getRandomInt(randomEnemy.skills.length);
+      while (
+        randomEnemy.skills[randomEnemySkill].health == true &&
+        randomEnemy.hp == randomEnemy.maxHp
+      ) {
+        randomEnemySkill = getRandomInt(randomEnemy.skills.length);
+      }
       let damage =
         getRandomInt(
           randomEnemy.skills[randomEnemySkill].max_damage -
@@ -308,13 +314,13 @@ export default function Battle({ difficult }: tipe) {
             1
         ) + randomEnemy.skills[randomEnemySkill].min_damage;
       if (randomEnemy.skills[randomEnemySkill].health == true) {
-        addHealthViewEnemy[0] = randomEnemy.id
-        addHealthViewEnemy[1] = damage
-        randomEnemy.hp += damage
+        addHealthViewEnemy[0] = randomEnemy.id;
+        addHealthViewEnemy[1] = damage;
+        randomEnemy.hp += damage;
         if (randomEnemy.hp > randomEnemy.maxHp) {
-          randomEnemy.hp = randomEnemy.maxHp
+          randomEnemy.hp = randomEnemy.maxHp;
         }
-        damage = 0
+        damage = 0;
       }
       let randomAllyNum = getRandomInt(4);
       while (allAlly[randomAllyNum].hp <= 0) {
@@ -451,8 +457,10 @@ export default function Battle({ difficult }: tipe) {
             }
           </p>
           <p className="damage">
-            {allAlly[Number(ally[0]) - 5].skills[Number(ability[0]) - 1]
-              .health && ("Лечение ") ||("Урон ")}
+            {(allAlly[Number(ally[0]) - 5].skills[Number(ability[0]) - 1]
+              .health &&
+              "Лечение ") ||
+              "Урон "}
             {
               allAlly[Number(ally[0]) - 5].skills[Number(ability[0]) - 1]
                 .min_damage

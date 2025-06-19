@@ -1,15 +1,15 @@
-.close_menu{
-    position: absolute;
-    text-align: center;
-    font-size: 34px;
-    font-weight: 600;
-    color: #e6e6e6;
-    text-align: center;
-    width: 40%;
-    margin: 0 30%;
-    top: 12px;
-    left: 0;
-    cursor: pointer;
+.close_menu {
+  position: absolute;
+  text-align: center;
+  font-size: 34px;
+  font-weight: 600;
+  color: #e6e6e6;
+  text-align: center;
+  width: 40%;
+  margin: 0 30%;
+  top: 12px;
+  left: 0;
+  cursor: pointer;
 }
 .main_menu {
   position: absolute;
@@ -41,5 +41,12 @@
         justify-content: space-between;
       }
     }
+  }
+}
+
+@media (max-width: 700px) {
+  .close_menu {
+  text-align: right;
+  margin: 0 0 0 60%;
   }
 }

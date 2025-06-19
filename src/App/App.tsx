@@ -11,6 +11,9 @@ function App() {
   
   return (
     <div className="app">
+      <div className="check_orientation">
+        <p>Переверните устройство!</p>
+      </div>
       <Pleer />
       <MainMenu difficult={difficult} setDifficult={setDifficult}/>
       <Battle difficult={difficult} />

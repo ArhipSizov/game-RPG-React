@@ -50,14 +50,14 @@
     color: #e6e6e6;
     text-align: center;
   }
-  .change_music_view{
+  .change_music_view {
     color: #e6e6e6;
     cursor: pointer;
     transition: 0.1s;
     text-align: center;
     font-size: 16px;
   }
-  .change_music_view:hover{
+  .change_music_view:hover {
     scale: 1.1;
   }
   input {
@@ -72,5 +72,18 @@
       margin-left: 6px;
       width: 180px;
     }
+  }
+}
+
+@media (max-width: 600px) {
+  .pleer {
+    background-color: #0000007e;
+    border-radius: 4px;
+  }
+}
+@media (max-height: 500px) {
+  .pleer {
+    background-color: #0000007e;
+    border-radius: 4px;
   }
 }
