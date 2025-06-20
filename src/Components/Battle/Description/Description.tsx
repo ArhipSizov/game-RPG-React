@@ -7,6 +7,7 @@ interface Ability {
   min_damage: number;
   max_damage: number;
   description: string;
+  crit: number;
   health: boolean;
 }
 
@@ -39,17 +40,16 @@ export default function Description(item: ItemCharacter) {
         newDescriptionAbility.textContent = item.skills[i].description;
         newDamageAbility = document.createElement("p");
         if (item.skills[i].health == true) {
-          newDamageAbility.textContent =
-            "Лечение - " +
-            item.skills[i].min_damage +
-            "-" +
-            item.skills[i].max_damage;
+          newDamageAbility.textContent = "Лечение - ";
         } else {
-          newDamageAbility.textContent =
-            "Урон - " +
-            item.skills[i].min_damage +
-            "-" +
-            item.skills[i].max_damage;
+          newDamageAbility.textContent = "Урон - ";
+        }
+        newDamageAbility.textContent +=
+          item.skills[i].min_damage +
+          "-" +
+          item.skills[i].max_damage;
+        if (item.skills[i].crit != undefined) {
+          newDamageAbility.textContent += ", Крит - " + item.skills[i].crit + "%";
         }
         if (parentDiv) {
           parentDiv.appendChild(newNameAbility);

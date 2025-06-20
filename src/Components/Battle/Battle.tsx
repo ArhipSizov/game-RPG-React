@@ -15,6 +15,7 @@ interface Ability {
   min_damage: number;
   max_damage: number;
   description: string;
+  crit: number;
   health: boolean;
 }
 
@@ -52,6 +53,7 @@ export default function Battle({ difficult }: tipe) {
         max_damage: 1,
         description:
           "very long textvery long textvery long textvery long textvery long textvery long text",
+        crit: 0,
         health: false,
       },
     ],
@@ -86,6 +88,7 @@ export default function Battle({ difficult }: tipe) {
         min_damage: 1,
         max_damage: 1,
         description: "none",
+        crit: 0,
         health: false,
       },
     ],
@@ -163,6 +166,20 @@ export default function Battle({ difficult }: tipe) {
     setEnemy(newArr);
   }
 
+  //Crit view
+
+  const [critView, setCritView] = useState<boolean>(true);
+  function critViewChange(allyNum: number, abilityNum: number) {
+    if (
+      allAlly[Number(allyNum) - 5].skills[Number(abilityNum) - 1].crit !=
+      undefined
+    ) {
+      setCritView(true);
+    } else {
+      setCritView(false);
+    }
+  }
+
   //abilites active
   const [ability, setAbility] = useState<string[]>([
     "1",
@@ -191,6 +208,7 @@ export default function Battle({ difficult }: tipe) {
       newArrAbility[i] = "ability_persone";
     }
     newArrAbility[num] = "ability_persone active_ability";
+    critViewChange(Number(ally[0]), num);
     setAbility(newArrAbility);
   }
 
@@ -226,15 +244,16 @@ export default function Battle({ difficult }: tipe) {
         newArr[i] = "none_true";
       }
     }
+    critViewChange(num, 1);
     setAlly(newArr);
   }
 
   //atack
 
-  const [addAtackViewEnemy] = useState<string[]>(["0", "0"]);
-  const [addAtackViewAlly] = useState<string[]>(["0", "0"]);
-  const [addHealthViewEnemy] = useState<string[]>(["0", "0"]);
-  const [addHealthViewAlly] = useState<string[]>(["0", "0"]);
+  const [addAtackViewEnemy] = useState<string[]>(["0", "0", "false"]);
+  const [addAtackViewAlly] = useState<string[]>(["0", "0", "false"]);
+  const [addHealthViewEnemy] = useState<string[]>(["0", "0", "false"]);
+  const [addHealthViewAlly] = useState<string[]>(["0", "0", "false"]);
 
   function atack() {
     setTurn(turn + 1);
@@ -253,12 +272,21 @@ export default function Battle({ difficult }: tipe) {
       if (ally[0] == element.id) {
         element.skills.forEach((elem) => {
           if (ability[0] == elem.id) {
+            const skill = element.skills[Number(ability[0]) - 1];
             damage =
-              getRandomInt(
-                element.skills[Number(ability[0]) - 1].max_damage -
-                  element.skills[Number(ability[0]) - 1].min_damage +
-                  1
-              ) + element.skills[Number(ability[0]) - 1].min_damage;
+              getRandomInt(skill.max_damage - skill.min_damage + 1) +
+              skill.min_damage;
+            if (critView == true) {
+              if (getRandomInt(100 / skill.crit) == 0) {
+                damage = Math.round(damage * 1.5);
+                if (elem.health === true) {
+                  addHealthViewAlly[2] = "true";
+                } else {
+                  addAtackViewEnemy[2] = "true";
+                }
+              }
+            }
+
             if (elem.health === true) {
               element.hp += damage;
               addHealthViewAlly[0] = element.id;
@@ -300,20 +328,30 @@ export default function Battle({ difficult }: tipe) {
       while (randomEnemy.hp <= 0) {
         randomEnemy = eval("Enemy" + (getRandomInt(4) + 1));
       }
-      let randomEnemySkill = getRandomInt(randomEnemy.skills.length);
+      let randomEnemySkillNumber = getRandomInt(randomEnemy.skills.length);
+      let randomEnemySkill = randomEnemy.skills[randomEnemySkillNumber];
       while (
-        randomEnemy.skills[randomEnemySkill].health == true &&
+        randomEnemySkill.health == true &&
         randomEnemy.hp == randomEnemy.maxHp
       ) {
-        randomEnemySkill = getRandomInt(randomEnemy.skills.length);
+        randomEnemySkillNumber = getRandomInt(randomEnemy.skills.length);
+        randomEnemySkill = randomEnemy.skills[randomEnemySkillNumber];
       }
       let damage =
         getRandomInt(
-          randomEnemy.skills[randomEnemySkill].max_damage -
-            randomEnemy.skills[randomEnemySkill].min_damage +
-            1
-        ) + randomEnemy.skills[randomEnemySkill].min_damage;
-      if (randomEnemy.skills[randomEnemySkill].health == true) {
+          randomEnemySkill.max_damage - randomEnemySkill.min_damage + 1
+        ) + randomEnemySkill.min_damage;
+      if (randomEnemySkill.crit != undefined) {
+        if (getRandomInt(100 / randomEnemySkill.crit) == 0) {
+          damage = Math.round(damage * 1.5);
+          if (randomEnemySkill.health === true) {
+            addHealthViewEnemy[2] = "true";
+          } else {
+            addAtackViewAlly[2] = "true";
+          }
+        }
+      }
+      if (randomEnemySkill.health == true) {
         addHealthViewEnemy[0] = randomEnemy.id;
         addHealthViewEnemy[1] = damage;
         randomEnemy.hp += damage;
@@ -323,11 +361,13 @@ export default function Battle({ difficult }: tipe) {
         damage = 0;
       }
       let randomAllyNum = getRandomInt(4);
-      while (allAlly[randomAllyNum].hp <= 0) {
+      let randAlly = allAlly[randomAllyNum];
+      while (randAlly.hp <= 0) {
         randomAllyNum = getRandomInt(4);
+        randAlly = allAlly[randomAllyNum];
       }
-      allAlly[randomAllyNum].hp -= damage;
-      addAtackViewAlly[0] = allAlly[randomAllyNum].id;
+      randAlly.hp -= damage;
+      addAtackViewAlly[0] = randAlly.id;
       addAtackViewAlly[1] = damage;
       if (chooseEnemy.hp <= 0) {
         let randomEnemyNumNewChoise = getRandomInt(4);
@@ -350,7 +390,7 @@ export default function Battle({ difficult }: tipe) {
         }
         setEnemy(newArr);
       }
-      if (allAlly[randomAllyNum].hp <= 0) {
+      if (randAlly.hp <= 0) {
         if (
           allAlly[0].hp <= 0 &&
           allAlly[1].hp <= 0 &&
@@ -379,7 +419,7 @@ export default function Battle({ difficult }: tipe) {
             randomAllyNumNewChoise += 5;
             newArr[0] = randomAllyNumNewChoise.toString();
           }
-          newArr[Number(allAlly[randomAllyNum].id)] = "none_true";
+          newArr[Number(randAlly.id)] = "none_true";
           for (let i = 5; i < 9; i++) {
             if (ally[i] == "none_true") {
               newArr[i] = "none_true";
@@ -470,6 +510,11 @@ export default function Battle({ difficult }: tipe) {
               allAlly[Number(ally[0]) - 5].skills[Number(ability[0]) - 1]
                 .max_damage
             }
+          </p>
+          <p className="crit">
+            {critView && "Крит "}
+            {allAlly[Number(ally[0]) - 5].skills[Number(ability[0]) - 1].crit}
+            {critView && "%"}
           </p>
         </div>
         <div onClick={() => atack()} className="and_turn">

@@ -85,15 +85,17 @@
         "name": "Блоб",
         "min_damage": 1,
         "max_damage": 3,
-        "description": ""
+        "description": "",
+        "crit": "60"
       },
       {
         "id": "2",
         "name": "Блюб",
-        "min_damage": 2,
+        "min_damage": 1,
         "max_damage": 4,
         "description": "",
-        "health": true
+        "health": true,
+        "crit": "50"
       }
     ]
   }

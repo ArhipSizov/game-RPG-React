@@ -9,6 +9,7 @@ interface Ability {
   min_damage: number;
   max_damage: number;
   description: string;
+  crit: number;
   health: boolean;
 }
 
@@ -62,7 +63,12 @@ export default function Persone(item: ItemCharacter) {
     //View atack
 
     if (item.addAtackView[0] == item.id && item.addAtackView[1] != "0") {
-      setAtackView("damage damage_add");
+      if (item.addAtackView[2] == "true") {
+        setAtackView("damage damage_add damage_crit");
+        item.addAtackView[2] = "false"
+      } else {
+        setAtackView("damage damage_add");
+      }
       setTimeout(() => {
         setAtackView("damage");
         item.addAtackView[0] = "0";
@@ -72,7 +78,12 @@ export default function Persone(item: ItemCharacter) {
     //View health
 
     if (item.addHealthView[0] == item.id) {
-      setHealthView("health health_add");
+      if (item.addHealthView[2] == "true") {
+        setHealthView("health health_add damage_crit");
+        item.addHealthView[2] = "false"
+      } else {
+        setHealthView("health health_add");
+      }
       setTimeout(() => {
         setHealthView("health");
         item.addHealthView[0] = "0";
