@@ -117,6 +117,7 @@ export default function Battle({ difficult }: tipe) {
   }
   useEffect(() => {
     addEnemy();
+    setEnemy(["1", "persone active_persone", "persone", "persone", "persone"]);
   }, [difficult]);
 
   //fix TS bug with uncorrect error, for deploy

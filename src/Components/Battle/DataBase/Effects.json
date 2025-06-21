@@ -4,9 +4,14 @@
         "type": "damage",
         "count": 1
     },
-    "shield":{
-        "name": "Щит",
-        "type": "defense",
+    "fire":{
+        "name": "Огонь",
+        "type": "damage",
+        "count": 2
+    },
+    "health":{
+        "name": "Исцеление",
+        "type": "health",
         "count": 1
     }
 }

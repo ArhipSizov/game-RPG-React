@@ -1,0 +1,127 @@
+.map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.7);
+  h2 {
+    color: #e6e6e6;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 38px;
+  }
+  .map_all_block {
+    width: 1000px;
+    display: block;
+    margin: 20px auto;
+    .map_img {
+      position: absolute;
+      width: 1000px;
+      z-index: -1;
+    }
+    .mountain,
+    .forest,
+    .lake {
+      position: absolute;
+      transition: 0.5s;
+      border-radius: 80px;
+      .mark {
+        width: 40px;
+        margin-left: 40%;
+        position: absolute;
+        transition: 0.4s;
+      }
+      img {
+        width: 100%;
+      }
+    }
+    .mountain:hover {
+      background-color: rgba(255, 82, 82, 0.3);
+      box-shadow: 0 0 26px 18px rgba(255, 82, 82, 0.3);
+      transform: scale(1.02);
+      .mark {
+        transform: scale(1.5);
+      }
+    }
+    .forest:hover {
+      background-color: rgba(255, 243, 82, 0.3);
+      box-shadow: 0 0 26px 18px rgba(255, 243, 82, 0.3);
+      transform: scale(1.02);
+      .mark {
+        transform: scale(1.5);
+      }
+    }
+    .lake:hover {
+      background-color: rgba(82, 255, 82, 0.3);
+      box-shadow: 0 0 26px 18px rgba(82, 255, 82, 0.3);
+      transform: scale(1.02);
+      .mark {
+        transform: scale(1.5);
+      }
+    }
+    .mountain {
+      width: 350px;
+      margin: 140px 0 0 10px;
+    }
+    .forest {
+      position: absolute;
+      width: 220px;
+      margin: 290px 0 0 10px;
+    }
+    .lake {
+      width: 300px;
+      margin: 500px 0 0 65px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    h2 {
+      margin-top: 6px;
+      font-size: 24px;
+    }
+    .map_all_block {
+      width: 500px;
+      margin-top: 6px;
+      .map_img {
+        width: 500px;
+      }
+      .mountain {
+        width: 175px;
+        margin: 70px 0 0 5px;
+      }
+      .forest {
+        position: absolute;
+        width: 110px;
+        margin: 145px 0 0 5px;
+      }
+      .lake {
+        width: 150px;
+        margin: 250px 0 0 32px;
+      }
+    }
+    @media (max-width: 600px) {
+      .map_all_block {
+        width: 400px;
+        margin-top: 0;
+        .map_img {
+          width: 400px;
+        }
+        .mountain {
+          width: 140px;
+          margin: 56px 0 0 4px;
+        }
+        .forest {
+          position: absolute;
+          width: 88px;
+          margin: 120px 0 0 4px;
+        }
+        .lake {
+          width: 120px;
+          margin: 200px 0 0 26px;
+        }
+      }
+    }
+  }
+}

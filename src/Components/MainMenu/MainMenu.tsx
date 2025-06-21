@@ -1,19 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import "./MainMenu.scss";
 
 interface tipe {
   difficult: number;
-  setDifficult: (num: number) => void;
+  setShowMap: (boolean: boolean) => void;
 }
-export default function MainMenu({ difficult, setDifficult }: tipe) {
+export default function MainMenu({ difficult, setShowMap }: tipe) {
   const [difficultText, setDifficultText] = useState<string>("средне");
   const [showMenu, setShowMenu] = useState<boolean>(false);
 
-  const changeDifficult = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newDifficult = parseFloat(e.target.value);
-    setDifficult(newDifficult);
-    switch (newDifficult) {
+  useEffect(() => {
+    switch (difficult) {
       case 1:
         setDifficultText("легко");
         break;
@@ -24,7 +22,7 @@ export default function MainMenu({ difficult, setDifficult }: tipe) {
         setDifficultText("сложно");
         break;
     }
-  };
+  }, [difficult]);
 
   return (
     <div>
@@ -32,24 +30,19 @@ export default function MainMenu({ difficult, setDifficult }: tipe) {
         <div onClick={() => setShowMenu(!showMenu)} className="main_menu">
           <p className="close_menu">Закрыть меню</p>
           <div
-            onClick={(event) =>  event.stopPropagation()}
+            onClick={(event) => event.stopPropagation()}
             className="main_menu_block"
           >
             <h1>Главное меню</h1>
             <div className="difficult">
-              <p>Выбор сложности </p>
-              <div>
-                <b>{difficultText}</b>
-                <input
-                  type="range"
-                  min="1"
-                  max="3"
-                  step="1"
-                  value={difficult}
-                  onChange={changeDifficult}
-                />
-              </div>
+              <p>Текущая сложность: {difficultText}</p>
             </div>
+            <p
+              onClick={() => (setShowMap(true), setShowMenu(false))}
+              className="open_map"
+            >
+              Открыть карту
+            </p>
           </div>
         </div>
       )) || (

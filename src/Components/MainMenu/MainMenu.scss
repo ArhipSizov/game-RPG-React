@@ -10,6 +10,10 @@
   top: 12px;
   left: 0;
   cursor: pointer;
+  transition: 0.1s;
+}
+.close_menu:hover {
+  transform: scale(1.05);
 }
 .main_menu {
   position: absolute;
@@ -41,12 +45,21 @@
         justify-content: space-between;
       }
     }
+    .open_map {
+      font-size: 32px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.04s;
+    }
+    .open_map:hover {
+      transform: scale(1.02);
+    }
   }
 }
 
 @media (max-width: 700px) {
   .close_menu {
-  text-align: right;
-  margin: 0 0 0 60%;
+    text-align: right;
+    margin: 0 0 0 60%;
   }
 }
