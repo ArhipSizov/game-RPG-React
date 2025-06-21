@@ -9,15 +9,18 @@ interface Ability {
   min_damage: number;
   max_damage: number;
   description: string;
-  crit: number;
-  health: boolean;
+  crit?: number;
+  health?: boolean;
 }
 
 interface ItemCharacter {
   id: string;
+  lv: number;
+  exp: number;
   name: string;
   hp: number;
   maxHp: number;
+  difficult: number;
   description: string;
   changeEnemyActive: (num: number) => void;
   persone: string[];
@@ -26,7 +29,7 @@ interface ItemCharacter {
   addAtackView: string[];
   addHealthView: string[];
   round: number;
-  skills: [Ability];
+  skills: Ability[];
 }
 
 export default function Persone(item: ItemCharacter) {
@@ -65,7 +68,7 @@ export default function Persone(item: ItemCharacter) {
     if (item.addAtackView[0] == item.id && item.addAtackView[1] != "0") {
       if (item.addAtackView[2] == "true") {
         setAtackView("damage damage_add damage_crit");
-        item.addAtackView[2] = "false"
+        item.addAtackView[2] = "false";
       } else {
         setAtackView("damage damage_add");
       }
@@ -80,7 +83,7 @@ export default function Persone(item: ItemCharacter) {
     if (item.addHealthView[0] == item.id) {
       if (item.addHealthView[2] == "true") {
         setHealthView("health health_add damage_crit");
-        item.addHealthView[2] = "false"
+        item.addHealthView[2] = "false";
       } else {
         setHealthView("health health_add");
       }
@@ -124,6 +127,9 @@ export default function Persone(item: ItemCharacter) {
           {item.hp}/{item.maxHp}
         </p>
         <p className="persone_name">{item.name}</p>
+        {(personeAlly && <p className="lv">Lv {item.lv}</p>) || (
+          <p className="lv">Lv {item.difficult}</p>
+        )}
       </div>
     </div>
   );

@@ -8,6 +8,7 @@
     display: none;
   }
   .persone {
+    direction: ltr;
     width: 50px;
     height: 100px;
     background-color: black;
@@ -38,7 +39,7 @@
     .damage_add {
       color: #6e0000;
     }
-    .damage_crit{
+    .damage_crit {
       color: #ccb800;
       font-size: 24px;
       font-weight: 700;
@@ -77,6 +78,11 @@
       border-color: rgb(82, 0, 0) !important;
     }
   }
+  .lv {
+    margin-top: 10px;
+    color: #e6e6e6;
+    font-size: 18px;
+  }
   @media (max-width: 600px) {
     .persone {
       width: 40px;
@@ -98,7 +104,7 @@
   }
 }
 .ally {
-  justify-items: end;
+  direction: rtl;
   .persone {
     background-color: rgb(116, 90, 90);
   }

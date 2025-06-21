@@ -7,22 +7,25 @@ interface Ability {
   min_damage: number;
   max_damage: number;
   description: string;
-  crit: number;
-  health: boolean;
+  crit?: number;
+  health?: boolean;
 }
 
 interface ItemCharacter {
   id: string;
+  lv: number;
+  exp: number;
   name: string;
   hp: number;
   maxHp: number;
+  difficult: number;
   description: string;
   changeEnemyActive: (num: number) => void;
   persone: string[];
   turn: number;
   who: string;
   addAtackView: string[];
-  skills: [Ability];
+  skills: Ability[];
 }
 export default function Description(item: ItemCharacter) {
   useEffect(() => {
@@ -45,11 +48,10 @@ export default function Description(item: ItemCharacter) {
           newDamageAbility.textContent = "Урон - ";
         }
         newDamageAbility.textContent +=
-          item.skills[i].min_damage +
-          "-" +
-          item.skills[i].max_damage;
+          item.skills[i].min_damage + "-" + item.skills[i].max_damage;
         if (item.skills[i].crit != undefined) {
-          newDamageAbility.textContent += ", Крит - " + item.skills[i].crit + "%";
+          newDamageAbility.textContent +=
+            ", Крит - " + item.skills[i].crit + "%";
         }
         if (parentDiv) {
           parentDiv.appendChild(newNameAbility);
@@ -66,6 +68,13 @@ export default function Description(item: ItemCharacter) {
         <p>{item.name}</p>
         <h2>Описание</h2>
         <p>{item.description}</p>
+        <p>
+          Уровень {item.lv}
+          {item.difficult}
+        </p>
+        <p>
+          Опыт {item.exp}/{item.lv}
+        </p>
         <h2>Способности</h2>
         <div id="abilitys_description" className="abilitys_description"></div>
       </div>

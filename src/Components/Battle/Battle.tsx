@@ -15,18 +15,20 @@ interface Ability {
   min_damage: number;
   max_damage: number;
   description: string;
-  crit: number;
-  health: boolean;
+  crit?: number;
+  health?: boolean;
 }
 
 interface Character {
   id: string;
+  lv: number;
+  exp: number;
   name: string;
   hp: number;
   maxHp: number;
   description: string;
   difficult: number;
-  skills: [Ability];
+  skills: Ability[];
 }
 
 export default function Battle({ difficult }: tipe) {
@@ -37,9 +39,38 @@ export default function Battle({ difficult }: tipe) {
     return Math.floor(Math.random() * max);
   }
 
+  function selectedAlly() {
+    return allAlly[Number(ally[0]) - 5];
+  }
+
+  //level up
+
+  function levelUpAlly(chooseEnemy: Character) {
+    selectedAlly().exp += chooseEnemy.exp;
+    while (selectedAlly().exp > selectedAlly().lv) {
+      Object.values(AllAllyDB).forEach((allyArr) => {
+        if (
+          allyArr.name == selectedAlly().name &&
+          allyArr.skills[selectedAlly().skills.length] != undefined
+        ) {
+          selectedAlly().skills[selectedAlly().skills.length] =
+            allyArr.skills[selectedAlly().skills.length];
+        }
+      });
+      console.log(selectedAlly());
+      selectedAlly().exp -= selectedAlly().lv;
+      selectedAlly().lv += 1;
+      selectedAlly().maxHp += 2;
+      selectedAlly().hp = selectedAlly().maxHp;
+      changeAbilityActive(Number(ability[0]));
+    }
+  }
+
   //declare ally
   const [Ally5, setAlly5] = useState<Character>({
     id: "1",
+    lv: 0,
+    exp: 0,
     name: "none",
     hp: 20,
     maxHp: 20,
@@ -66,7 +97,10 @@ export default function Battle({ difficult }: tipe) {
       const ArrAllyTrue = Object.values(AllAllyDB);
       const allyTrue = { ...ArrAllyTrue[getRandomInt(ArrAllyTrue.length)] };
       const setAllyTrue = eval("setAlly" + i);
+      const firstSkill = allyTrue.skills[0];
       allyTrue.id = i.toString();
+      allyTrue.skills = [];
+      allyTrue.skills[0] = firstSkill;
       setAllyTrue(allyTrue);
     }
   }
@@ -76,6 +110,8 @@ export default function Battle({ difficult }: tipe) {
   //declare enemy
   const [Enemy1, setEnemy1] = useState<Character>({
     id: "1",
+    lv: 0,
+    exp: 0,
     name: "none",
     hp: 1,
     maxHp: 1,
@@ -204,7 +240,7 @@ export default function Battle({ difficult }: tipe) {
   function changeAbilityActive(num: number) {
     const numString = num.toString();
     const newArrAbility = [];
-    for (let i = 0; i < allAlly[Number(ally[0]) - 5].skills.length + 1; i++) {
+    for (let i = 0; i < selectedAlly().skills.length + 1; i++) {
       newArrAbility[0] = numString;
       newArrAbility[i] = "ability_persone";
     }
@@ -278,12 +314,14 @@ export default function Battle({ difficult }: tipe) {
               getRandomInt(skill.max_damage - skill.min_damage + 1) +
               skill.min_damage;
             if (critView == true) {
-              if (getRandomInt(100 / skill.crit) == 0) {
-                damage = Math.round(damage * 1.5);
-                if (elem.health === true) {
-                  addHealthViewAlly[2] = "true";
-                } else {
-                  addAtackViewEnemy[2] = "true";
+              if (skill.crit) {
+                if (getRandomInt(100 / skill.crit) == 0) {
+                  damage = Math.round(damage * 1.5);
+                  if (elem.health === true) {
+                    addHealthViewAlly[2] = "true";
+                  } else {
+                    addAtackViewEnemy[2] = "true";
+                  }
                 }
               }
             }
@@ -315,6 +353,7 @@ export default function Battle({ difficult }: tipe) {
       allEnemy[3].hp <= 0
     ) {
       //and round
+      levelUpAlly(chooseEnemy);
       addEnemy();
       setEnemy([
         "1",
@@ -370,7 +409,12 @@ export default function Battle({ difficult }: tipe) {
       randAlly.hp -= damage;
       addAtackViewAlly[0] = randAlly.id;
       addAtackViewAlly[1] = damage;
+
+      console.log(selectedAlly());
+
+      console.log(Object.values(AllAllyDB));
       if (chooseEnemy.hp <= 0) {
+        levelUpAlly(chooseEnemy);
         let randomEnemyNumNewChoise = getRandomInt(4);
         while (allEnemy[randomEnemyNumNewChoise].hp <= 0) {
           randomEnemyNumNewChoise = getRandomInt(4);
@@ -412,7 +456,7 @@ export default function Battle({ difficult }: tipe) {
             "persone",
             "persone",
           ];
-          if (allAlly[Number(ally[0]) - 5].hp <= 0) {
+          if (selectedAlly().hp <= 0) {
             let randomAllyNumNewChoise = getRandomInt(4);
             while (allAlly[randomAllyNumNewChoise].hp <= 0) {
               randomAllyNumNewChoise = getRandomInt(4);
@@ -489,32 +533,21 @@ export default function Battle({ difficult }: tipe) {
         </div>
         <div className="ability_description">
           <p className="name">
-            {allAlly[Number(ally[0]) - 5].skills[Number(ability[0]) - 1].name}
+            {selectedAlly().skills[Number(ability[0]) - 1].name}
           </p>
           <p className="description">
-            {
-              allAlly[Number(ally[0]) - 5].skills[Number(ability[0]) - 1]
-                .description
-            }
+            {selectedAlly().skills[Number(ability[0]) - 1].description}
           </p>
           <p className="damage">
-            {(allAlly[Number(ally[0]) - 5].skills[Number(ability[0]) - 1]
-              .health &&
+            {(selectedAlly().skills[Number(ability[0]) - 1].health &&
               "Лечение ") ||
               "Урон "}
-            {
-              allAlly[Number(ally[0]) - 5].skills[Number(ability[0]) - 1]
-                .min_damage
-            }
-            -
-            {
-              allAlly[Number(ally[0]) - 5].skills[Number(ability[0]) - 1]
-                .max_damage
-            }
+            {selectedAlly().skills[Number(ability[0]) - 1].min_damage}-
+            {selectedAlly().skills[Number(ability[0]) - 1].max_damage}
           </p>
           <p className="crit">
             {critView && "Крит "}
-            {allAlly[Number(ally[0]) - 5].skills[Number(ability[0]) - 1].crit}
+            {selectedAlly().skills[Number(ability[0]) - 1].crit}
             {critView && "%"}
           </p>
         </div>

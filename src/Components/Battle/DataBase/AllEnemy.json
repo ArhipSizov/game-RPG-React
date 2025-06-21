@@ -1,9 +1,10 @@
 {
   "Goblin": {
     "id": "",
+    "exp": 3,
     "name": "Гоблин",
-    "hp": 12,
-    "maxHp": 12,
+    "hp": 20,
+    "maxHp": 20,
     "difficult": 2,
     "description": "Простой гоблин, ничего особенного",
     "skills": [
@@ -18,9 +19,10 @@
   },
   "GoblinDefence": {
     "id": "",
+    "exp": 5,
     "name": "Прочный гоблин",
-    "hp": 21,
-    "maxHp": 21,
+    "hp": 41,
+    "maxHp": 41,
     "difficult": 3,
     "description": "Простой гоблин с укреплённой кожей, будет посложнее обычного",
     "skills": [
@@ -50,9 +52,10 @@
   },
   "StrongGoblin": {
     "id": "",
+    "exp": 3,
     "name": "Сильный гоблин",
-    "hp": 9,
-    "maxHp": 9,
+    "hp": 19,
+    "maxHp": 19,
     "difficult": 2,
     "description": "Сильный гоблин, больно бьёт",
     "skills": [
@@ -74,9 +77,10 @@
   },
   "Slime": {
     "id": "",
+    "exp": 2,
     "name": "Слайм",
-    "hp": 4,
-    "maxHp": 4,
+    "hp": 9,
+    "maxHp": 9,
     "difficult": 1,
     "description": "Слайм, база",
     "skills": [
@@ -86,7 +90,7 @@
         "min_damage": 1,
         "max_damage": 3,
         "description": "",
-        "crit": "60"
+        "crit": 60
       },
       {
         "id": "2",
@@ -95,7 +99,7 @@
         "max_damage": 4,
         "description": "",
         "health": true,
-        "crit": "50"
+        "crit": 50
       }
     ]
   }
