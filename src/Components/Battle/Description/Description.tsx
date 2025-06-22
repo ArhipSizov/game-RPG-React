@@ -64,8 +64,7 @@ export default function Description(item: ItemCharacter) {
   return (
     <div className="description_all_block">
       <div className="description_block_in">
-        <h2>Имя</h2>
-        <p>{item.name}</p>
+        <h2>{item.name}</h2>
         <h2>Описание</h2>
         <p>{item.description}</p>
         <p>

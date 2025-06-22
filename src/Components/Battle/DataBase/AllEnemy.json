@@ -1,4 +1,50 @@
 {
+  "Dummy": {
+    "id": "",
+    "exp": 0,
+    "name": "Манекен",
+    "hp": 99,
+    "maxHp": 99,
+    "difficult": 0,
+    "description": "Манекен, выглядит достаточно прочным и безобидным",
+    "skills": [
+      {
+        "id": "1",
+        "name": "Ничего",
+        "min_damage": 0,
+        "max_damage": 0,
+        "description": "Невероятно, но он ничего не делает"
+      }
+    ]
+  },
+  "StrongDummy": {
+    "id": "",
+    "exp": 0,
+    "name": "Опасный манекен",
+    "hp": 99,
+    "maxHp": 99,
+    "difficult": 9,
+    "description": "Похоже, им не понравилась ваша жестокость",
+    "skills": [
+      {
+        "id": "1",
+        "name": "Толчок",
+        "min_damage": 5,
+        "max_damage": 9,
+        "description": "На удивление, это намного больнее чем кажется",
+        "crit": 20
+      },
+      {
+        "id": "2",
+        "name": "Шитьё",
+        "min_damage": 2,
+        "max_damage": 5,
+        "description": "Он буквально может зашить себя!",
+        "crit": 50,
+        "health": true
+      }
+    ]
+  },
   "Goblin": {
     "id": "",
     "exp": 3,
@@ -30,15 +76,8 @@
         "id": "1",
         "name": "Удар правой",
         "min_damage": 4,
-        "max_damage": 6,
+        "max_damage": 7,
         "description": "Простой удар, не приятно"
-      },
-      {
-        "id": "2",
-        "name": "Удар левой",
-        "min_damage": 0,
-        "max_damage": 1,
-        "description": "Простой удар, приятно"
       },
       {
         "id": "3",
@@ -46,6 +85,7 @@
         "min_damage": 0,
         "max_damage": 10,
         "description": "Раньше было лучше...",
+        "crit": 10,
         "health": true
       }
     ]
@@ -54,8 +94,8 @@
     "id": "",
     "exp": 3,
     "name": "Сильный гоблин",
-    "hp": 19,
-    "maxHp": 19,
+    "hp": 9,
+    "maxHp": 9,
     "difficult": 2,
     "description": "Сильный гоблин, больно бьёт",
     "skills": [

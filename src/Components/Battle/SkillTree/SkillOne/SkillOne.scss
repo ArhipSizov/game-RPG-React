@@ -1,0 +1,12 @@
+.skill_one{
+    width: 30%;
+    margin: 10px;
+    padding: 6px;
+    border-radius: 8px;
+    border: 1px black solid;
+    cursor: pointer;
+    transition: 0.1s;
+}
+.skill_one:hover{
+    transform: scale(1.05);
+}

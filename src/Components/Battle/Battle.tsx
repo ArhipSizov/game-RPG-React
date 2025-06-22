@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import AllEnemyDB from "./DataBase/AllEnemy.json";
 import AllAllyDB from "./DataBase/AllAlly.json";
 import Persone from "./Persone/Persone.tsx";
+import SkillTree from "./SkillTree/SkillTree.tsx";
 
 interface tipe {
   difficult: number;
+  setDifficult: (num: number) => void;
 }
 
 interface Ability {
@@ -31,7 +33,7 @@ interface Character {
   skills: Ability[];
 }
 
-export default function Battle({ difficult }: tipe) {
+export default function Battle({ difficult, setDifficult }: tipe) {
   const [turn, setTurn] = useState<number>(0);
   const [round, setRound] = useState<number>(0);
 
@@ -45,19 +47,48 @@ export default function Battle({ difficult }: tipe) {
 
   //level up
 
+  const [showSkillTree, setShowSkillTree] = useState<boolean>(false);
+  const [notLearnSkill, setNotLearnSkill] = useState<string[]>([]);
+  const [newSkill, setNewSkill] = useState<Ability>();
+
+  useEffect(() => {
+    if (newSkill) {
+      selectedAlly().skills[selectedAlly().skills.length] = newSkill;
+    }
+    changeAbilityActive(Number(ability[0]));
+  }, [newSkill]);
+
   function levelUpAlly(chooseEnemy: Character) {
     selectedAlly().exp += chooseEnemy.exp;
     while (selectedAlly().exp > selectedAlly().lv) {
       Object.values(AllAllyDB).forEach((allyArr) => {
         if (
           allyArr.name == selectedAlly().name &&
-          allyArr.skills[selectedAlly().skills.length] != undefined
+          allyArr.skills[selectedAlly().skills.length] != undefined &&
+          ability[4] !== "ability_persone"
         ) {
-          selectedAlly().skills[selectedAlly().skills.length] =
-            allyArr.skills[selectedAlly().skills.length];
+          const newArr = [];
+          setShowSkillTree(true);
+          newArr[0] = selectedAlly().name;
+          for (let i = 0; i < allyArr.skills.length; i++) {
+            newArr[i + 1] = (i + 1).toString();
+          }
+          for (let i = 0; i < allyArr.skills.length; i++) {
+            if (selectedAlly().skills[i] !== undefined) {
+              newArr.forEach(function (element) {
+                if (element !== selectedAlly().skills[i].id) {
+                  newArr[Number(selectedAlly().skills[i].id)] = undefined;
+                }
+              });
+            }
+          }
+          setNotLearnSkill(newArr);
+          // setNewSkill(allyArr.skills[selectedAlly().skills.length]);
+
+          // selectedAlly().skills[selectedAlly().skills.length] =
+          //   allyArr.skills[selectedAlly().skills.length];
         }
       });
-      console.log(selectedAlly());
       selectedAlly().exp -= selectedAlly().lv;
       selectedAlly().lv += 1;
       selectedAlly().maxHp += 2;
@@ -250,7 +281,7 @@ export default function Battle({ difficult }: tipe) {
   }
 
   useEffect(() => {
-    changeAllyActive(5);
+    changeAllyActive(Number(ally[0]));
   }, [allAlly]);
 
   //ally active
@@ -352,6 +383,9 @@ export default function Battle({ difficult }: tipe) {
       allEnemy[2].hp <= 0 &&
       allEnemy[3].hp <= 0
     ) {
+      if (difficult == 0) {
+        setDifficult(9);
+      }
       //and round
       levelUpAlly(chooseEnemy);
       addEnemy();
@@ -410,9 +444,6 @@ export default function Battle({ difficult }: tipe) {
       addAtackViewAlly[0] = randAlly.id;
       addAtackViewAlly[1] = damage;
 
-      console.log(selectedAlly());
-
-      console.log(Object.values(AllAllyDB));
       if (chooseEnemy.hp <= 0) {
         levelUpAlly(chooseEnemy);
         let randomEnemyNumNewChoise = getRandomInt(4);
@@ -479,6 +510,13 @@ export default function Battle({ difficult }: tipe) {
   //site
   return (
     <div className="battle">
+      {showSkillTree && (
+        <SkillTree
+          notLearnSkill={notLearnSkill}
+          setShowSkillTree={setShowSkillTree}
+          setNewSkill={setNewSkill}
+        />
+      )}
       <p className="turn">Раунд {turn}</p>
       <div className="sqare">
         <div className="ally">

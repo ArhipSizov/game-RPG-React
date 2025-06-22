@@ -23,6 +23,7 @@
     }
     .mountain,
     .forest,
+    .castle,
     .lake {
       position: absolute;
       transition: 0.5s;
@@ -37,29 +38,30 @@
         width: 100%;
       }
     }
-    .mountain:hover {
-      background-color: rgba(255, 82, 82, 0.3);
-      box-shadow: 0 0 26px 18px rgba(255, 82, 82, 0.3);
+    .mountain:hover,
+    .forest:hover,
+    .lake:hover,
+    .castle:hover {
       transform: scale(1.02);
       .mark {
         transform: scale(1.5);
       }
+    }
+    .mountain:hover {
+      background-color: rgba(255, 82, 82, 0.3);
+      box-shadow: 0 0 26px 18px rgba(255, 82, 82, 0.3);
     }
     .forest:hover {
       background-color: rgba(255, 243, 82, 0.3);
       box-shadow: 0 0 26px 18px rgba(255, 243, 82, 0.3);
-      transform: scale(1.02);
-      .mark {
-        transform: scale(1.5);
-      }
     }
     .lake:hover {
       background-color: rgba(82, 255, 82, 0.3);
       box-shadow: 0 0 26px 18px rgba(82, 255, 82, 0.3);
-      transform: scale(1.02);
-      .mark {
-        transform: scale(1.5);
-      }
+    }
+    .castle:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 26px 18px rgba(255, 255, 255, 0.3);
     }
     .mountain {
       width: 350px;
@@ -73,6 +75,10 @@
     .lake {
       width: 300px;
       margin: 500px 0 0 65px;
+    }
+    .castle {
+      width: 300px;
+      margin: 300px 0 0 410px;
     }
   }
 
@@ -100,6 +106,10 @@
         width: 150px;
         margin: 250px 0 0 32px;
       }
+      .castle {
+        width: 150px;
+        margin: 150px 0 0 205px;
+      }
     }
     @media (max-width: 768px) {
       .map_all_block {
@@ -120,6 +130,10 @@
         .lake {
           width: 120px;
           margin: 200px 0 0 26px;
+        }
+        .castle {
+          width: 120px;
+          margin: 120px 0 0 164px;
         }
       }
     }

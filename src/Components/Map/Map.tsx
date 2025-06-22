@@ -2,12 +2,11 @@ import "./Map.scss";
 
 interface tipe {
   setDifficult: (num: number) => void;
-  setShowMap:  (boolean: boolean) => void;
-  showMap: boolean
+  setShowMap: (boolean: boolean) => void;
+  showMap: boolean;
 }
 
 export default function Map({ setDifficult, setShowMap, showMap }: tipe) {
-
   return (
     <div>
       {showMap && (
@@ -35,6 +34,13 @@ export default function Map({ setDifficult, setShowMap, showMap }: tipe) {
             >
               <img className="mark" src="/map/mark.svg" alt="" />
               <img src="/map/lake.png" alt="" />
+            </div>
+            <div
+              onClick={() => (setDifficult(0), setShowMap(false))}
+              className="castle"
+            >
+              <img className="mark" src="/map/mark.svg" alt="" />
+              <img src="/map/castle.png" alt="" />
             </div>
           </div>
         </div>
