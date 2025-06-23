@@ -8,7 +8,6 @@ import SkillTree from "./SkillTree/SkillTree.tsx";
 
 interface tipe {
   difficult: number;
-  setDifficult: (num: number) => void;
 }
 
 interface Ability {
@@ -28,14 +27,16 @@ interface Character {
   name: string;
   hp: number;
   maxHp: number;
+  defaultDamage: number;
   description: string;
   difficult: number;
   skills: Ability[];
 }
 
-export default function Battle({ difficult, setDifficult }: tipe) {
+export default function Battle({ difficult }: tipe) {
   const [turn, setTurn] = useState<number>(0);
   const [round, setRound] = useState<number>(0);
+  const [defaultDifficult, setDefaultDifficult] = useState<number>(1);
 
   function getRandomInt(max: number) {
     return Math.floor(Math.random() * max);
@@ -44,6 +45,16 @@ export default function Battle({ difficult, setDifficult }: tipe) {
   function selectedAlly() {
     return allAlly[Number(ally[0]) - 5];
   }
+
+  //Difficult up
+
+  useEffect(() => {
+    if (round % 3 == 2) {
+      if (defaultDifficult !== 5) {
+        setDefaultDifficult(defaultDifficult + 1);
+      }
+    }
+  }, [round]);
 
   //level up
 
@@ -60,7 +71,10 @@ export default function Battle({ difficult, setDifficult }: tipe) {
 
   function levelUpAlly(chooseEnemy: Character) {
     selectedAlly().exp += chooseEnemy.exp;
-    while (selectedAlly().exp > selectedAlly().lv) {
+    while (
+      selectedAlly().exp >=
+      selectedAlly().lv * selectedAlly().lv - selectedAlly().lv + 1
+    ) {
       Object.values(AllAllyDB).forEach((allyArr) => {
         if (
           allyArr.name == selectedAlly().name &&
@@ -83,15 +97,13 @@ export default function Battle({ difficult, setDifficult }: tipe) {
             }
           }
           setNotLearnSkill(newArr);
-          // setNewSkill(allyArr.skills[selectedAlly().skills.length]);
-
-          // selectedAlly().skills[selectedAlly().skills.length] =
-          //   allyArr.skills[selectedAlly().skills.length];
         }
       });
-      selectedAlly().exp -= selectedAlly().lv;
+      selectedAlly().exp -=
+      selectedAlly().lv * selectedAlly().lv - selectedAlly().lv + 1;
       selectedAlly().lv += 1;
-      selectedAlly().maxHp += 2;
+      selectedAlly().maxHp += selectedAlly().lv;
+      selectedAlly().defaultDamage += 1;
       selectedAlly().hp = selectedAlly().maxHp;
       changeAbilityActive(Number(ability[0]));
     }
@@ -105,6 +117,7 @@ export default function Battle({ difficult, setDifficult }: tipe) {
     name: "none",
     hp: 20,
     maxHp: 20,
+    defaultDamage: 0,
     description: "",
     difficult: 0,
     skills: [
@@ -146,6 +159,7 @@ export default function Battle({ difficult, setDifficult }: tipe) {
     name: "none",
     hp: 1,
     maxHp: 1,
+    defaultDamage: 0,
     description: "",
     difficult: 0,
     skills: [
@@ -170,7 +184,8 @@ export default function Battle({ difficult, setDifficult }: tipe) {
     for (let i = 1; i < 5; i++) {
       const ArrAllEnemys = Object.values(AllEnemyDB);
       let enemyTrue = { ...ArrAllEnemys[getRandomInt(ArrAllEnemys.length)] };
-      while (enemyTrue.difficult != difficult) {
+      const difficultTrue = Math.round((difficult * defaultDifficult) / 2);
+      while (enemyTrue.difficult != difficultTrue) {
         enemyTrue = { ...ArrAllEnemys[getRandomInt(ArrAllEnemys.length)] };
       }
       const setEnemyTrue = eval("setEnemy" + i);
@@ -343,7 +358,8 @@ export default function Battle({ difficult, setDifficult }: tipe) {
             const skill = element.skills[Number(ability[0]) - 1];
             damage =
               getRandomInt(skill.max_damage - skill.min_damage + 1) +
-              skill.min_damage;
+              skill.min_damage +
+              element.defaultDamage;
             if (critView == true) {
               if (skill.crit) {
                 if (getRandomInt(100 / skill.crit) == 0) {
@@ -383,9 +399,6 @@ export default function Battle({ difficult, setDifficult }: tipe) {
       allEnemy[2].hp <= 0 &&
       allEnemy[3].hp <= 0
     ) {
-      if (difficult == 0) {
-        setDifficult(9);
-      }
       //and round
       levelUpAlly(chooseEnemy);
       addEnemy();
@@ -517,6 +530,11 @@ export default function Battle({ difficult, setDifficult }: tipe) {
           setNewSkill={setNewSkill}
         />
       )}
+      <img
+        className="backround_img"
+        src={"/map/" + difficult + ".png"}
+        alt=""
+      />
       <p className="turn">Раунд {turn}</p>
       <div className="sqare">
         <div className="ally">
@@ -582,6 +600,8 @@ export default function Battle({ difficult, setDifficult }: tipe) {
               "Урон "}
             {selectedAlly().skills[Number(ability[0]) - 1].min_damage}-
             {selectedAlly().skills[Number(ability[0]) - 1].max_damage}
+            {" + "}
+            {selectedAlly().defaultDamage}
           </p>
           <p className="crit">
             {critView && "Крит "}

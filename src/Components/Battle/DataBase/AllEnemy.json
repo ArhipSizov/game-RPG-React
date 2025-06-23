@@ -17,31 +17,31 @@
       }
     ]
   },
-  "StrongDummy": {
+  "Slime": {
     "id": "",
-    "exp": 0,
-    "name": "Опасный манекен",
-    "hp": 99,
-    "maxHp": 99,
-    "difficult": 9,
-    "description": "Похоже, им не понравилась ваша жестокость",
+    "exp": 2,
+    "name": "Слайм",
+    "hp": 9,
+    "maxHp": 9,
+    "difficult": 1,
+    "description": "Слайм, база",
     "skills": [
       {
         "id": "1",
-        "name": "Толчок",
-        "min_damage": 5,
-        "max_damage": 9,
-        "description": "На удивление, это намного больнее чем кажется",
-        "crit": 20
+        "name": "Блоб",
+        "min_damage": 1,
+        "max_damage": 3,
+        "description": "",
+        "crit": 60
       },
       {
         "id": "2",
-        "name": "Шитьё",
-        "min_damage": 2,
-        "max_damage": 5,
-        "description": "Он буквально может зашить себя!",
-        "crit": 50,
-        "health": true
+        "name": "Блюб",
+        "min_damage": 1,
+        "max_damage": 4,
+        "description": "",
+        "health": true,
+        "crit": 50
       }
     ]
   },
@@ -60,33 +60,6 @@
         "min_damage": 5,
         "max_damage": 7,
         "description": "Простой удар, не приятно"
-      }
-    ]
-  },
-  "GoblinDefence": {
-    "id": "",
-    "exp": 5,
-    "name": "Прочный гоблин",
-    "hp": 41,
-    "maxHp": 41,
-    "difficult": 3,
-    "description": "Простой гоблин с укреплённой кожей, будет посложнее обычного",
-    "skills": [
-      {
-        "id": "1",
-        "name": "Удар правой",
-        "min_damage": 4,
-        "max_damage": 7,
-        "description": "Простой удар, не приятно"
-      },
-      {
-        "id": "3",
-        "name": "Взгрустнуть",
-        "min_damage": 0,
-        "max_damage": 10,
-        "description": "Раньше было лучше...",
-        "crit": 10,
-        "health": true
       }
     ]
   },
@@ -115,31 +88,131 @@
       }
     ]
   },
-  "Slime": {
+  "GoblinDefence": {
     "id": "",
-    "exp": 2,
-    "name": "Слайм",
-    "hp": 9,
-    "maxHp": 9,
-    "difficult": 1,
-    "description": "Слайм, база",
+    "exp": 5,
+    "name": "Прочный гоблин",
+    "hp": 41,
+    "maxHp": 41,
+    "difficult": 3,
+    "description": "Простой гоблин с укреплённой кожей, будет посложнее обычного",
     "skills": [
       {
         "id": "1",
-        "name": "Блоб",
-        "min_damage": 1,
-        "max_damage": 3,
-        "description": "",
-        "crit": 60
+        "name": "Удар правой",
+        "min_damage": 4,
+        "max_damage": 7,
+        "description": "Простой удар, не приятно"
       },
       {
         "id": "2",
-        "name": "Блюб",
+        "name": "Взгрустнуть",
+        "min_damage": 0,
+        "max_damage": 10,
+        "description": "Раньше было лучше...",
+        "crit": 10,
+        "health": true
+      }
+    ]
+  },
+  "GoblinMega": {
+    "id": "",
+    "exp": 8,
+    "name": "Гоблин++",
+    "hp": 40,
+    "maxHp": 40,
+    "difficult": 4,
+    "description": "Непростой гоблин",
+    "skills": [
+      {
+        "id": "1",
+        "name": "Ударище",
+        "min_damage": 6,
+        "max_damage": 12,
+        "description": "Простой удар, больно"
+      }
+    ]
+  },
+  "GoblinOmega": {
+    "id": "",
+    "exp": 10,
+    "name": "Гоблин омега",
+    "hp": 60,
+    "maxHp": 60,
+    "difficult": 5,
+    "description": "Гоблин гигачад",
+    "skills": [
+      {
+        "id": "1",
+        "name": "Удар правой",
+        "min_damage": 10,
+        "max_damage": 12,
+        "description": "Сильный удар, не думаю что у вас много шансов...",
+        "crit": 20
+      },
+      {
+        "id": "2",
+        "name": "Отжатьсся",
         "min_damage": 1,
-        "max_damage": 4,
+        "max_damage": 11,
+        "description": "1, 2, 3, 4...",
+        "health": true
+      }
+    ]
+  },
+  "SlimeKing": {
+    "id": "",
+    "exp": 20,
+    "name": "Король слаймов",
+    "hp": 89,
+    "maxHp": 89,
+    "difficult": 6,
+    "description": "Отомстит за всех собратьев",
+    "skills": [
+      {
+        "id": "1",
+        "name": "Плюп",
+        "min_damage": 11,
+        "max_damage": 13,
         "description": "",
+        "crit": 30
+      },
+      {
+        "id": "2",
+        "name": "Блуб",
+        "min_damage": 11,
+        "max_damage": 14,
+        "description": "Блуб!!",
         "health": true,
-        "crit": 50
+        "crit": 25
+      }
+    ]
+  },
+  "StrongDummy": {
+    "id": "",
+    "exp": 30,
+    "name": "Опасный манекен",
+    "hp": 99,
+    "maxHp": 99,
+    "difficult": 8,
+    "description": "Похоже, им не понравилась ваша жестокость",
+    "skills": [
+      {
+        "id": "1",
+        "name": "Толчок",
+        "min_damage": 5,
+        "max_damage": 9,
+        "description": "На удивление, это намного больнее чем кажется",
+        "crit": 20
+      },
+      {
+        "id": "2",
+        "name": "Шитьё",
+        "min_damage": 2,
+        "max_damage": 5,
+        "description": "Он буквально может зашить себя!",
+        "crit": 50,
+        "health": true
       }
     ]
   }

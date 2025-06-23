@@ -72,7 +72,7 @@ export default function Description(item: ItemCharacter) {
           {item.difficult}
         </p>
         <p>
-          Опыт {item.exp}/{item.lv}
+          Опыт {item.exp}/{item.lv * item.lv - item.lv + 1}
         </p>
         <h2>Способности</h2>
         <div id="abilitys_description" className="abilitys_description"></div>

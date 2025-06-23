@@ -23,7 +23,7 @@ function App() {
         setShowMap={setShowMap}
       />
       <MainMenu difficult={difficult} setShowMap={setShowMap} />
-      <Battle difficult={difficult} setDifficult={setDifficult} />
+      <Battle difficult={difficult} />
     </div>
   );
 }

@@ -1,5 +1,8 @@
 .app {
   cursor: default;
+  background-color: slategray;
+  position: relative;
+  z-index: 0;
   .check_orientation {
     display: none;
   }
