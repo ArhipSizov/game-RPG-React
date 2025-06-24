@@ -6,6 +6,7 @@ import Description from "../Description/Description";
 interface Ability {
   id: string;
   name: string;
+  position: string[];
   min_damage: number;
   max_damage: number;
   description: string;

@@ -13,6 +13,7 @@ interface tipe {
 interface Ability {
   id: string;
   name: string;
+  position: string[];
   min_damage: number;
   max_damage: number;
   description: string;
@@ -100,7 +101,7 @@ export default function Battle({ difficult }: tipe) {
         }
       });
       selectedAlly().exp -=
-      selectedAlly().lv * selectedAlly().lv - selectedAlly().lv + 1;
+        selectedAlly().lv * selectedAlly().lv - selectedAlly().lv + 1;
       selectedAlly().lv += 1;
       selectedAlly().maxHp += selectedAlly().lv;
       selectedAlly().defaultDamage += 1;
@@ -124,6 +125,7 @@ export default function Battle({ difficult }: tipe) {
       {
         id: "1",
         name: "Firebol",
+        position: ["1"],
         min_damage: 1,
         max_damage: 1,
         description:
@@ -166,6 +168,7 @@ export default function Battle({ difficult }: tipe) {
       {
         id: "1",
         name: "nothin",
+        position: ["1"],
         min_damage: 1,
         max_damage: 1,
         description: "none",
@@ -239,14 +242,26 @@ export default function Battle({ difficult }: tipe) {
   ]);
   function changeEnemyActive(num: number) {
     const numString = num.toString();
-    const newArr = [numString, "persone", "persone", "persone", "persone"];
-    newArr[num] = "persone active_persone";
-    for (let i = 1; i < 5; i++) {
-      if (enemy[i] == "none_true") {
-        newArr[i] = "none_true";
+    selectedAlly().skills[Number(ability[0]) - 1].position.forEach(
+      (element) => {
+        if (element == numString) {
+          const newArr = [
+            numString,
+            "persone",
+            "persone",
+            "persone",
+            "persone",
+          ];
+          newArr[num] = "persone active_persone";
+          for (let i = 1; i < 5; i++) {
+            if (enemy[i] == "none_true") {
+              newArr[i] = "none_true";
+            }
+          }
+          setEnemy(newArr);
+        }
       }
-    }
-    setEnemy(newArr);
+    );
   }
 
   //Crit view
@@ -593,6 +608,15 @@ export default function Battle({ difficult }: tipe) {
           </p>
           <p className="description">
             {selectedAlly().skills[Number(ability[0]) - 1].description}
+          </p>
+          <p>
+            {selectedAlly().skills[Number(ability[0]) - 1].health ||
+              "Возможна атака на позициях - "}
+            {selectedAlly().skills[Number(ability[0]) - 1].position.map(
+              (item, index) => (
+                <b key={index}>{item}, </b>
+              )
+            )}
           </p>
           <p className="damage">
             {(selectedAlly().skills[Number(ability[0]) - 1].health &&

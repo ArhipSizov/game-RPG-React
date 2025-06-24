@@ -12,6 +12,7 @@
       {
         "id": "1",
         "name": "Огненный шар",
+        "position": ["1", "2", "3"],
         "min_damage": 4,
         "max_damage": 7,
         "description": "Невероятно оригинальный, крайне незаурядный, умопомрачительный шар огня",
@@ -40,6 +41,7 @@
       {
         "id": "1",
         "name": "Кусок земли",
+        "position": ["1", "2"],
         "min_damage": 4,
         "max_damage": 6,
         "description": "Скорее небольшой камень, чем просто кусок земли"
@@ -47,6 +49,7 @@
       {
         "id": "2",
         "name": "Удар",
+        "position": ["1"],
         "min_damage": 2,
         "max_damage": 10,
         "description": "Просто удар, почему бы и нет?",
@@ -55,9 +58,11 @@
       {
         "id": "3",
         "name": "Горящая ветка",
+        "position": ["1", "2", "3", "4"],
         "min_damage": 1,
-        "max_damage": 1,
-        "description": "Кто её поджёг?"
+        "max_damage": 2,
+        "description": "Кто её поджёг?",
+        "crit": 60
       },
       {
         "id": "4",
@@ -71,6 +76,7 @@
       {
         "id": "5",
         "name": "Удар2",
+        "position": ["1"],
         "min_damage": 3,
         "max_damage": 14,
         "description": "Просто удар, но чуть лучше"
@@ -90,6 +96,7 @@
       {
         "id": "1",
         "name": "Струя воды",
+        "position": ["1", "2", "3", "4"],
         "min_damage": 5,
         "max_damage": 5,
         "description": "Обмочи своих противников!"
@@ -98,6 +105,7 @@
         "id": "2",
         "name": "Удар",
         "min_damage": 2,
+        "position": ["1"],
         "max_damage": 3,
         "description": "Просто удар, почему бы и да?",
         "crit": 90
@@ -106,8 +114,18 @@
         "id": "3",
         "name": "Плач",
         "min_damage": 1,
+        "position": ["1", "2", "3"],
         "max_damage": 10,
         "description": "Ну поплач ;("
+      },
+      {
+        "id": "4",
+        "name": "Попить водички",
+        "min_damage": 2,
+        "max_damage": 4,
+        "description": "Очень удобненько",
+        "crit": 10,
+        "health": true
       }
     ]
   }

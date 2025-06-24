@@ -8,7 +8,7 @@
   z-index: 999;
   h1 {
     text-align: center;
-    color: white;
+    color: #e6e6e6;
     margin-top: 50px;
   }
   .skill_tree_block {
@@ -16,7 +16,15 @@
     justify-content: space-between;
     width: 60%;
     margin: 20px 20%;
-    background-color: white;
+    background-color: #e6e6e6;
+    border-radius: 12px;
+  }
+  .skill_tree_can_be_block {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    margin: 20px 20%;
+    background-color: rgba(82, 82, 82, 0.9);
     border-radius: 12px;
   }
 }

@@ -1,4 +1,4 @@
-import "./SkillOne.scss";
+import "./SkillOneCanBe.scss";
 
 interface Ability {
   id: string;
@@ -14,16 +14,12 @@ interface Ability {
 
 interface tipe {
   item: Ability;
-  setShowSkillTree: (boolean: boolean) => void;
-  setNewSkill: (Ability: Ability) => void;
-  setShowText: (boolean: boolean) => void;
 }
 
-export default function SkillOne({ item, setNewSkill, setShowSkillTree, setShowText }: tipe) {
+export default function SkillOneCanBe({ item }: tipe) {
   return (
     <div
-      onClick={() => (setNewSkill(item), setShowSkillTree(false), setShowText(false))}
-      className="skill_one"
+      className="skill_one_can_be"
     >
       <h2>{item.name}</h2>
       <p>{item.description}</p>

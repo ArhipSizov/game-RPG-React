@@ -4,6 +4,7 @@ import "./Description.scss";
 interface Ability {
   id: string;
   name: string;
+  position: string[];
   min_damage: number;
   max_damage: number;
   description: string;
@@ -36,11 +37,17 @@ export default function Description(item: ItemCharacter) {
       let newNameAbility;
       let newDescriptionAbility;
       let newDamageAbility;
+      let newPosition: HTMLParagraphElement;
       for (let i = 0; i < item.skills.length; i++) {
         newNameAbility = document.createElement("h3");
         newNameAbility.textContent = item.skills[i].name;
         newDescriptionAbility = document.createElement("p");
         newDescriptionAbility.textContent = item.skills[i].description;
+        newPosition = document.createElement("p");
+        newPosition.textContent = "Возможная позиция - " 
+        item.skills[i].position.forEach(element => {
+          newPosition.textContent += element + " "
+        });
         newDamageAbility = document.createElement("p");
         if (item.skills[i].health == true) {
           newDamageAbility.textContent = "Лечение - ";
@@ -56,6 +63,7 @@ export default function Description(item: ItemCharacter) {
         if (parentDiv) {
           parentDiv.appendChild(newNameAbility);
           parentDiv.appendChild(newDescriptionAbility);
+          parentDiv.appendChild(newPosition);
           parentDiv.appendChild(newDamageAbility);
         }
       }
