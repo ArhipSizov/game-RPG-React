@@ -1,6 +1,17 @@
 import { useEffect } from "react";
 import "./Description.scss";
 
+import EffectsDB from "../DataBase/Effects.json";
+
+interface Effects {
+  id: string;
+  img: string;
+  name: string;
+  type: string;
+  count: number;
+  countTime: number;
+}
+
 interface Ability {
   id: string;
   name: string;
@@ -8,6 +19,7 @@ interface Ability {
   min_damage: number;
   max_damage: number;
   description: string;
+  effect?: string[];
   crit?: number;
   health?: boolean;
 }
@@ -27,6 +39,7 @@ interface ItemCharacter {
   who: string;
   addAtackView: string[];
   skills: Ability[];
+  effect: Effects[];
 }
 export default function Description(item: ItemCharacter) {
   useEffect(() => {
@@ -38,16 +51,28 @@ export default function Description(item: ItemCharacter) {
       let newDescriptionAbility;
       let newDamageAbility;
       let newPosition: HTMLParagraphElement;
+      let newEffect: HTMLParagraphElement;
       for (let i = 0; i < item.skills.length; i++) {
         newNameAbility = document.createElement("h3");
         newNameAbility.textContent = item.skills[i].name;
         newDescriptionAbility = document.createElement("p");
         newDescriptionAbility.textContent = item.skills[i].description;
         newPosition = document.createElement("p");
-        newPosition.textContent = "Возможная позиция - " 
-        item.skills[i].position.forEach(element => {
-          newPosition.textContent += element + " "
-        });
+        newPosition.textContent = "Возможная позиция - ";
+        newEffect = document.createElement("p");
+        if (item.skills[i].position) {
+          item.skills[i].position.forEach((element) => {
+            newPosition.textContent += element + " ";
+          });
+        }
+        const effect = item.skills[i].effect;
+        if (effect) {
+          Object.values(EffectsDB).forEach((element) => {
+            if (element.id == effect[0]) {
+              newEffect.textContent =  element.name + ", урон - " + element.count + ", длительность - " + effect[1] + "-" + effect[2];
+            }
+          });
+        }
         newDamageAbility = document.createElement("p");
         if (item.skills[i].health == true) {
           newDamageAbility.textContent = "Лечение - ";
@@ -65,6 +90,7 @@ export default function Description(item: ItemCharacter) {
           parentDiv.appendChild(newDescriptionAbility);
           parentDiv.appendChild(newPosition);
           parentDiv.appendChild(newDamageAbility);
+          parentDiv.appendChild(newEffect);
         }
       }
     }
@@ -82,6 +108,18 @@ export default function Description(item: ItemCharacter) {
         <p>
           Опыт {item.exp}/{item.lv * item.lv - item.lv + 1}
         </p>
+        <div className="all_effects_description">
+          {item.effect.map((item) => (
+            <div>
+              <div>
+                <img src={item.img} alt="" />
+                <p>{item.name}</p>
+              </div>
+              <p>Длительность-{item.countTime}хода</p>
+              <p>Урон-{item.count}</p>
+            </div>
+          ))}
+        </div>
         <h2>Способности</h2>
         <div id="abilitys_description" className="abilitys_description"></div>
       </div>

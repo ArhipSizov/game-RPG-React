@@ -14,6 +14,18 @@
     background-color: black;
     transition: 0.1s;
     cursor: pointer;
+    .all_effects_persone{
+      position: absolute;
+      margin-top: 115px;
+      div{
+        display: flex;
+        justify-content: space-between;
+        width: 24px;
+        img{
+          width: 10px;
+        }
+      }
+    }
     .damage,
     .health {
       display: inline-block;

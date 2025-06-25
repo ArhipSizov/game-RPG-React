@@ -7,6 +7,23 @@
   padding: 20vh 20%;
   height: 100vh;
   z-index: 1000;
+  .all_effects_description {
+    div {
+      width: 24px;
+      img {
+        width: 10px;
+        height: 16px;
+      }
+      p{
+        display: inline-block;
+      }
+      div{
+        display: flex;
+        justify-content: space-between;
+        width: 60px;
+      }
+    }
+  }
   .description_block_in {
     width: 100%;
     height: 60vh;

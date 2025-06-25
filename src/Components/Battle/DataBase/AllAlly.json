@@ -8,6 +8,7 @@
     "maxHp": 20,
     "defaultDamage": 2,
     "description": "Маг огня, горяч",
+    "effect": [],
     "skills": [
       {
         "id": "1",
@@ -16,11 +17,13 @@
         "min_damage": 4,
         "max_damage": 7,
         "description": "Невероятно оригинальный, крайне незаурядный, умопомрачительный шар огня",
+        "effect": ["2", "3", "6"],
         "crit": 20
       },
       {
         "id": "2",
         "name": "Удивление",
+        "position": [],
         "min_damage": 1,
         "max_damage": 3,
         "description": "Думаете, вам не хватит огненного шара?",
@@ -37,6 +40,7 @@
     "maxHp": 20,
     "defaultDamage": -1,
     "description": "Земляной маг, на удивление, кидается камнями",
+    "effect": [],
     "skills": [
       {
         "id": "1",
@@ -67,6 +71,7 @@
       {
         "id": "4",
         "name": "Поговорить с камнями",
+        "position": [],
         "min_damage": 0,
         "max_damage": 6,
         "description": "Они не отвечают, но можно попробовать снова...",
@@ -92,6 +97,7 @@
     "maxHp": 20,
     "defaultDamage": 0,
     "description": "Маг воды, поможет освежится",
+    "effect": [],
     "skills": [
       {
         "id": "1",
@@ -104,8 +110,8 @@
       {
         "id": "2",
         "name": "Удар",
-        "min_damage": 2,
         "position": ["1"],
+        "min_damage": 2,
         "max_damage": 3,
         "description": "Просто удар, почему бы и да?",
         "crit": 90
@@ -113,14 +119,15 @@
       {
         "id": "3",
         "name": "Плач",
-        "min_damage": 1,
         "position": ["1", "2", "3"],
+        "min_damage": 1,
         "max_damage": 10,
         "description": "Ну поплач ;("
       },
       {
         "id": "4",
         "name": "Попить водички",
+        "position": [],
         "min_damage": 2,
         "max_damage": 4,
         "description": "Очень удобненько",

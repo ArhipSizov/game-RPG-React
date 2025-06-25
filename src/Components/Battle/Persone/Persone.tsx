@@ -3,6 +3,15 @@ import { useEffect, useState } from "react";
 
 import Description from "../Description/Description";
 
+interface Effects {
+  id: string;
+  img: string;
+  name: string;
+  type: string;
+  count: number;
+  countTime: number;
+}
+
 interface Ability {
   id: string;
   name: string;
@@ -10,6 +19,7 @@ interface Ability {
   min_damage: number;
   max_damage: number;
   description: string;
+  effect?: string[];
   crit?: number;
   health?: boolean;
 }
@@ -31,6 +41,7 @@ interface ItemCharacter {
   addHealthView: string[];
   round: number;
   skills: Ability[];
+  effect: Effects[];
 }
 
 export default function Persone(item: ItemCharacter) {
@@ -103,6 +114,7 @@ export default function Persone(item: ItemCharacter) {
       setIsDescriptionOpen(true);
     }
   };
+
   return (
     <div className={item.persone[Number(item.id)]}>
       <img
@@ -111,6 +123,14 @@ export default function Persone(item: ItemCharacter) {
         src="/battle/question.svg"
         alt=""
       />
+      <div className="all_effects_persone">
+        {item.effect.map((item) => (
+          <div>
+            <img src={item.img} alt="" />
+            <p>{item.countTime}</p>
+          </div>
+        ))}
+      </div>
       <div
         onClick={() => {
           item.changeEnemyActive(Number(item.id));

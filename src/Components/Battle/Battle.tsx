@@ -3,11 +3,21 @@ import { useEffect, useState } from "react";
 
 import AllEnemyDB from "./DataBase/AllEnemy.json";
 import AllAllyDB from "./DataBase/AllAlly.json";
+import EffectsDB from "./DataBase/Effects.json";
 import Persone from "./Persone/Persone.tsx";
 import SkillTree from "./SkillTree/SkillTree.tsx";
 
 interface tipe {
   difficult: number;
+}
+
+interface Effects {
+  id: string;
+  img: string;
+  name: string;
+  type: string;
+  count: number;
+  countTime: number;
 }
 
 interface Ability {
@@ -17,6 +27,7 @@ interface Ability {
   min_damage: number;
   max_damage: number;
   description: string;
+  effect?: string[];
   crit?: number;
   health?: boolean;
 }
@@ -32,6 +43,7 @@ interface Character {
   description: string;
   difficult: number;
   skills: Ability[];
+  effect: Effects[];
 }
 
 export default function Battle({ difficult }: tipe) {
@@ -121,6 +133,7 @@ export default function Battle({ difficult }: tipe) {
     defaultDamage: 0,
     description: "",
     difficult: 0,
+    effect: [],
     skills: [
       {
         id: "1",
@@ -164,6 +177,7 @@ export default function Battle({ difficult }: tipe) {
     defaultDamage: 0,
     description: "",
     difficult: 0,
+    effect: [],
     skills: [
       {
         id: "1",
@@ -244,7 +258,7 @@ export default function Battle({ difficult }: tipe) {
     const numString = num.toString();
     selectedAlly().skills[Number(ability[0]) - 1].position.forEach(
       (element) => {
-        if (element == numString) {
+        if (element == numString || enemy[Number(element)] == "none_true") {
           const newArr = [
             numString,
             "persone",
@@ -355,7 +369,7 @@ export default function Battle({ difficult }: tipe) {
 
   function atack() {
     setTurn(turn + 1);
-    let chooseEnemy;
+    let chooseEnemy!: Character;
     let damage;
 
     for (let i = 1; i < 5; i++) {
@@ -366,18 +380,19 @@ export default function Battle({ difficult }: tipe) {
       }
     }
 
+    let skillAlly!: Ability;
     allAlly.forEach((element) => {
       if (ally[0] == element.id) {
         element.skills.forEach((elem) => {
           if (ability[0] == elem.id) {
-            const skill = element.skills[Number(ability[0]) - 1];
+            skillAlly = element.skills[Number(ability[0]) - 1];
             damage =
-              getRandomInt(skill.max_damage - skill.min_damage + 1) +
-              skill.min_damage +
+              getRandomInt(skillAlly.max_damage - skillAlly.min_damage + 1) +
+              skillAlly.min_damage +
               element.defaultDamage;
             if (critView == true) {
-              if (skill.crit) {
-                if (getRandomInt(100 / skill.crit) == 0) {
+              if (skillAlly.crit) {
+                if (getRandomInt(100 / skillAlly.crit) == 0) {
                   damage = Math.round(damage * 1.5);
                   if (elem.health === true) {
                     addHealthViewAlly[2] = "true";
@@ -406,6 +421,76 @@ export default function Battle({ difficult }: tipe) {
       damage = 0;
     }
     chooseEnemy.hp -= damage;
+
+    //effects and enemy
+    allEnemy.forEach((element) => {
+      if (element.effect) {
+        if (element.effect[0]) {
+          element.effect.forEach((effect) => {
+            if (effect.type == "damage") {
+              element.hp -= effect.count;
+              effect.countTime -= 1;
+              if (effect.countTime <= 0) {
+                const filteredArr = element.effect.filter(function (eff) {
+                  return eff !== effect;
+                });
+                element.effect = filteredArr;
+              }
+              if (element.hp <= 0) {
+                const newArr = [
+                  enemy[0],
+                  "persone",
+                  "persone",
+                  "persone",
+                  "persone",
+                ];
+                newArr[Number(element.id)] = "none_true";
+                for (let i = 1; i < 5; i++) {
+                  if (enemy[i] == "none_true") {
+                    newArr[i] = "none_true";
+                  }
+                }
+                setEnemy(newArr);
+              }
+            }
+          });
+        }
+      }
+    });
+
+    if (skillAlly) {
+      if (skillAlly.effect) {
+        if (skillAlly.effect[0] != undefined) {
+          Object.values(EffectsDB).forEach(({ ...element }) => {
+            if (skillAlly.effect) {
+              if (element.id == skillAlly.effect[0]) {
+                let newArr: Effects[] = [...chooseEnemy.effect] as Effects[];
+                if (chooseEnemy.effect?.length !== 0) {
+                  newArr.push(element);
+                  newArr[newArr.length - 1].countTime +=
+                    getRandomInt(
+                      Number(skillAlly.effect[2]) -
+                        Number(skillAlly.effect[1]) +
+                        1
+                    ) + Number(skillAlly.effect[1]);
+                } else {
+                  newArr = [];
+                  newArr[0] = element;
+                  newArr[0].countTime +=
+                    getRandomInt(
+                      Number(skillAlly.effect[2]) -
+                        Number(skillAlly.effect[1]) +
+                        1
+                    ) + Number(skillAlly.effect[1]);
+                }
+                chooseEnemy.effect = newArr;
+              }
+            }
+          });
+        }
+      }
+    }
+
     addAtackViewEnemy[1] = damage.toString();
 
     if (
@@ -473,6 +558,7 @@ export default function Battle({ difficult }: tipe) {
       addAtackViewAlly[1] = damage;
 
       if (chooseEnemy.hp <= 0) {
+        chooseEnemy.effect = [];
         levelUpAlly(chooseEnemy);
         let randomEnemyNumNewChoise = getRandomInt(4);
         while (allEnemy[randomEnemyNumNewChoise].hp <= 0) {
@@ -486,7 +572,7 @@ export default function Battle({ difficult }: tipe) {
           "persone",
           "persone",
         ];
-        newArr[chooseEnemy.id] = "none_true";
+        newArr[Number(chooseEnemy.id)] = "none_true";
         for (let i = 1; i < 5; i++) {
           if (enemy[i] == "none_true") {
             newArr[i] = "none_true";

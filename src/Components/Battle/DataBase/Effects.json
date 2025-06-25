@@ -1,17 +1,26 @@
 {
     "blood":{
+        "id":"1",
+        "img":"/battle/effects/blood.png",
         "name": "Кровотечение",
         "type": "damage",
-        "count": 1
+        "count": 1,
+        "countTime": 0
     },
     "fire":{
+        "id":"2",
+        "img":"/battle/effects/fire.png",
         "name": "Огонь",
         "type": "damage",
-        "count": 2
+        "count": 2,
+        "countTime": 0
     },
     "health":{
+        "id":"3",
+        "img":"/battle/effects/health.png",
         "name": "Исцеление",
-        "type": "health",
-        "count": 1
+        "type": "damage",
+        "count": -1,
+        "countTime": 0
     }
 }
