@@ -78,16 +78,16 @@
       margin-top: 2px;
     }
   }
-  .persone:hover {
-    .choose {
-      display: block;
-      border-color: rgb(85, 85, 85);
-    }
-  }
   .active_persone {
     .choose {
       display: block;
       border-color: rgb(82, 0, 0) !important;
+    }
+  }
+  .can_be_active_persone {
+    .choose {
+      display: block;
+      border-color: rgb(85, 85, 85);
     }
   }
   .lv {

@@ -8,16 +8,21 @@
   height: 100vh;
   z-index: 1000;
   .all_effects_description {
+    position: absolute;
+    top: 20vh;
+    right: 20%;
+    width: 300px;
     div {
       width: 24px;
       img {
         width: 10px;
         height: 16px;
       }
-      p{
+      p {
         display: inline-block;
+        width: 300px;
       }
-      div{
+      div {
         display: flex;
         justify-content: space-between;
         width: 60px;
@@ -39,6 +44,15 @@
   }
   @media (max-width: 800px) {
     padding: 10vh 10%;
+    .all_effects_description {
+      top: 10vh;
+      right: 10%;
+      width: 200px;
+      p {
+        display: inline-block;
+        width: 200px;
+      }
+    }
     .description_block_in {
       height: 80vh;
       .abilitys_description {

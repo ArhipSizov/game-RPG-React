@@ -56,12 +56,16 @@ export default function Persone(item: ItemCharacter) {
   }
 
   useEffect(() => {
-    //hp bar
-    if (item.id !== "0") {
-      const idEnemy = document.getElementById(item.id);
-      if (idEnemy) {
-        idEnemy.style.width = "100%";
-      }
+    //hp bar update
+    if (!personeAlly) {
+      setTimeout(() => {
+        if (item.id !== "0") {
+          const idEnemy = document.getElementById(item.id);
+          if (idEnemy) {
+            idEnemy.style.width = "100%";
+          }
+        }
+      }, 10);
     }
   }, [item.round]);
 
