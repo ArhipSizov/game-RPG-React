@@ -60,7 +60,7 @@
       {
         "id": "1",
         "name": "Удар",
-        "min_damage": 5,
+        "min_damage": 4,
         "max_damage": 7,
         "description": "Простой удар, не приятно"
       }
@@ -80,15 +80,8 @@
         "id": "1",
         "name": "Сильный удар",
         "min_damage": 6,
-        "max_damage": 10,
+        "max_damage": 9,
         "description": "Сильный удар, больно"
-      },
-      {
-        "id": "2",
-        "name": "Насмешка",
-        "min_damage": 0,
-        "max_damage": 6,
-        "description": "Очень обидно ;("
       }
     ]
   },
