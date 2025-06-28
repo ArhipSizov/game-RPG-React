@@ -255,35 +255,43 @@ export default function Battle({ difficult }: tipe) {
     "persone",
     "persone",
   ]);
+
   function changeEnemyActive(num: number) {
     function trueElems(element: string) {
       let elemNum = Number(element);
-      while (enemy[elemNum + defaultAdd] == "none_true") {
-        defaultAdd += 1;
-      }
       elemNum += defaultAdd;
-      if (elemNum > 4) {
-        elemNum = 4;
-      }
       return elemNum.toString();
     }
     function changeEnemyActiveMainFunc(number: string) {
       const newArr = [number, "persone", "persone", "persone", "persone"];
-      const defaultAddSave = defaultAdd;
       defaultAdd = 0;
       for (let i = 1; i < 5; i++) {
-        selectedAlly().skills[Number(ability[0]) - 1].position.forEach(
-          (allElements) => {
-            allElements = trueElems(allElements);
-            if (Number(allElements) == i) {
-              if (selectedAlly().skills[Number(ability[0]) - 1].mass) {
-                newArr[i] = "persone active_persone";
-              } else {
-                newArr[i] = "persone can_be_active_persone";
-              }
-            }
+        let allElements;
+        while (enemy[i + defaultAdd] == "none_true") {
+          defaultAdd += 1;
+        }
+
+        if (
+          selectedAlly().skills[Number(ability[0]) - 1].position[
+            i - 1 - howRange
+          ]
+        ) {
+          allElements = trueElems(
+            selectedAlly().skills[Number(ability[0]) - 1].position[
+              i - 1 - howRange
+            ]
+          );
+        }
+        if (Number(allElements) > 4) {
+          allElements = "4";
+        }
+        if (Number(allElements)) {
+          if (selectedAlly().skills[Number(ability[0]) - 1].mass) {
+            newArr[Number(allElements)] = "persone active_persone";
+          } else {
+            newArr[Number(allElements)] = "persone can_be_active_persone";
           }
-        );
+        }
         if (enemy[i] == "none_true") {
           if (Number(number) == i) {
             let numNumber = Number(number);
@@ -294,24 +302,37 @@ export default function Battle({ difficult }: tipe) {
           newArr[i] = "none_true";
         }
       }
+
       newArr[Number(number)] = "persone active_persone";
       setEnemy(newArr);
-      defaultAdd = defaultAddSave;
     }
+
     const numString = num.toString();
     let defaultAdd = 0;
     let lastElement = "1";
     let doFunc = false;
-    selectedAlly().skills[Number(ability[0]) - 1].position.forEach(
-      (element) => {
-        element = trueElems(element);
-        lastElement = element;
-        if (element == numString) {
-          doFunc = true;
-          changeEnemyActiveMainFunc(numString);
-        }
+    let howRange = 0;
+    while (
+      Number(selectedAlly().skills[Number(ability[0]) - 1].position[0]) -
+        howRange !=
+      1
+    ) {
+      howRange += 1;
+    }
+    for (let i = 1; i < 5; i++) {
+      while (enemy[i + defaultAdd] == "none_true") {
+        defaultAdd += 1;
       }
-    );
+      const allElements = trueElems(
+        selectedAlly().skills[Number(ability[0]) - 1].position[i - 1]
+      );
+      lastElement = allElements;
+
+      if (allElements == numString) {
+        doFunc = true;
+        changeEnemyActiveMainFunc(allElements);
+      }
+    }
     if (doFunc == false) {
       changeEnemyActiveMainFunc(lastElement);
     }
@@ -403,7 +424,7 @@ export default function Battle({ difficult }: tipe) {
 
   useEffect(() => {
     changeEnemyActive(Number(enemy[0]));
-  }, [ally, enemy[0]]);
+  }, [ally, enemy[0], ability[0]]);
 
   //atack
 
@@ -421,7 +442,7 @@ export default function Battle({ difficult }: tipe) {
         }
       }
       setEnemy(newArrEnemy);
-      levelUpAlly(chooseEnemy);
+      levelUpAlly(enemyChoose);
     }
     setTurn(turn + 1);
     let chooseEnemy!: Character;
@@ -483,12 +504,31 @@ export default function Battle({ difficult }: tipe) {
       damage = 0;
     }
     if (skillAlly.mass) {
-      skillAlly.position.forEach((element) => {
-        allEnemy[Number(element) - 1].hp -= damage;
-        if (allEnemy[Number(element) - 1].hp <= 0) {
-          killEnemy(allEnemy[Number(element) - 1]);
+      let defaultAdd = 0;
+      let howRange = 0;
+      while (
+        Number(selectedAlly().skills[Number(ability[0]) - 1].position[0]) -
+          howRange !=
+        1
+      ) {
+        howRange += 1;
+      }
+      for (let i = 1; i < 5; i++) {
+        while (enemy[i + defaultAdd] == "none_true") {
+          defaultAdd += 1;
         }
-      });
+        if (allEnemy[Number(skillAlly.position[i - 1 - howRange]) - 1 + defaultAdd]) {
+          allEnemy[Number(skillAlly.position[i - 1 - howRange]) - 1 + defaultAdd].hp -=
+            damage;
+          if (
+            allEnemy[Number(skillAlly.position[i - 1 - howRange]) - 1 + defaultAdd].hp <= 0
+          ) {
+            killEnemy(
+              allEnemy[Number(skillAlly.position[i - 1 - howRange]) - 1 + defaultAdd]
+            );
+          }
+        }
+      }
     } else {
       chooseEnemy.hp -= damage;
     }
