@@ -108,7 +108,7 @@
         "name": "Струя воды",
         "position": ["2", "3", "4"],
         "mass": true,
-        "min_damage": 5,
+        "min_damage": 2,
         "max_damage": 6,
         "description": "Обмочи своих противников!"
       },

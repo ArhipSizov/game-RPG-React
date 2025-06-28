@@ -89,7 +89,7 @@ export default function SkillTree({
         ))}
       </div>
       {showText && (
-        <h1>Возможные способности персонажа для изучения в будущем</h1>
+        <h1 className="skill_tree_can_be_h1">Возможные способности персонажа для изучения в будущем</h1>
       )}
       <div className="skill_tree_can_be_block">
         {skillCanBe.map((item) => (

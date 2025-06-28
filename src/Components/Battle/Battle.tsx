@@ -7,6 +7,8 @@ import EffectsDB from "./DataBase/Effects.json";
 import Persone from "./Persone/Persone.tsx";
 import SkillTree from "./SkillTree/SkillTree.tsx";
 
+import getRandomInt from "../../Utils/Random.ts";
+
 interface tipe {
   difficult: number;
 }
@@ -52,9 +54,6 @@ export default function Battle({ difficult }: tipe) {
   const [round, setRound] = useState<number>(0);
   const [defaultDifficult, setDefaultDifficult] = useState<number>(1);
 
-  function getRandomInt(max: number) {
-    return Math.floor(Math.random() * max);
-  }
 
   function selectedAlly() {
     return allAlly[Number(ally[0]) - 5];
@@ -434,7 +433,7 @@ export default function Battle({ difficult }: tipe) {
   const [addHealthViewAlly] = useState<string[]>(["0", "0", "false"]);
 
   function atack() {
-    function killEnemy(enemyChoose: Character) {
+    function killEnemy(enemyChoose: Character, isEffect?: boolean) {
       newArrEnemy[Number(enemyChoose.id)] = "none_true";
       for (let i = 1; i < 5; i++) {
         if (enemy[i] == "none_true") {
@@ -442,9 +441,10 @@ export default function Battle({ difficult }: tipe) {
         }
       }
       setEnemy(newArrEnemy);
-      levelUpAlly(enemyChoose);
+      if (!isEffect) {
+        levelUpAlly(enemyChoose);
+      }
     }
-    setTurn(turn + 1);
     let chooseEnemy!: Character;
     let damage: number = 0;
     const newArrEnemy = [
@@ -503,8 +503,9 @@ export default function Battle({ difficult }: tipe) {
     if (!damage) {
       damage = 0;
     }
+
+    let defaultAdd = 0;
     if (skillAlly.mass) {
-      let defaultAdd = 0;
       let howRange = 0;
       while (
         Number(selectedAlly().skills[Number(ability[0]) - 1].position[0]) -
@@ -514,17 +515,31 @@ export default function Battle({ difficult }: tipe) {
         howRange += 1;
       }
       for (let i = 1; i < 5; i++) {
+        damage =
+          getRandomInt(skillAlly.max_damage - skillAlly.min_damage + 1) +
+          skillAlly.min_damage +
+          selectedAlly().defaultDamage;
         while (enemy[i + defaultAdd] == "none_true") {
           defaultAdd += 1;
         }
-        if (allEnemy[Number(skillAlly.position[i - 1 - howRange]) - 1 + defaultAdd]) {
-          allEnemy[Number(skillAlly.position[i - 1 - howRange]) - 1 + defaultAdd].hp -=
-            damage;
+
+        if (
+          allEnemy[
+            Number(skillAlly.position[i - 1 - howRange]) - 1 + defaultAdd
+          ]
+        ) {
+          allEnemy[
+            Number(skillAlly.position[i - 1 - howRange]) - 1 + defaultAdd
+          ].hp -= damage;
           if (
-            allEnemy[Number(skillAlly.position[i - 1 - howRange]) - 1 + defaultAdd].hp <= 0
+            allEnemy[
+              Number(skillAlly.position[i - 1 - howRange]) - 1 + defaultAdd
+            ].hp <= 0
           ) {
             killEnemy(
-              allEnemy[Number(skillAlly.position[i - 1 - howRange]) - 1 + defaultAdd]
+              allEnemy[
+                Number(skillAlly.position[i - 1 - howRange]) - 1 + defaultAdd
+              ]
             );
           }
         }
@@ -548,7 +563,7 @@ export default function Battle({ difficult }: tipe) {
                 element.effect = filteredArr;
               }
               if (element.hp <= 0) {
-                killEnemy(element);
+                killEnemy(element, true);
               }
             }
           });
@@ -589,7 +604,12 @@ export default function Battle({ difficult }: tipe) {
           if (element.id == skillAlly.effect[0]) {
             if (skillAlly.mass) {
               skillAlly.position.forEach((elementPosition) => {
-                addEffect(element, allEnemy[Number(elementPosition) - 1]);
+                if (allEnemy[Number(elementPosition) - 1 + defaultAdd]) {
+                  addEffect(
+                    element,
+                    allEnemy[Number(elementPosition) - 1 + defaultAdd]
+                  );
+                }
               });
             } else {
               addEffect(element, chooseEnemy);
@@ -601,6 +621,7 @@ export default function Battle({ difficult }: tipe) {
 
     addAtackViewEnemy[1] = damage.toString();
 
+    setTurn(turn + 1);
     if (
       allEnemy[0].hp <= 0 &&
       allEnemy[1].hp <= 0 &&
@@ -665,16 +686,17 @@ export default function Battle({ difficult }: tipe) {
       addAtackViewAlly[0] = randAlly.id;
       addAtackViewAlly[1] = damage;
 
-      if (chooseEnemy.hp <= 0) {
-        chooseEnemy.effect = [];
-        levelUpAlly(chooseEnemy);
-        let randomEnemyNumNewChoise = getRandomInt(4);
-        while (allEnemy[randomEnemyNumNewChoise].hp <= 0) {
-          randomEnemyNumNewChoise = getRandomInt(4);
+      if (chooseEnemy) {
+        if (chooseEnemy.hp <= 0) {
+          chooseEnemy.effect = [];
+          let randomEnemyNumNewChoise = getRandomInt(4);
+          while (allEnemy[randomEnemyNumNewChoise].hp <= 0) {
+            randomEnemyNumNewChoise = getRandomInt(4);
+          }
+          randomEnemyNumNewChoise += 1;
+          killEnemy(chooseEnemy);
+          newArrEnemy[0] = randomEnemyNumNewChoise.toString();
         }
-        randomEnemyNumNewChoise += 1;
-        killEnemy(chooseEnemy);
-        newArrEnemy[0] = randomEnemyNumNewChoise.toString();
       }
       if (randAlly.hp <= 0) {
         if (
