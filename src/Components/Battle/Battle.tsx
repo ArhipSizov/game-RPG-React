@@ -46,14 +46,13 @@ interface Character {
   description: string;
   difficult: number;
   skills: Ability[];
-  effect: Effects[];
+  effect?: Effects[];
 }
 
 export default function Battle({ difficult }: tipe) {
   const [turn, setTurn] = useState<number>(0);
   const [round, setRound] = useState<number>(0);
   const [defaultDifficult, setDefaultDifficult] = useState<number>(1);
-
 
   function selectedAlly() {
     return allAlly[Number(ally[0]) - 5];
@@ -139,6 +138,7 @@ export default function Battle({ difficult }: tipe) {
         id: "1",
         name: "Firebol",
         position: ["1"],
+        effect: ["1"],
         min_damage: 1,
         max_damage: 1,
         description:
@@ -256,84 +256,133 @@ export default function Battle({ difficult }: tipe) {
   ]);
 
   function changeEnemyActive(num: number) {
-    function trueElems(element: string) {
-      let elemNum = Number(element);
-      elemNum += defaultAdd;
-      return elemNum.toString();
-    }
-    function changeEnemyActiveMainFunc(number: string) {
-      const newArr = [number, "persone", "persone", "persone", "persone"];
-      defaultAdd = 0;
-      for (let i = 1; i < 5; i++) {
-        let allElements;
-        while (enemy[i + defaultAdd] == "none_true") {
-          defaultAdd += 1;
-        }
+    if (!selectedAlly().skills[Number(ability[0]) - 1].health) {
+      function trueElems(element: string) {
+        let elemNum = Number(element);
+        elemNum += defaultAdd;
+        return elemNum.toString();
+      }
+      function changeEnemyActiveMainFunc(number: string) {
+        const newArr = [number, "persone", "persone", "persone", "persone"];
+        defaultAdd = 0;
+        for (let i = 1; i < 5; i++) {
+          let allElements;
+          while (enemy[i + defaultAdd] == "none_true") {
+            defaultAdd += 1;
+          }
 
-        if (
-          selectedAlly().skills[Number(ability[0]) - 1].position[
-            i - 1 - howRange
-          ]
-        ) {
-          allElements = trueElems(
+          if (
             selectedAlly().skills[Number(ability[0]) - 1].position[
               i - 1 - howRange
             ]
-          );
-        }
-        if (Number(allElements) > 4) {
-          allElements = "4";
-        }
-        if (Number(allElements)) {
-          if (selectedAlly().skills[Number(ability[0]) - 1].mass) {
-            newArr[Number(allElements)] = "persone active_persone";
-          } else {
-            newArr[Number(allElements)] = "persone can_be_active_persone";
+          ) {
+            allElements = trueElems(
+              selectedAlly().skills[Number(ability[0]) - 1].position[
+                i - 1 - howRange
+              ]
+            );
+          }
+          if (Number(allElements) > 4) {
+            allElements = "4";
+          }
+          if (Number(allElements)) {
+            if (selectedAlly().skills[Number(ability[0]) - 1].mass) {
+              newArr[Number(allElements)] = "persone active_persone";
+            } else {
+              newArr[Number(allElements)] = "persone can_be_active_persone";
+            }
+          }
+          if (enemy[i] == "none_true") {
+            if (Number(number) == i) {
+              let numNumber = Number(number);
+              numNumber += 1;
+              number = numNumber.toString();
+              newArr[0] = number;
+            }
+            newArr[i] = "none_true";
           }
         }
+
+        newArr[Number(number)] = "persone active_persone";
+        setEnemy(newArr);
+      }
+
+      const numString = num.toString();
+      let defaultAdd = 0;
+      let lastElement = "1";
+      let doFunc = false;
+      let howRange = 0;
+      while (
+        Number(selectedAlly().skills[Number(ability[0]) - 1].position[0]) -
+          howRange !=
+        1
+      ) {
+        howRange += 1;
+      }
+      for (let i = 1; i < 5; i++) {
+        while (enemy[i + defaultAdd] == "none_true") {
+          defaultAdd += 1;
+        }
+        const allElements = trueElems(
+          selectedAlly().skills[Number(ability[0]) - 1].position[i - 1]
+        );
+        lastElement = allElements;
+
+        if (allElements == numString) {
+          doFunc = true;
+          changeEnemyActiveMainFunc(allElements);
+        }
+      }
+      if (doFunc == false) {
+        changeEnemyActiveMainFunc(lastElement);
+      }
+
+      const newArrAlly = [
+        ally[0],
+        "",
+        "",
+        "",
+        "",
+        "persone",
+        "persone",
+        "persone",
+        "persone",
+      ];
+      newArrAlly[Number(ally[0])] = "persone active_persone";
+      for (let i = 5; i < 9; i++) {
+        if (ally[i] == "none_true") {
+          newArrAlly[i] = "none_true";
+        }
+      }
+      setAlly(newArrAlly);
+    } else {
+      const newArrEnemy = ["0", "persone", "persone", "persone", "persone"];
+      for (let i = 1; i < 5; i++) {
         if (enemy[i] == "none_true") {
-          if (Number(number) == i) {
-            let numNumber = Number(number);
-            numNumber += 1;
-            number = numNumber.toString();
-            newArr[0] = number;
-          }
-          newArr[i] = "none_true";
+          newArrEnemy[i] = "none_true";
         }
       }
-
-      newArr[Number(number)] = "persone active_persone";
-      setEnemy(newArr);
-    }
-
-    const numString = num.toString();
-    let defaultAdd = 0;
-    let lastElement = "1";
-    let doFunc = false;
-    let howRange = 0;
-    while (
-      Number(selectedAlly().skills[Number(ability[0]) - 1].position[0]) -
-        howRange !=
-      1
-    ) {
-      howRange += 1;
-    }
-    for (let i = 1; i < 5; i++) {
-      while (enemy[i + defaultAdd] == "none_true") {
-        defaultAdd += 1;
+      setEnemy(newArrEnemy);
+      if (selectedAlly().skills[Number(ability[0]) - 1].mass) {
+        const newArrAlly = [
+          ally[0],
+          "",
+          "",
+          "",
+          "",
+          "persone persone_health",
+          "persone persone_health",
+          "persone persone_health",
+          "persone persone_health",
+        ];
+        newArrAlly[Number(ally[0])] = "persone active_persone";
+        for (let i = 5; i < 9; i++) {
+          if (ally[i] == "none_true") {
+            newArrAlly[i] = "none_true";
+          }
+        }
+        setAlly(newArrAlly);
       }
-      const allElements = trueElems(
-        selectedAlly().skills[Number(ability[0]) - 1].position[i - 1]
-      );
-      lastElement = allElements;
-
-      if (allElements == numString) {
-        doFunc = true;
-        changeEnemyActiveMainFunc(allElements);
-      }
-    }
-    if (doFunc == false) {
-      changeEnemyActiveMainFunc(lastElement);
     }
   }
 
@@ -423,7 +472,7 @@ export default function Battle({ difficult }: tipe) {
 
   useEffect(() => {
     changeEnemyActive(Number(enemy[0]));
-  }, [ally, enemy[0], ability[0]]);
+  }, [ally[0], enemy[0], ability[0]]);
 
   //atack
 
@@ -434,6 +483,7 @@ export default function Battle({ difficult }: tipe) {
 
   function atack() {
     function killEnemy(enemyChoose: Character, isEffect?: boolean) {
+      enemyChoose.effect = undefined;
       newArrEnemy[Number(enemyChoose.id)] = "none_true";
       for (let i = 1; i < 5; i++) {
         if (enemy[i] == "none_true") {
@@ -487,13 +537,28 @@ export default function Battle({ difficult }: tipe) {
             }
 
             if (elem.health === true) {
-              element.hp += damage;
-              addHealthViewAlly[0] = element.id;
-              addHealthViewAlly[1] = damage.toString();
-              damage = 0;
-              if (element.hp > element.maxHp) {
-                element.hp = element.maxHp;
+              if (elem.mass === true) {
+                for (let i = 0; i < 4; i++) {
+                  damage =
+                    getRandomInt(
+                      skillAlly.max_damage - skillAlly.min_damage + 1
+                    ) +
+                    skillAlly.min_damage +
+                    selectedAlly().defaultDamage;
+                  allAlly[i].hp += damage;
+                  if (allAlly[i].hp > allAlly[i].maxHp) {
+                    allAlly[i].hp = allAlly[i].maxHp;
+                  }
+                }
+              } else {
+                element.hp += damage;
+                addHealthViewAlly[0] = element.id;
+                addHealthViewAlly[1] = damage.toString();
+                if (element.hp > element.maxHp) {
+                  element.hp = element.maxHp;
+                }
               }
+              damage = 0;
             }
           }
         });
@@ -515,10 +580,12 @@ export default function Battle({ difficult }: tipe) {
         howRange += 1;
       }
       for (let i = 1; i < 5; i++) {
-        damage =
-          getRandomInt(skillAlly.max_damage - skillAlly.min_damage + 1) +
-          skillAlly.min_damage +
-          selectedAlly().defaultDamage;
+        if (!skillAlly.health) {
+          damage =
+            getRandomInt(skillAlly.max_damage - skillAlly.min_damage + 1) +
+            skillAlly.min_damage +
+            selectedAlly().defaultDamage;
+        }
         while (enemy[i + defaultAdd] == "none_true") {
           defaultAdd += 1;
         }
@@ -545,7 +612,9 @@ export default function Battle({ difficult }: tipe) {
         }
       }
     } else {
-      chooseEnemy.hp -= damage;
+      if (damage) {
+        chooseEnemy.hp -= damage;
+      }
     }
 
     //effects
@@ -557,16 +626,21 @@ export default function Battle({ difficult }: tipe) {
               element.hp -= effect.count;
               effect.countTime -= 1;
               if (effect.countTime <= 0) {
-                const filteredArr = element.effect.filter(function (eff) {
-                  return eff !== effect;
-                });
-                element.effect = filteredArr;
+                if (element.effect) {
+                  const filteredArr = element.effect.filter(function (eff) {
+                    return eff !== effect;
+                  });
+                  element.effect = filteredArr;
+                }
               }
               if (element.hp <= 0) {
                 killEnemy(element, true);
               }
             }
           });
+        }
+        if (element.hp > element.maxHp) {
+          element.hp = element.maxHp;
         }
       }
     }
@@ -580,7 +654,7 @@ export default function Battle({ difficult }: tipe) {
 
     if (skillAlly.effect) {
       function addEffect(element: Effects, enemyChoose: Character) {
-        if (skillAlly.effect) {
+        if (skillAlly.effect && enemyChoose.effect) {
           let newArr: Effects[] = [...enemyChoose.effect] as Effects[];
           if (enemyChoose.effect?.length !== 0) {
             newArr.push(element);
@@ -602,17 +676,29 @@ export default function Battle({ difficult }: tipe) {
       Object.values(EffectsDB).forEach(({ ...element }) => {
         if (skillAlly.effect) {
           if (element.id == skillAlly.effect[0]) {
+            let allPersone = allEnemy;
+            let persone = chooseEnemy;
+            if (skillAlly.health) {
+              allPersone = allAlly;
+              persone = selectedAlly();
+            }
             if (skillAlly.mass) {
+              const seveDefaultAdd = defaultAdd;
+              if (allPersone == allAlly) {
+                defaultAdd = 0;
+              }
               skillAlly.position.forEach((elementPosition) => {
-                if (allEnemy[Number(elementPosition) - 1 + defaultAdd]) {
+                const trueEffect = { ...element };
+                if (allPersone[Number(elementPosition) - 1 + defaultAdd]) {
                   addEffect(
-                    element,
-                    allEnemy[Number(elementPosition) - 1 + defaultAdd]
+                    trueEffect,
+                    allPersone[Number(elementPosition) - 1 + defaultAdd]
                   );
                 }
               });
+              defaultAdd = seveDefaultAdd;
             } else {
-              addEffect(element, chooseEnemy);
+              addEffect(element, persone);
             }
           }
         }
@@ -813,14 +899,14 @@ export default function Battle({ difficult }: tipe) {
           <p className="description">
             {selectedAlly().skills[Number(ability[0]) - 1].description}
           </p>
-          <p>
-            {selectedAlly().skills[Number(ability[0]) - 1].health ||
-              "Возможна атака на - "}
+          <p className="position">
+            Возможно действие на -
             {selectedAlly().skills[Number(ability[0]) - 1].position.map(
               (item, index) => (
                 <b key={index}>{item}, </b>
               )
             )}
+            {selectedAlly().skills[Number(ability[0]) - 1].mass && "массовая"}
           </p>
           <p className="damage">
             {(selectedAlly().skills[Number(ability[0]) - 1].health &&
@@ -831,6 +917,27 @@ export default function Battle({ difficult }: tipe) {
             {" + "}
             {selectedAlly().defaultDamage}
           </p>
+          <div className="effects">
+            {selectedAlly().skills[Number(ability[0]) - 1].effect &&
+              [
+                Object.values(
+                  Object.values(EffectsDB)[
+                    Number(
+                      selectedAlly().skills[Number(ability[0]) - 1].effect![0]
+                    ) - 1
+                  ]
+                ),
+              ].map((item) => (
+                <div key={item && item[0]}>
+                  <p>
+                    {item && item[2]} на{" "}
+                    {selectedAlly().skills[Number(ability[0]) - 1].effect![1]} -
+                    {selectedAlly().skills[Number(ability[0]) - 1].effect![2]}
+                    хода
+                  </p>
+                </div>
+              ))}
+          </div>
           <p className="crit">
             {critView && "Крит "}
             {selectedAlly().skills[Number(ability[0]) - 1].crit}

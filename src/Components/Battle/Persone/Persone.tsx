@@ -3,6 +3,13 @@ import { useEffect, useState } from "react";
 
 import Description from "../Description/Description";
 
+interface EffectsVieDb {
+  id: number;
+  img: string;
+  min: string;
+  max: string;
+}
+
 interface Effects {
   id: string;
   img: string;
@@ -41,13 +48,14 @@ interface ItemCharacter {
   addHealthView: string[];
   round: number;
   skills: Ability[];
-  effect: Effects[];
+  effect?: Effects[];
 }
 
 export default function Persone(item: ItemCharacter) {
   const [atackView, setAtackView] = useState<string>("damage");
   const [healthView, setHealthView] = useState<string>("health");
   const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(false);
+  const [effectVieDb, setEffectVieDb] = useState<EffectsVieDb[]>([]);
   const [personeAlly, setPersoneAlly] = useState<boolean | undefined>(
     undefined
   );
@@ -56,6 +64,7 @@ export default function Persone(item: ItemCharacter) {
   }
 
   useEffect(() => {
+    setEffectVieDb([]);
     //hp bar update
     if (!personeAlly) {
       setTimeout(() => {
@@ -67,9 +76,38 @@ export default function Persone(item: ItemCharacter) {
         }
       }, 10);
     }
-  }, [item.round]);
+  }, [item.round, item.difficult]);
 
   useEffect(() => {
+    //effect update
+
+    if (item.effect) {
+      const newArr: EffectsVieDb[] = [];
+      item.effect.forEach((element) => {
+        let fiend = false;
+        newArr.forEach((_, index) => {
+          if (newArr[index].img == element.img) {
+            fiend = true;
+            if (element.countTime < Number(newArr[0].min)) {
+              newArr[index].min = element.countTime.toString();
+            }
+            if (element.countTime > Number(newArr[0].max)) {
+              newArr[index].max = element.countTime.toString();
+            }
+          }
+        });
+        if (!fiend) {
+          newArr.push({
+            id: newArr.length,
+            img: element.img,
+            min: element.countTime.toString(),
+            max: element.countTime.toString(),
+          });
+        }
+      });
+      setEffectVieDb(newArr);
+    }
+
     //hp bar
     if (item.id !== "0") {
       const idEnemy = document.getElementById(item.id);
@@ -128,12 +166,17 @@ export default function Persone(item: ItemCharacter) {
         alt=""
       />
       <div className="all_effects_persone">
-        {item.effect.map((item) => (
-          <div>
-            <img src={item.img} alt="" />
-            <p>{item.countTime}</p>
-          </div>
-        ))}
+        {effectVieDb &&
+          effectVieDb.map((item) => (
+            <div key={item.id}>
+              <img src={item.img} alt="" />
+              <p>
+                {item.min}
+                {item.min == item.max || " - "}
+                {item.min == item.max || item.max}
+              </p>
+            </div>
+          ))}
       </div>
       <div
         onClick={() => {

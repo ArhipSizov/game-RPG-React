@@ -12,7 +12,7 @@
     top: 20vh;
     right: 20%;
     width: 300px;
-    div {
+    .all_effects_description_block {
       width: 24px;
       img {
         width: 10px;
@@ -20,7 +20,7 @@
       }
       p {
         display: inline-block;
-        width: 300px;
+        width: 180px;
       }
       div {
         display: flex;
@@ -60,7 +60,7 @@
     .all_effects_description {
       top: 10vh;
       right: 10%;
-      width: 200px;
+      width: 185px;
       p {
         display: inline-block;
         width: 200px;
@@ -72,6 +72,21 @@
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
       }
+    }
+  }
+  @media (max-height: 500px) {
+    .all_effects_description {
+      max-height: 35vh;
+      scroll-behavior: auto;
+      overflow-y: scroll;
+    }
+    .all_effects_description::-webkit-scrollbar {
+      width: 5px;
+      height: 8px;
+      background-color: #aaa; /* or add it to the track */
+    }
+    .all_effects_description::-webkit-scrollbar-thumb {
+      background: #777777;
     }
   }
 }

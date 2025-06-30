@@ -14,15 +14,15 @@
     background-color: black;
     transition: 0.1s;
     cursor: pointer;
-    .all_effects_persone{
+    .all_effects_persone {
       position: absolute;
       margin-top: 115px;
-      div{
+      div {
         display: flex;
         justify-content: space-between;
-        width: 24px;
-        img{
-          width: 10px;
+        width: 48px;
+        img {
+          width: 16px;
         }
       }
     }
@@ -84,6 +84,12 @@
       border-color: rgb(82, 0, 0) !important;
     }
   }
+  .persone_health {
+    .choose {
+      display: block;
+      border-color: rgb(0, 153, 0) !important;
+    }
+  }
   .can_be_active_persone {
     .choose {
       display: block;
@@ -95,7 +101,15 @@
     color: #e6e6e6;
     font-size: 18px;
   }
-  @media (max-width: 600px) {
+  @media (max-width: 800px) {
+    .description_open {
+      display: block;
+      position: absolute;
+      width: 30px;
+      margin-top: -30px;
+    }
+  }
+  @media (max-height: 520px) {
     .persone {
       width: 40px;
       height: 80px;
@@ -104,14 +118,21 @@
         margin-top: 85px;
         width: 60px;
       }
-    }
-  }
-  @media (max-width: 800px) {
-    .description_open {
-      display: block;
-      position: absolute;
-      width: 30px;
-      margin-top: -30px;
+      .all_effects_persone {
+        position: absolute;
+        margin-top: 60px;
+        div {
+          display: flex;
+          justify-content: space-between;
+          width: 36px;
+          img {
+            width: 8px;
+          }
+        }
+        p {
+          color: #e6e6e6;
+        }
+      }
     }
   }
 }

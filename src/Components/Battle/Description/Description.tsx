@@ -39,7 +39,7 @@ interface ItemCharacter {
   who: string;
   addAtackView: string[];
   skills: Ability[];
-  effect: Effects[];
+  effect?: Effects[];
 }
 export default function Description(item: ItemCharacter) {
   const [haveExp, setHaveExp] = useState<boolean>(false);
@@ -111,6 +111,7 @@ export default function Description(item: ItemCharacter) {
       setHaveExp(true);
     }
   }, []);
+
   return (
     <div className="description_all_block">
       <div className="description_block_in">
@@ -126,17 +127,24 @@ export default function Description(item: ItemCharacter) {
           {haveExp && "/" + (item.lv * item.lv - item.lv + 1)}
         </p>
         <div className="all_effects_description">
-          <h2>Эффекты</h2>
-          {item.effect.map((item) => (
+          {item.effect && item.effect[0] && (
             <div>
-              <div>
-                <img src={item.img} alt="" />
-                <p>{item.name}</p>
-              </div>
-              <p>Длительность - {item.countTime} хода</p>
-              <p>Урон {item.count}</p>
+              <h2>Эффекты</h2>
+              {item.effect.map((item) => (
+                <div className="all_effects_description_block">
+                  <div>
+                    <img src={item.img} alt="" />
+                    <p>{item.name}</p>
+                  </div>
+                  <p>Длительность - {item.countTime} хода</p>
+                  <p>
+                    {(item.count < 0 && "Лечение ") || "Урон -"}
+                    {item.count}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
         <h2>Способности</h2>
         <div id="abilitys_description" className="abilitys_description"></div>

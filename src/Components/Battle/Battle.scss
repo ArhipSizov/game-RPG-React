@@ -133,10 +133,7 @@
         }
       }
       .ability_description {
-        .description {
-          display: none;
-        }
-        .crit {
+        .description, .crit, .position {
           display: none;
         }
       }

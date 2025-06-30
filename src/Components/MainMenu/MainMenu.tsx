@@ -12,6 +12,9 @@ export default function MainMenu({ difficult, setShowMap }: tipe) {
 
   useEffect(() => {
     switch (difficult) {
+      case 0:
+        setDifficultText("тренировка");
+        break;
       case 1:
         setDifficultText("легко");
         break;
