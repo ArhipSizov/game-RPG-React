@@ -248,8 +248,8 @@ export default function Battle({ difficult }: tipe) {
 
   //enemy active
   const [enemy, setEnemy] = useState<string[]>([
-    "1",
-    "persone active_persone",
+    "0",
+    "persone",
     "persone",
     "persone",
     "persone",
@@ -309,7 +309,7 @@ export default function Battle({ difficult }: tipe) {
 
       const numString = num.toString();
       let defaultAdd = 0;
-      let lastElement = "1";
+      let lastElement = "0";
       let doFunc = false;
       let howRange = 0;
       while (
@@ -326,7 +326,9 @@ export default function Battle({ difficult }: tipe) {
         const allElements = trueElems(
           selectedAlly().skills[Number(ability[0]) - 1].position[i - 1]
         );
-        lastElement = allElements;
+        if (lastElement == "0") {
+          lastElement = allElements;
+        }
 
         if (allElements == numString) {
           doFunc = true;

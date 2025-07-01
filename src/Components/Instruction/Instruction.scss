@@ -1,0 +1,220 @@
+.instruction {
+  .button {
+    transition: 0.2s;
+  }
+  .button:hover {
+    transform: scale(1.1);
+  }
+  .instruction_base {
+    z-index: 1001;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    p {
+      text-align: justify;
+      padding: 6px;
+      border-radius: 8px;
+      font-size: 18px;
+      background-color: #e6e6e6;
+    }
+    .button {
+      text-align: center;
+      width: 200px;
+      margin-top: 12px;
+      font-size: 24px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  }
+  .instruction_start {
+    padding: 20vh;
+    h1 {
+      text-align: center;
+      color: #e6e6e6;
+    }
+    .positive_butt,
+    .negative_butt {
+      margin: 12px 20%;
+      padding: 6px;
+      background-color: #e6e6e6;
+      border-radius: 8px;
+      cursor: pointer;
+
+      p {
+        text-align: center;
+        font-size: 22px;
+      }
+    }
+  }
+  .instruction_end {
+    position: absolute;
+    z-index: 1002;
+    color: #e6e6e6;
+    top: 6px;
+    right: 6px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .instruction_1 {
+    padding: 10vh;
+    mask: radial-gradient(
+      circle 450px at 50% 50%,
+      transparent 90%,
+      rgb(0, 0, 0) 100%
+    );
+    p {
+      width: 300px;
+    }
+  }
+  .instruction_2 {
+    padding: 10vh;
+    mask: radial-gradient(
+      ellipse at 28% 40vh,
+      transparent 0%,
+      transparent 16%,
+      rgb(0, 0, 0) 20%
+    );
+    p {
+      margin-left: 60%;
+      width: 300px;
+    }
+  }
+  .instruction_3 {
+    padding: 10vh;
+    mask: radial-gradient(
+      ellipse at bottom,
+      transparent 0%,
+      transparent 36%,
+      rgb(0, 0, 0) 40%
+    );
+    p {
+      width: 400px;
+    }
+  }
+  .instruction_4 {
+    padding: 10vh;
+    mask: radial-gradient(
+      ellipse at 72% 40vh,
+      transparent 0%,
+      transparent 16%,
+      rgb(0, 0, 0) 20%
+    );
+    p {
+      width: 400px;
+    }
+  }
+  .instruction_5 {
+    padding: 10vh;
+    mask: linear-gradient(to top, transparent 10vh, black 20vh);
+    p {
+      width: 350px;
+    }
+  }
+  .instruction_6 {
+    padding: 30vh;
+    p {
+      width: 100%;
+    }
+  }
+  .instruction_7 {
+    padding: 15vh;
+    mask: radial-gradient(
+      circle 110px at 115px 10px,
+      transparent 90%,
+      rgb(0, 0, 0) 100%
+    );
+    p {
+      width: 300px;
+    }
+  }
+  @media (max-width: 1440px) {
+    .instruction_1 {
+      mask: radial-gradient(
+        circle 200px at 50% 200px,
+        transparent 90%,
+        rgb(0, 0, 0) 100%
+      );
+    }
+  }
+  @media (max-width: 1100px) {
+    .instruction_1 {
+      padding: 5vh;
+      p {
+        width: 200px;
+        font-size: 14px;
+      }
+      .button {
+        width: 150px;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .instruction_1 {
+      padding: 10vh;
+      mask: radial-gradient(
+        circle 0 at 0 0,
+        transparent 90%,
+        rgb(0, 0, 0) 100%
+      );
+      p {
+        width: 300px;
+        font-size: 14px;
+      }
+      .button {
+        width: 150px;
+      }
+    }
+    .instruction_2 {
+      padding: 5vh;
+      mask: radial-gradient(
+        ellipse at 26% 45vh,
+        transparent 0%,
+        transparent 20%,
+        rgb(0, 0, 0) 24%
+      );
+      p {
+        margin-left: 50%;
+        width: 200px;
+        font-size: 14px;
+      }
+    }
+    .instruction_4 {
+      padding: 8vh;
+      mask: radial-gradient(
+        ellipse at 74% 45vh,
+        transparent 0%,
+        transparent 20%,
+        rgb(0, 0, 0) 24%
+      );
+      p {
+        width: 200px;
+        font-size: 14px;
+      }
+    }
+  }
+  @media (max-height: 700px) {
+    .instruction_3 {
+      padding: 10vh;
+      mask: linear-gradient(to top, transparent 30vh, black 40vh);
+      p {
+        width: 300px;
+      }
+    }
+  .instruction_7 {
+    padding: 20vh;
+    p {
+        margin-left: 120px;
+      width: 200px;
+    }
+  }
+  }
+}
+i {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+}

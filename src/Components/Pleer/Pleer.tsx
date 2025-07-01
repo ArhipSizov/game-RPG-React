@@ -8,7 +8,7 @@ function Pleer() {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [audioSrc, setAudioSrc] = useState<string[]>(musicDB[0]);
   const [duration, setDuration] = useState<number>(0);
-  const [showPleer, setShowPleer] = useState<boolean>(true);
+  const [showPleer, setShowPleer] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [volume, setVolume] = useState(1);
 

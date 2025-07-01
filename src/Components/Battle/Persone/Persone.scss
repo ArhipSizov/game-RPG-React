@@ -135,6 +135,13 @@
       }
     }
   }
+  @media (max-height: 350px) {
+    .can_be_active_persone {
+      .choose {
+        border-color: rgb(155, 155, 155);
+      }
+    }
+  }
 }
 .ally {
   direction: rtl;

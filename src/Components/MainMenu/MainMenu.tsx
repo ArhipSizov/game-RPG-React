@@ -5,8 +5,13 @@ import "./MainMenu.scss";
 interface tipe {
   difficult: number;
   setShowMap: (boolean: boolean) => void;
+  setAllInstruction: (boolean: boolean[]) => void;
 }
-export default function MainMenu({ difficult, setShowMap }: tipe) {
+export default function MainMenu({
+  difficult,
+  setShowMap,
+  setAllInstruction,
+}: tipe) {
   const [difficultText, setDifficultText] = useState<string>("средне");
   const [showMenu, setShowMenu] = useState<boolean>(false);
 
@@ -40,6 +45,17 @@ export default function MainMenu({ difficult, setShowMap }: tipe) {
             <div className="difficult">
               <p>Текущая сложность: {difficultText}</p>
             </div>
+            <p
+              onClick={() => (
+                setShowMenu(false),
+                setShowMap(true),
+                setAllInstruction([true, true]),
+                (document.cookie = "first_time=false")
+              )}
+              className="open_instruction"
+            >
+              Пройти обучение снова
+            </p>
             <p
               onClick={() => (setShowMap(true), setShowMenu(false))}
               className="open_map"

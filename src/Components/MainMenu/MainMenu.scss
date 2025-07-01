@@ -45,13 +45,21 @@
         justify-content: space-between;
       }
     }
+    .open_instruction {
+      font-size: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 2px 10px;
+      transition: 0.04s;
+    }
     .open_map {
+      display: inline-block;
       font-size: 32px;
       font-weight: 600;
       cursor: pointer;
       transition: 0.04s;
     }
-    .open_map:hover {
+    .open_map:hover, .open_instruction:hover {
       transform: scale(1.02);
     }
   }
