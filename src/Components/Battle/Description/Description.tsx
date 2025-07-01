@@ -73,14 +73,27 @@ export default function Description(item: ItemCharacter) {
         if (effect) {
           Object.values(EffectsDB).forEach((element) => {
             if (element.id == effect[0]) {
-              newEffect.textContent =
-                element.name +
-                ", урон - " +
-                element.count +
-                ", длительность - " +
-                effect[1] +
-                "-" +
-                effect[2];
+              if (effect[1] !== effect[2]) {
+                newEffect.textContent =
+                  element.name +
+                  ", " +
+                  element.type +
+                  ", " +
+                  element.count +
+                  ", длительность - " +
+                  effect[1] +
+                  "-" +
+                  effect[2];
+              } else {
+                newEffect.textContent =
+                  element.name +
+                  ", " +
+                  element.type +
+                  ", " +
+                  element.count +
+                  ", длительность - " +
+                  effect[1];
+              }
             }
           });
         }

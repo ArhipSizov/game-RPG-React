@@ -64,18 +64,20 @@ export default function Persone(item: ItemCharacter) {
   }
 
   useEffect(() => {
-    setEffectVieDb([]);
-    //hp bar update
-    if (!personeAlly) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (!item.effect || item.hp <= 0) {
+        setEffectVieDb([]);
+      }
+      //hp bar update
+      if (!personeAlly) {
         if (item.id !== "0") {
           const idEnemy = document.getElementById(item.id);
           if (idEnemy) {
             idEnemy.style.width = "100%";
           }
         }
-      }, 10);
-    }
+      }
+    }, 10);
   }, [item.round, item.difficult]);
 
   useEffect(() => {

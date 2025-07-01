@@ -22,5 +22,21 @@
         "type": "damage",
         "count": -1,
         "countTime": 0
+    },
+    "shield":{
+        "id":"4",
+        "img":"/battle/effects/shield.png",
+        "name": "Щит",
+        "type": "damage_buff",
+        "count": 0.5,
+        "countTime": 0
+    },
+    "split":{
+        "id":"5",
+        "img":"/battle/effects/split.png",
+        "name": "Раскол",
+        "type": "damage_buff",
+        "count": 1.5,
+        "countTime": 0
     }
 }

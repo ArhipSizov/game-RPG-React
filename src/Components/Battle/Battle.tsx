@@ -470,7 +470,7 @@ export default function Battle({ difficult }: tipe) {
     setAlly(newArr);
   }
 
-  //
+  //\
 
   useEffect(() => {
     changeEnemyActive(Number(enemy[0]));
@@ -536,6 +536,14 @@ export default function Battle({ difficult }: tipe) {
                   }
                 }
               }
+            }
+            if (chooseEnemy?.effect) {
+              chooseEnemy.effect.forEach((element) => {
+                if (element.type == "damage_buff") {
+                  damage = Math.round(damage * element.count);
+                  element.countTime -= 1;
+                }
+              });
             }
 
             if (elem.health === true) {
@@ -656,23 +664,36 @@ export default function Battle({ difficult }: tipe) {
 
     if (skillAlly.effect) {
       function addEffect(element: Effects, enemyChoose: Character) {
-        if (skillAlly.effect && enemyChoose.effect) {
-          let newArr: Effects[] = [...enemyChoose.effect] as Effects[];
-          if (enemyChoose.effect?.length !== 0) {
-            newArr.push(element);
-            newArr[newArr.length - 1].countTime +=
-              getRandomInt(
-                Number(skillAlly.effect[2]) - Number(skillAlly.effect[1]) + 1
-              ) + Number(skillAlly.effect[1]);
-          } else {
-            newArr = [];
-            newArr[0] = element;
-            newArr[0].countTime +=
-              getRandomInt(
-                Number(skillAlly.effect[2]) - Number(skillAlly.effect[1]) + 1
-              ) + Number(skillAlly.effect[1]);
+        if (enemyChoose.effect) {
+          if (element.type != "damage" && enemyChoose.effect?.length > 0) {
+            enemyChoose.effect?.forEach((element) => {
+              if (skillAlly.effect) {
+                element.countTime +=
+                  getRandomInt(
+                    Number(skillAlly.effect[2]) -
+                      Number(skillAlly.effect[1]) +
+                      1
+                  ) + Number(skillAlly.effect[1]);
+              }
+            });
+          } else if (skillAlly.effect) {
+            let newArr: Effects[] = [...enemyChoose.effect] as Effects[];
+            if (enemyChoose.effect?.length !== 0) {
+              newArr.push(element);
+              newArr[newArr.length - 1].countTime +=
+                getRandomInt(
+                  Number(skillAlly.effect[2]) - Number(skillAlly.effect[1]) + 1
+                ) + Number(skillAlly.effect[1]);
+            } else {
+              newArr = [];
+              newArr[0] = element;
+              newArr[0].countTime +=
+                getRandomInt(
+                  Number(skillAlly.effect[2]) - Number(skillAlly.effect[1]) + 1
+                ) + Number(skillAlly.effect[1]);
+            }
+            enemyChoose.effect = newArr;
           }
-          enemyChoose.effect = newArr;
         }
       }
       Object.values(EffectsDB).forEach(({ ...element }) => {
@@ -769,6 +790,14 @@ export default function Battle({ difficult }: tipe) {
       while (randAlly.hp <= 0) {
         randomAllyNum = getRandomInt(4);
         randAlly = allAlly[randomAllyNum];
+      }
+      if (randAlly?.effect) {
+        randAlly.effect.forEach((element) => {
+          if (element.type == "damage_buff") {
+            damage = Math.round(damage * element.count);
+            element.countTime -= 1;
+          }
+        });
       }
       randAlly.hp -= damage;
       addAtackViewAlly[0] = randAlly.id;
@@ -933,9 +962,15 @@ export default function Battle({ difficult }: tipe) {
                 <div key={item && item[0]}>
                   <p>
                     {item && item[2]} на{" "}
-                    {selectedAlly().skills[Number(ability[0]) - 1].effect![1]} -
-                    {selectedAlly().skills[Number(ability[0]) - 1].effect![2]}
-                    хода
+                    {selectedAlly().skills[Number(ability[0]) - 1].effect![1]}
+                    {selectedAlly().skills[Number(ability[0]) - 1]
+                      .effect![2] !==
+                      selectedAlly().skills[Number(ability[0]) - 1]
+                        .effect![1] &&
+                      "-" +
+                        selectedAlly().skills[Number(ability[0]) - 1]
+                          .effect![2]}
+                    ход/а
                   </p>
                 </div>
               ))}
