@@ -17,8 +17,6 @@ interface tipe {
 }
 
 export default function SkillOneCanBe({ item }: tipe) {
-  console.log(item);
-  
   return (
     <div
       className="skill_one_can_be"

@@ -484,22 +484,23 @@ export default function Battle({ difficult }: tipe) {
   const [addHealthViewAlly] = useState<string[]>(["0", "0", "false"]);
 
   function atack() {
+    function chechEndEffect(effect: Effects, personeEffect: Character) {
+      if (effect.countTime <= 0) {
+        if (personeEffect.effect) {
+          const filteredArr = personeEffect.effect.filter(function (eff) {
+            return eff !== effect;
+          });
+          personeEffect.effect = filteredArr;
+        }
+      }
+    }
     function effectsBuffs(personeChoose: Character, personeAtack: Character) {
-      console.log(personeChoose, personeAtack);
-
       if (personeChoose?.effect) {
         personeChoose.effect.forEach((element) => {
           if (element.type == "shield_buff") {
             damage = Math.round(damage * element.count);
             element.countTime -= 1;
-            if (element.countTime <= 0) {
-              if (personeChoose.effect) {
-                const filteredArr = personeChoose.effect.filter(function (eff) {
-                  return eff !== element;
-                });
-                personeChoose.effect = filteredArr;
-              }
-            }
+            chechEndEffect(element, personeChoose);
           }
         });
       }
@@ -508,14 +509,7 @@ export default function Battle({ difficult }: tipe) {
           if (element.type == "damage_buff") {
             damage = Math.round(damage * element.count);
             element.countTime -= 1;
-            if (element.countTime <= 0) {
-              if (personeAtack.effect) {
-                const filteredArr = personeAtack.effect.filter(function (eff) {
-                  return eff !== element;
-                });
-                personeAtack.effect = filteredArr;
-              }
-            }
+            chechEndEffect(element, personeAtack);
           }
         });
       }
@@ -663,14 +657,7 @@ export default function Battle({ difficult }: tipe) {
             if (effect.type == "damage") {
               element.hp -= effect.count;
               effect.countTime -= 1;
-              if (effect.countTime <= 0) {
-                if (element.effect) {
-                  const filteredArr = element.effect.filter(function (eff) {
-                    return eff !== effect;
-                  });
-                  element.effect = filteredArr;
-                }
-              }
+              chechEndEffect(effect, element);
               if (element.hp <= 0) {
                 killEnemy(element, true);
               }
@@ -692,19 +679,24 @@ export default function Battle({ difficult }: tipe) {
 
     if (skillAlly.effect) {
       function addEffect(element: Effects, enemyChoose: Character) {
+        let isAdd = false;
         if (enemyChoose.effect) {
           if (element.type != "damage" && enemyChoose.effect?.length > 0) {
             enemyChoose.effect?.forEach((element) => {
               if (skillAlly.effect) {
-                element.countTime +=
-                  getRandomInt(
-                    Number(skillAlly.effect[2]) -
-                      Number(skillAlly.effect[1]) +
-                      1
-                  ) + Number(skillAlly.effect[1]);
+                if (skillAlly.effect[0] == element.id) {
+                  isAdd = true;
+                  element.countTime +=
+                    getRandomInt(
+                      Number(skillAlly.effect[2]) -
+                        Number(skillAlly.effect[1]) +
+                        1
+                    ) + Number(skillAlly.effect[1]);
+                }
               }
             });
-          } else if (skillAlly.effect) {
+          }
+          if (skillAlly.effect && !isAdd) {
             let newArr: Effects[] = [...enemyChoose.effect] as Effects[];
             if (enemyChoose.effect?.length !== 0) {
               newArr.push(element);
