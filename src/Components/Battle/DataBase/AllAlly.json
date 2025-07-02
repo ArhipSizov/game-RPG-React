@@ -23,6 +23,7 @@
       {
         "id": "2",
         "name": "Удивление",
+        "effect": ["6", "1", "1"],
         "position": ["себя"],
         "min_damage": 1,
         "max_damage": 3,

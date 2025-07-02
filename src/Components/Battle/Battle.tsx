@@ -484,6 +484,42 @@ export default function Battle({ difficult }: tipe) {
   const [addHealthViewAlly] = useState<string[]>(["0", "0", "false"]);
 
   function atack() {
+    function effectsBuffs(personeChoose: Character, personeAtack: Character) {
+      console.log(personeChoose, personeAtack);
+
+      if (personeChoose?.effect) {
+        personeChoose.effect.forEach((element) => {
+          if (element.type == "shield_buff") {
+            damage = Math.round(damage * element.count);
+            element.countTime -= 1;
+            if (element.countTime <= 0) {
+              if (personeChoose.effect) {
+                const filteredArr = personeChoose.effect.filter(function (eff) {
+                  return eff !== element;
+                });
+                personeChoose.effect = filteredArr;
+              }
+            }
+          }
+        });
+      }
+      if (personeAtack?.effect) {
+        personeAtack.effect.forEach((element) => {
+          if (element.type == "damage_buff") {
+            damage = Math.round(damage * element.count);
+            element.countTime -= 1;
+            if (element.countTime <= 0) {
+              if (personeAtack.effect) {
+                const filteredArr = personeAtack.effect.filter(function (eff) {
+                  return eff !== element;
+                });
+                personeAtack.effect = filteredArr;
+              }
+            }
+          }
+        });
+      }
+    }
     function killEnemy(enemyChoose: Character, isEffect?: boolean) {
       enemyChoose.effect = undefined;
       newArrEnemy[Number(enemyChoose.id)] = "none_true";
@@ -537,15 +573,7 @@ export default function Battle({ difficult }: tipe) {
                 }
               }
             }
-            if (chooseEnemy?.effect) {
-              chooseEnemy.effect.forEach((element) => {
-                if (element.type == "damage_buff") {
-                  damage = Math.round(damage * element.count);
-                  element.countTime -= 1;
-                }
-              });
-            }
-
+            effectsBuffs(chooseEnemy, selectedAlly());
             if (elem.health === true) {
               if (elem.mass === true) {
                 for (let i = 0; i < 4; i++) {
@@ -791,14 +819,7 @@ export default function Battle({ difficult }: tipe) {
         randomAllyNum = getRandomInt(4);
         randAlly = allAlly[randomAllyNum];
       }
-      if (randAlly?.effect) {
-        randAlly.effect.forEach((element) => {
-          if (element.type == "damage_buff") {
-            damage = Math.round(damage * element.count);
-            element.countTime -= 1;
-          }
-        });
-      }
+      effectsBuffs(randAlly, randomEnemy);
       randAlly.hp -= damage;
       addAtackViewAlly[0] = randAlly.id;
       addAtackViewAlly[1] = damage;

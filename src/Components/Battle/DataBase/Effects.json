@@ -1,7 +1,7 @@
 {
     "blood":{
         "id":"1",
-        "img":"/battle/effects/blood.png",
+        "img":"/battle/effects/blood.svg",
         "name": "Кровотечение",
         "type": "damage",
         "count": 1,
@@ -9,7 +9,7 @@
     },
     "fire":{
         "id":"2",
-        "img":"/battle/effects/fire.png",
+        "img":"/battle/effects/fire.svg",
         "name": "Огонь",
         "type": "damage",
         "count": 2,
@@ -17,7 +17,7 @@
     },
     "health":{
         "id":"3",
-        "img":"/battle/effects/health.png",
+        "img":"/battle/effects/health.svg",
         "name": "Исцеление",
         "type": "damage",
         "count": -1,
@@ -25,18 +25,34 @@
     },
     "shield":{
         "id":"4",
-        "img":"/battle/effects/shield.png",
+        "img":"/battle/effects/shield.svg",
         "name": "Щит",
-        "type": "damage_buff",
+        "type": "shield_buff",
         "count": 0.5,
         "countTime": 0
     },
     "split":{
         "id":"5",
-        "img":"/battle/effects/split.png",
+        "img":"/battle/effects/split.svg",
         "name": "Раскол",
+        "type": "shield_buff",
+        "count": 1.5,
+        "countTime": 0
+    },
+    "strong":{
+        "id":"6",
+        "img":"/battle/effects/strong.svg",
+        "name": "Сила",
         "type": "damage_buff",
         "count": 1.5,
+        "countTime": 0
+    },
+    "weak":{
+        "id":"7",
+        "img":"/battle/effects/weak.svg",
+        "name": "Слабость",
+        "type": "damage_buff",
+        "count": 0.5,
         "countTime": 0
     }
 }
