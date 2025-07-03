@@ -28,6 +28,7 @@
       position: absolute;
       transition: 0.5s;
       border-radius: 80px;
+      cursor: pointer;
       .mark {
         width: 40px;
         margin-left: 40%;
@@ -69,7 +70,6 @@
       margin: 140px 0 0 10px;
     }
     .forest {
-      position: absolute;
       width: 220px;
       margin: 290px 0 0 10px;
     }

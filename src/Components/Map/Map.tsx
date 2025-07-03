@@ -4,9 +4,10 @@ interface tipe {
   setDifficult: (num: number) => void;
   setShowMap: (boolean: boolean) => void;
   showMap: boolean;
+  setShowCity: (boolean: boolean) => void;
 }
 
-export default function Map({ setDifficult, setShowMap, showMap }: tipe) {
+export default function Map({ setDifficult, setShowMap, showMap, setShowCity }: tipe) {
   return (
     <div>
       {showMap && (
@@ -18,28 +19,29 @@ export default function Map({ setDifficult, setShowMap, showMap }: tipe) {
               onClick={() => (setDifficult(3), setShowMap(false))}
               className="mountain"
             >
-              <img className="mark" src="/map/mark.svg" alt="" />
+              <img className="mark" src="/mark.svg" alt="" />
               <img src="/map/mountain.png" alt="" />
             </div>
             <div
               onClick={() => (setDifficult(2), setShowMap(false))}
               className="forest"
             >
-              <img className="mark" src="/map/mark.svg" alt="" />
+              <img className="mark" src="/mark.svg" alt="" />
               <img src="/map/forest.png" alt="" />
             </div>
             <div
               onClick={() => (setDifficult(1), setShowMap(false))}
               className="lake"
             >
-              <img className="mark" src="/map/mark.svg" alt="" />
+              <img className="mark" src="/mark.svg" alt="" />
               <img src="/map/lake.png" alt="" />
             </div>
             <div
-              onClick={() => (setDifficult(0), setShowMap(false))}
+              onClick={() => (setDifficult(0), setShowMap(false), 
+        setShowCity(true))}
               className="castle"
             >
-              <img className="mark" src="/map/mark.svg" alt="" />
+              <img className="mark" src="/mark.svg" alt="" />
               <img src="/map/castle.png" alt="" />
             </div>
           </div>

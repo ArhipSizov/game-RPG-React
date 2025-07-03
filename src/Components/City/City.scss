@@ -1,0 +1,101 @@
+.city {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  .city_map_all {
+    width: 1000px;
+    display: block;
+    margin: 50px auto;
+    .city_map {
+      position: absolute;
+      width: 1000px;
+    }
+    div {
+      position: absolute;
+      transition: 0.5s;
+      border-radius: 80px;
+      cursor: pointer;
+      .mark {
+        width: 40px;
+        margin-left: 40%;
+        position: absolute;
+        transition: 0.4s;
+      }
+      img {
+        width: 100%;
+      }
+    }
+    div:hover {
+      transform: scale(1.02);
+      z-index: 10;
+      .mark {
+        transform: scale(1.5);
+      }
+    }
+    div:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 26px 18px rgba(255, 255, 255, 0.3);
+    }
+    .train {
+      width: 520px;
+      margin: 580px 0 0 0;
+    }
+    .bank {
+      width: 180px;
+      margin: 280px 0 0 820px;
+    }
+    .mage {
+      width: 125px;
+      margin: 5px 0 0 500px;
+    }
+  }
+  @media (max-width: 1440px) {
+    .city_map_all {
+      width: 500px;
+      .city_map {
+        width: 500px;
+      }
+      .train {
+        width: 260px;
+        margin: 290px 0 0 0;
+      }
+      .bank {
+        width: 90px;
+        margin: 140px 0 0 410px;
+      }
+      .mage {
+        width: 62px;
+        margin: 2px 0 0 250px;
+        .mark {
+          margin-left: 20%;
+        }
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .city_map_all {
+      width: 300px;
+      .city_map {
+        width: 300px;
+      }
+      .train {
+        width: 156px;
+        margin: 174px 0 0 0;
+      }
+      .bank {
+        width: 54px;
+        margin: 84px 0 0 243px;
+      }
+      .mage {
+        width: 37px;
+        margin: 0 0 0 150px;
+        .mark {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}

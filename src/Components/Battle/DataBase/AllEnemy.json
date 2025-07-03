@@ -2,6 +2,7 @@
   "Dummy": {
     "id": "",
     "exp": 0,
+    "gold": 0,
     "name": "Манекен",
     "hp": 99,
     "maxHp": 99,
@@ -21,6 +22,7 @@
   "Slime": {
     "id": "",
     "exp": 2,
+    "gold": 1,
     "name": "Слайм",
     "hp": 9,
     "maxHp": 9,
@@ -50,6 +52,7 @@
   "Goblin": {
     "id": "",
     "exp": 3,
+    "gold": 2,
     "name": "Гоблин",
     "hp": 20,
     "maxHp": 20,
@@ -69,6 +72,7 @@
   "StrongGoblin": {
     "id": "",
     "exp": 3,
+    "gold": 2,
     "name": "Сильный гоблин",
     "hp": 9,
     "maxHp": 9,
@@ -88,6 +92,7 @@
   "GoblinDefence": {
     "id": "",
     "exp": 5,
+    "gold": 3,
     "name": "Прочный гоблин",
     "hp": 41,
     "maxHp": 41,
@@ -116,6 +121,7 @@
   "GoblinMega": {
     "id": "",
     "exp": 8,
+    "gold": 5,
     "name": "Гоблин++",
     "hp": 40,
     "maxHp": 40,
@@ -135,6 +141,7 @@
   "GoblinOmega": {
     "id": "",
     "exp": 10,
+    "gold": 8,
     "name": "Гоблин омега",
     "hp": 60,
     "maxHp": 60,
@@ -163,6 +170,7 @@
   "SlimeKing": {
     "id": "",
     "exp": 20,
+    "gold": 16,
     "name": "Король слаймов",
     "hp": 89,
     "maxHp": 89,
@@ -192,6 +200,7 @@
   "StrongDummy": {
     "id": "",
     "exp": 30,
+    "gold": 20,
     "name": "Опасный манекен",
     "hp": 99,
     "maxHp": 99,

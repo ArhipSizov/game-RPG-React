@@ -7,12 +7,14 @@ interface tipe {
   setShowMap: (boolean: boolean) => void;
   setShowChooseAlly: (boolean: boolean) => void;
   setAllInstruction: (boolean: boolean[]) => void;
+  setShowCity: (boolean: boolean) => void;
 }
 export default function MainMenu({
   difficult,
   setShowMap,
   setAllInstruction,
-  setShowChooseAlly
+  setShowChooseAlly,
+  setShowCity,
 }: tipe) {
   const [difficultText, setDifficultText] = useState<string>("средне");
   const [showMenu, setShowMenu] = useState<boolean>(false);
@@ -20,16 +22,16 @@ export default function MainMenu({
   useEffect(() => {
     switch (difficult) {
       case 0:
-        setDifficultText("тренировка");
+        setDifficultText("город");
         break;
       case 1:
-        setDifficultText("легко");
+        setDifficultText("озеро (легко)");
         break;
       case 2:
-        setDifficultText("средне");
+        setDifficultText("лес (средне)");
         break;
       case 3:
-        setDifficultText("сложно");
+        setDifficultText("горы (сложно)");
         break;
     }
   }, [difficult]);
@@ -45,7 +47,7 @@ export default function MainMenu({
           >
             <h1>Главное меню</h1>
             <div className="difficult">
-              <p>Текущая сложность: {difficultText}</p>
+              <p>Текущая локация: {difficultText}</p>
             </div>
             <p
               onClick={() => (
@@ -65,7 +67,9 @@ export default function MainMenu({
               Открыть изменение персонажей
             </p>
             <p
-              onClick={() => (setShowMap(true), setShowMenu(false))}
+              onClick={() => (
+                setShowMap(true), setShowMenu(false), setShowCity(false)
+              )}
               className="open_map"
             >
               Открыть карту

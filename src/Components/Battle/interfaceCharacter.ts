@@ -24,6 +24,7 @@ export interface Character {
   id: string;
   lv: number;
   exp: number;
+  gold?: number;
   name: string;
   hp: number;
   maxHp: number;

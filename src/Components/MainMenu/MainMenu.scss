@@ -11,6 +11,7 @@
   left: 0;
   cursor: pointer;
   transition: 0.1s;
+  z-index: 10;
 }
 .close_menu:hover {
   transform: scale(1.05);
@@ -45,7 +46,8 @@
         justify-content: space-between;
       }
     }
-    .open_instruction, .open_choose_ally {
+    .open_instruction,
+    .open_choose_ally {
       font-size: 20px;
       font-weight: 600;
       cursor: pointer;
@@ -59,8 +61,34 @@
       cursor: pointer;
       transition: 0.04s;
     }
-    .open_map:hover, .open_instruction:hover, .open_choose_ally:hover {
+    .open_map:hover,
+    .open_instruction:hover,
+    .open_choose_ally:hover {
       transform: scale(1.02);
+    }
+  }
+  @media (max-height: 450px) {
+    .main_menu_block {
+      border-radius: 18px 0 0 18px;
+      scroll-behavior: auto;
+      overflow-y: scroll;
+      h1 {
+        font-size: 24px;
+      }
+      .open_instruction,
+      .open_choose_ally {
+        font-size: 16px;
+      }
+      .open_map {
+        font-size: 24px;
+      }
+    }
+    .main_menu_block::-webkit-scrollbar {
+      width: 5px;
+      background-color: #aaa;
+    }
+    .main_menu_block::-webkit-scrollbar-thumb {
+      background: #777777;
     }
   }
 }

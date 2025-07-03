@@ -14,6 +14,8 @@ interface tipe {
   difficult: number;
   showChooseAlly: boolean;
   setShowChooseAlly: (boolean: boolean) => void;
+  setAllGold: (number: number) => void;
+  allGold: number;
 }
 
 import type { Ability, Character, Effects } from "./interfaceCharacter.ts";
@@ -22,6 +24,8 @@ export default function Battle({
   difficult,
   showChooseAlly,
   setShowChooseAlly,
+  setAllGold,
+  allGold,
 }: tipe) {
   const [turn, setTurn] = useState<number>(0);
   const [round, setRound] = useState<number>(0);
@@ -491,6 +495,9 @@ export default function Battle({
       }
     }
     function killEnemy(enemyChoose: Character, isEffect?: boolean) {
+      if (enemyChoose.gold) {
+        setAllGold(allGold + enemyChoose.gold);
+      }
       enemyChoose.effect = undefined;
       newArrEnemy[Number(enemyChoose.id)] = "none_true";
       for (let i = 1; i < 5; i++) {
@@ -734,6 +741,9 @@ export default function Battle({
       allEnemy[3].hp <= 0
     ) {
       //and round
+      if (chooseEnemy.gold) {
+        setAllGold(allGold + chooseEnemy.gold);
+      }
       levelUpAlly(chooseEnemy);
       addEnemy();
       setEnemy([
