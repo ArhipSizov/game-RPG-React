@@ -5,12 +5,14 @@ import "./MainMenu.scss";
 interface tipe {
   difficult: number;
   setShowMap: (boolean: boolean) => void;
+  setShowChooseAlly: (boolean: boolean) => void;
   setAllInstruction: (boolean: boolean[]) => void;
 }
 export default function MainMenu({
   difficult,
   setShowMap,
   setAllInstruction,
+  setShowChooseAlly
 }: tipe) {
   const [difficultText, setDifficultText] = useState<string>("средне");
   const [showMenu, setShowMenu] = useState<boolean>(false);
@@ -55,6 +57,12 @@ export default function MainMenu({
               className="open_instruction"
             >
               Пройти обучение снова
+            </p>
+            <p
+              onClick={() => (setShowChooseAlly(true), setShowMenu(false))}
+              className="open_choose_ally"
+            >
+              Открыть изменение персонажей
             </p>
             <p
               onClick={() => (setShowMap(true), setShowMenu(false))}

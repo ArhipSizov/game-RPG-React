@@ -10,26 +10,7 @@ interface EffectsVieDb {
   max: string;
 }
 
-interface Effects {
-  id: string;
-  img: string;
-  name: string;
-  type: string;
-  count: number;
-  countTime: number;
-}
-
-interface Ability {
-  id: string;
-  name: string;
-  position: string[];
-  min_damage: number;
-  max_damage: number;
-  description: string;
-  effect?: string[];
-  crit?: number;
-  health?: boolean;
-}
+import type { Ability, Effects } from "../interfaceCharacter.ts";
 
 interface ItemCharacter {
   id: string;
@@ -38,7 +19,7 @@ interface ItemCharacter {
   name: string;
   hp: number;
   maxHp: number;
-  difficult: number;
+  difficult?: number;
   description: string;
   changeEnemyActive: (num: number) => void;
   persone: string[];

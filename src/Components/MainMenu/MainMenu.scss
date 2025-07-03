@@ -45,7 +45,7 @@
         justify-content: space-between;
       }
     }
-    .open_instruction {
+    .open_instruction, .open_choose_ally {
       font-size: 20px;
       font-weight: 600;
       cursor: pointer;
@@ -59,7 +59,7 @@
       cursor: pointer;
       transition: 0.04s;
     }
-    .open_map:hover, .open_instruction:hover {
+    .open_map:hover, .open_instruction:hover, .open_choose_ally:hover {
       transform: scale(1.02);
     }
   }

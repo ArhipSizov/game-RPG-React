@@ -7,16 +7,7 @@ import SkillOneCanBe from "./SkillOneCanBe/SkillOneCanBe";
 
 import "./SkillTree.scss";
 
-interface Ability {
-  id: string;
-  name: string;
-  position: string[];
-  min_damage: number;
-  max_damage: number;
-  description: string;
-  crit?: number;
-  health?: boolean;
-}
+import type { Ability } from "../interfaceCharacter.ts";
 
 interface tipe {
   notLearnSkill: string[];
@@ -35,7 +26,7 @@ export default function SkillTree({
   function getRandomInt(max: number) {
     return Math.floor(Math.random() * max);
   }
-
+  
   useEffect(() => {
     const newArrChoose: Ability[] = [];
     const newArrCanBe: Ability[] = [];

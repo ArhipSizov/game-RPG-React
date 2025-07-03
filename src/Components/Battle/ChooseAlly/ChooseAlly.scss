@@ -1,0 +1,64 @@
+.choose_ally {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  h1 {
+    cursor: pointer;
+  }
+  h1,
+  h2,
+  .button {
+    text-align: center;
+    color: #e6e6e6;
+  }
+  .all_persone,
+  .all_persone_for_choose {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    margin: 36px auto;
+    direction: rtl;
+  }
+  .all_persone_for_choose {
+    display: grid;
+    grid-template-columns: repeat(6, 50px);
+    width: 600px;
+  }
+  .button {
+    padding: 12px;
+    background-color: rgb(17, 85, 0);
+    margin: 0 30%;
+    border-radius: 4px;
+    font-size: 24px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  @media (max-width: 600px) {
+    .all_persone {
+      width: 300px;
+    }
+    .all_persone_for_choose {
+      width: 350px;
+    }
+  }
+  @media (max-height: 500px) {
+    .all_persone,
+    .all_persone_for_choose {
+      margin: 2px auto;
+    }
+    h1 {
+      font-size: 24px;
+    }
+    h2 {
+      font-size: 20px;
+    }
+    .button {
+      margin-top: 4px;
+      padding: 2px;
+    }
+  }
+}

@@ -1,16 +1,6 @@
 import "./SkillOneCanBe.scss";
 
-interface Ability {
-  id: string;
-  name: string;
-  position: string[];
-  min_damage: number;
-  max_damage: number;
-  description: string;
-  crit?: number;
-  health?: boolean;
-}
-
+import type { Ability } from "../../interfaceCharacter.ts";
 
 interface tipe {
   item: Ability;

@@ -6,50 +6,23 @@ import AllAllyDB from "./DataBase/AllAlly.json";
 import EffectsDB from "./DataBase/Effects.json";
 import Persone from "./Persone/Persone.tsx";
 import SkillTree from "./SkillTree/SkillTree.tsx";
+import ChooseAlly from "./ChooseAlly/ChooseAlly.tsx";
 
 import getRandomInt from "../../Utils/Random.ts";
 
 interface tipe {
   difficult: number;
+  showChooseAlly: boolean;
+  setShowChooseAlly: (boolean: boolean) => void;
 }
 
-interface Effects {
-  id: string;
-  img: string;
-  name: string;
-  type: string;
-  count: number;
-  countTime: number;
-}
+import type { Ability, Character, Effects } from "./interfaceCharacter.ts";
 
-interface Ability {
-  id: string;
-  name: string;
-  position: string[];
-  min_damage: number;
-  max_damage: number;
-  description: string;
-  mass?: true;
-  effect?: string[];
-  crit?: number;
-  health?: boolean;
-}
-
-interface Character {
-  id: string;
-  lv: number;
-  exp: number;
-  name: string;
-  hp: number;
-  maxHp: number;
-  defaultDamage: number;
-  description: string;
-  difficult: number;
-  skills: Ability[];
-  effect?: Effects[];
-}
-
-export default function Battle({ difficult }: tipe) {
+export default function Battle({
+  difficult,
+  showChooseAlly,
+  setShowChooseAlly,
+}: tipe) {
   const [turn, setTurn] = useState<number>(0);
   const [round, setRound] = useState<number>(0);
   const [defaultDifficult, setDefaultDifficult] = useState<number>(1);
@@ -148,6 +121,9 @@ export default function Battle({ difficult }: tipe) {
       },
     ],
   });
+
+  const [allAlly, setAllAlly] = useState<Character[]>([Ally5]);
+
   const [Ally6, setAlly6] = useState<Character | undefined>();
   const [Ally7, setAlly7] = useState<Character | undefined>();
   const [Ally8, setAlly8] = useState<Character | undefined>();
@@ -163,8 +139,6 @@ export default function Battle({ difficult }: tipe) {
       setAllyTrue(allyTrue);
     }
   }
-
-  const [allAlly, setAllAlly] = useState<Character[]>([Ally5]);
 
   //declare enemy
   const [Enemy1, setEnemy1] = useState<Character>({
@@ -222,7 +196,7 @@ export default function Battle({ difficult }: tipe) {
   //fix TS bug with uncorrect error, for deploy
   useEffect(() => {
     console.log(
-      "\n!!!fix TS bug with uncorrect error, for deploy!!!\n\n\n",
+      "\n!!!fix TS bug with uncorrect error, it`s need for deploy!!!\n\n\n",
       setEnemy1,
       setEnemy2,
       setEnemy3,
@@ -241,10 +215,12 @@ export default function Battle({ difficult }: tipe) {
     if (Enemy2 != undefined && Enemy3 != undefined && Enemy4 != undefined) {
       setAllEnemy([Enemy1, Enemy2, Enemy3, Enemy4]);
     }
+  }, [Enemy1, Enemy2, Enemy3, Enemy4]);
+  useEffect(() => {
     if (Ally6 != undefined && Ally7 != undefined && Ally8 != undefined) {
       setAllAlly([Ally5, Ally6, Ally7, Ally8]);
     }
-  }, [Enemy1, Enemy2, Enemy3, Enemy4, Ally5, Ally6, Ally7, Ally8]);
+  }, [Ally5, Ally6, Ally7, Ally8]);
 
   //enemy active
   const [enemy, setEnemy] = useState<string[]>([
@@ -872,6 +848,14 @@ export default function Battle({ difficult }: tipe) {
   //site
   return (
     <div className="battle">
+      {showChooseAlly && (
+        <ChooseAlly
+          allAlly={allAlly}
+          setShowChooseAlly={setShowChooseAlly}
+          abilityNum={ability}
+          changeEnemyActive={changeEnemyActive}
+        />
+      )}
       {showSkillTree && (
         <SkillTree
           notLearnSkill={notLearnSkill}

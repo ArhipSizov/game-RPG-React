@@ -11,6 +11,7 @@ import "./App.scss";
 function App() {
   const [difficult, setDifficult] = useState<number>(1);
   const [showMap, setShowMap] = useState<boolean>(true);
+  const [showChooseAlly, setShowChooseAlly] = useState<boolean>(false);
   const [allInstruction, setAllInstruction] = useState<boolean[]>([true, true]);
 
   return (
@@ -33,8 +34,13 @@ function App() {
         difficult={difficult}
         setShowMap={setShowMap}
         setAllInstruction={setAllInstruction}
+        setShowChooseAlly={setShowChooseAlly}
       />
-      <Battle difficult={difficult} />
+      <Battle
+        difficult={difficult}
+        showChooseAlly={showChooseAlly}
+        setShowChooseAlly={setShowChooseAlly}
+      />
     </div>
   );
 }
