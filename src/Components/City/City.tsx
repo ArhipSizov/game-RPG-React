@@ -1,17 +1,22 @@
-// import { useState } from "react";
+import { useState } from "react";
+
+import Guild from "./Guild/Guild";
+import type { quest } from "./Guild/Quest";
 
 import "./City.scss";
 
 interface type {
+  setQuest: (quest: quest) => void;
   setShowCity: (boolean: boolean) => void;
   allGold: number;
 }
 
-export default function City({ setShowCity, allGold }: type) {
-  //   const [difficult, setDifficult] = useState<number>(1);
+export default function City({ setShowCity, allGold, setQuest }: type) {
+    const [showGuild, setShowGuild] = useState<boolean>(false);
 
   return (
     <div className="city">
+      {showGuild && <Guild setShowGuild={setShowGuild} setQuest={setQuest}/>}
       <div className="city_map_all">
         <img className="city_map" src="/city/city.png" alt="" />
         <div onClick={() => setShowCity(false)} className="train">
@@ -25,6 +30,10 @@ export default function City({ setShowCity, allGold }: type) {
         <div className="mage">
           <img className="mark" src="/mark.svg" alt="" />
           <img src="/city/mage.png" alt="" />
+        </div>
+        <div onClick={() => setShowGuild(true)} className="guild">
+          <img className="mark" src="/mark.svg" alt="" />
+          <img src="/city/guild.png" alt="" />
         </div>
       </div>
     </div>

@@ -1,0 +1,17 @@
+.guild_quests {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 11;
+  background-color: rgba(0, 0, 0, 0.1);
+  .guild_quests_all_block{
+    margin: 10vh 20%;
+    width: 60%;
+    height: 80vh;
+    background-color: #e6e6e6;
+    border-radius: 18px;
+    padding: 16px;
+  }
+}

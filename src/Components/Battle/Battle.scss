@@ -11,13 +11,16 @@
     z-index: -1;
     opacity: 0.15;
   }
-  .turn {
+  .turn, .round {
     position: absolute;
     text-align: center;
     width: 100%;
     font-size: 24px;
     color: #e6e6e6;
     margin-top: -20vh;
+  }
+  .round{
+    margin-top: -25vh;
   }
   .none {
     background-color: rgba(0, 0, 0, 0) !important;

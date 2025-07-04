@@ -10,12 +10,18 @@ import ChooseAlly from "./ChooseAlly/ChooseAlly.tsx";
 
 import getRandomInt from "../../Utils/Random.ts";
 
+import type { quest } from "../City/Guild/Quest.ts";
+
 interface tipe {
   difficult: number;
   showChooseAlly: boolean;
   setShowChooseAlly: (boolean: boolean) => void;
   setAllGold: (number: number) => void;
   allGold: number;
+  setTurn: (number: number) => void;
+  turn: number;
+  quest?: quest;
+  setQuest: (quest?: quest) => void;
 }
 
 import type { Ability, Character, Effects } from "./interfaceCharacter.ts";
@@ -26,8 +32,11 @@ export default function Battle({
   setShowChooseAlly,
   setAllGold,
   allGold,
+  setTurn,
+  turn,
+  quest,
+  setQuest,
 }: tipe) {
-  const [turn, setTurn] = useState<number>(0);
   const [round, setRound] = useState<number>(0);
   const [defaultDifficult, setDefaultDifficult] = useState<number>(1);
 
@@ -38,7 +47,7 @@ export default function Battle({
   //Difficult up
 
   useEffect(() => {
-    if (round % 3 == 2) {
+    if (Math.floor(turn / 24) % 3 == 2) {
       if (defaultDifficult !== 5) {
         setDefaultDifficult(defaultDifficult + 1);
       }
@@ -495,9 +504,20 @@ export default function Battle({
       }
     }
     function killEnemy(enemyChoose: Character, isEffect?: boolean) {
+      let addGold = 0;
       if (enemyChoose.gold) {
-        setAllGold(allGold + enemyChoose.gold);
+        addGold += enemyChoose.gold;
       }
+      if (quest) {
+        if (quest.enemy_name == enemyChoose.name) {
+          quest.enemy_count -= 1;
+          if (quest.enemy_count <= 0) {
+            addGold += quest.reward;
+            setQuest(undefined);
+          }
+        }
+      }
+      setAllGold(allGold + addGold);
       enemyChoose.effect = undefined;
       newArrEnemy[Number(enemyChoose.id)] = "none_true";
       for (let i = 1; i < 5; i++) {
@@ -637,7 +657,7 @@ export default function Battle({
       if (element.effect) {
         if (element.effect[0]) {
           element.effect.forEach((effect) => {
-            if (effect.type == "damage") {
+            if (effect.type == "damage" && element.hp > 0) {
               element.hp -= effect.count;
               effect.countTime -= 1;
               chechEndEffect(effect, element);
@@ -741,10 +761,10 @@ export default function Battle({
       allEnemy[3].hp <= 0
     ) {
       //and round
+      killEnemy(chooseEnemy);
       if (chooseEnemy.gold) {
         setAllGold(allGold + chooseEnemy.gold);
       }
-      levelUpAlly(chooseEnemy);
       addEnemy();
       setEnemy([
         "1",
@@ -821,7 +841,7 @@ export default function Battle({
           allAlly[2].hp <= 0 &&
           allAlly[3].hp <= 0
         ) {
-          alert("Проиграл спустя " + turn + " ходов и " + round + " раунд");
+          alert("Проиграл спустя " + turn + " часов и " + round + " битв");
           location.reload();
         } else {
           const newArr = [
@@ -878,7 +898,8 @@ export default function Battle({
         src={"/map/" + difficult + ".png"}
         alt=""
       />
-      <p className="turn">Раунд {turn}</p>
+      <p className="round">День {Math.floor(turn / 24)}</p>
+      <p className="turn">Время {turn % 24}:00</p>
       <div className="sqare">
         <div className="ally">
           {allAlly.map((item) => (
