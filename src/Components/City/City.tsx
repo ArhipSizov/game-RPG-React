@@ -35,6 +35,10 @@ export default function City({ setShowCity, allGold, setQuest }: type) {
           <img className="mark" src="/mark.svg" alt="" />
           <img src="/city/guild.png" alt="" />
         </div>
+        <div className="castle">
+          <img className="mark" src="/mark.svg" alt="" />
+          <img src="/city/castle.png" alt="" />
+        </div>
       </div>
     </div>
   );

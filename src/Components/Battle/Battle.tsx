@@ -841,7 +841,15 @@ export default function Battle({
           allAlly[2].hp <= 0 &&
           allAlly[3].hp <= 0
         ) {
-          alert("Проиграл спустя " + turn + " часов и " + round + " битв");
+          alert(
+            "Проиграл спустя " +
+              turn +
+              " часов, " +
+              round +
+              " битв и накопил " +
+              allGold +
+              "золота"
+          );
           location.reload();
         } else {
           const newArr = [

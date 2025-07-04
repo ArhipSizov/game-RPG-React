@@ -18,12 +18,13 @@ export default function Guild({ setShowGuild, setQuest }: type) {
 
   useEffect(() => {
     const newArrAll: quest[] = [];
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < getRandomInt(4) + 3; i++) {
       const newArr: quest = {
         reward: 0,
         time: 0,
         enemy_name: "",
         enemy_count: 0,
+        difficult: 0,
       };
       let randEnemy =
         Object.values(EnemyBD)[getRandomInt(Object.values(EnemyBD).length)];
@@ -34,9 +35,13 @@ export default function Guild({ setShowGuild, setQuest }: type) {
       newArr.enemy_name = randEnemy.name;
       newArr.enemy_count = getRandomInt(5) + 2;
       newArr.reward =
-        (getRandomInt(randEnemy.difficult) + randEnemy.difficult) * newArr.enemy_count +
+        (getRandomInt(randEnemy.difficult) + randEnemy.difficult) *
+          newArr.enemy_count +
         randEnemy.difficult;
       newArr.time = getRandomInt(newArr.reward) + 40;
+      newArr.difficult = Math.round(
+        (randEnemy.difficult * (newArr.enemy_count / 3)) / 1.3
+      );
       newArrAll[i] = newArr;
     }
     setShowQuests(newArrAll);
@@ -44,14 +49,16 @@ export default function Guild({ setShowGuild, setQuest }: type) {
 
   return (
     <div onClick={() => setShowGuild(false)} className="guild_quests">
+      <img className="guild_table" src="/city/guild_table.png" alt="" />
+      <p className="button_leave">Выйти</p>
       <div
         onClick={(event) => event.stopPropagation()}
         className="guild_quests_all_block"
       >
-        <h1>Доска заданий</h1>
-        <div>
+        <h1>Доска поручений</h1>
+        <div className="guild_quests_all_block_grid">
           {allQuests.map((item) => (
-            <GuildQuestBlock item={item} setQuest={setQuest}/>
+            <GuildQuestBlock item={item} setQuest={setQuest} />
           ))}
         </div>
       </div>

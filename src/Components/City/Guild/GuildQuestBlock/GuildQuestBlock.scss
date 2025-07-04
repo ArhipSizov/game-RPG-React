@@ -1,0 +1,41 @@
+.guild_quest_block {
+  position: absolute;
+  padding: 8px;
+  transition: 0.2s;
+  background-image: url(/public/city/leaf.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  img {
+    width: 50px;
+    margin-top: -40px;
+    position: absolute;
+    opacity: 0;
+    transition: 0.3s;
+  }
+}
+.guild_quest_block:hover {
+  z-index: 10;
+  transform: scale(1.1);
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 2px 6px 6px rgba(0, 0, 0, 0.3);
+  img {
+    opacity: 0.5;
+  }
+}
+.guild_quest_block_anim {
+  box-shadow: 8px 8px 24px 24px rgba(0, 0, 0, 0.3);
+  transform: scale(1.5) !important;
+  opacity: 0;
+  img {
+    transition: 0;
+    opacity: 1;
+  }
+}
+@media (max-width: 900px) {
+  .guild_quest_block {
+    position: relative;
+    margin: 0 !important;
+    width: 180px !important;
+    min-height: 0 !important;
+  }
+}

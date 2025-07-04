@@ -21,6 +21,7 @@ function App() {
   const [allInstruction, setAllInstruction] = useState<boolean[]>([true, true]);
 
   // quest time
+  const [showQuest, setShowQuest] = useState<boolean>(true);
   const [quest, setQuest] = useState<quest>();
 
   useEffect(() => {
@@ -34,14 +35,19 @@ function App() {
 
   return (
     <div className="app">
-      {quest && (
-        <div className="quest_now">
-          <h2>Текущий квест</h2>
-          <p>Победить {quest.enemy_name}</p>
-          <p>Осталось победить {quest.enemy_count}</p>
-          <p>Осталось часов {quest.time}</p>
-        </div>
-      )}
+      {quest &&
+        ((showQuest && (
+          <div onClick={() => setShowQuest(false)} className="quest_now">
+            <h2>Скрыть поручение</h2>
+            <p>Победить {quest.enemy_name}</p>
+            <p>Осталось победить {quest.enemy_count}</p>
+            <p>Осталось часов {quest.time}</p>
+          </div>
+        )) || (
+          <div className="quest_now">
+            <h2 onClick={() => setShowQuest(true)}>Увидеть поручение</h2>
+          </div>
+        ))}
       <div className="check_orientation">
         <p>Переверните устройство!</p>
       </div>

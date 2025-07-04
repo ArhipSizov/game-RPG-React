@@ -46,6 +46,7 @@
     .bank {
       width: 180px;
       margin: 280px 0 0 820px;
+      z-index: 1;
     }
     .mage {
       width: 125px;
@@ -54,6 +55,11 @@
     .guild {
       width: 280px;
       margin: 260px 0 0 580px;
+      z-index: 1;
+    }
+    .castle {
+      width: 278px;
+      margin: 30px 0 0 720px;
     }
   }
   @media (max-width: 1440px) {
@@ -80,6 +86,10 @@
       .guild {
         width: 140px;
         margin: 130px 0 0 290px;
+      }
+      .castle {
+        width: 139px;
+        margin: 15px 0 0 360px;
       }
     }
   }
@@ -112,6 +122,10 @@
       .guild {
         width: 84px;
         margin: 78px 0 0 174px;
+      }
+      .castle {
+        width: 83px;
+        margin: 9px 0 0 216px;
       }
     }
   }
