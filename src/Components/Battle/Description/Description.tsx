@@ -3,13 +3,13 @@ import "./Description.scss";
 
 import EffectsDB from "../DataBase/Effects.json";
 
-
 import type { Ability, Effects } from "../interfaceCharacter.ts";
 
 interface ItemCharacter {
   id: string;
   lv: number;
   exp: number;
+  gold?: number;
   name: string;
   hp: number;
   maxHp: number;
@@ -121,6 +121,7 @@ export default function Description(item: ItemCharacter) {
           Опыт {item.exp}
           {haveExp && "/" + (item.lv * item.lv - item.lv + 1)}
         </p>
+        <p>{item?.gold && "Золото " + item.gold}</p>
         <div className="all_effects_description">
           {item.effect && item.effect[0] && (
             <div>

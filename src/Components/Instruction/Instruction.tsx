@@ -27,7 +27,7 @@ export default function Instruction({
       setAllInstruction(newArr);
     } else {
       setAllInstruction([]);
-      document.cookie = "first_time=true";
+      document.cookie = "first_time=true; max-age=604800"; //7 дней
     }
   }
   return (
@@ -151,7 +151,8 @@ export default function Instruction({
         <div className="instruction_base instruction_6">
           <p>
             6/7 Что бы посмотреть подробную информацию о персонаже, нажмите по
-            нему ПКМ или знак вопроса! Так же ты можешь изменить отряд и некоторые настройки во вкладке "Меню" сверху
+            нему ПКМ или знак вопроса! Так же ты можешь изменить отряд и
+            некоторые настройки во вкладке "Меню" сверху
           </p>
           <p
             onClick={() => {
@@ -166,7 +167,8 @@ export default function Instruction({
       {allInstruction[8] && (
         <div className="instruction_base instruction_7">
           <p>
-            7/7 Так-же тут есть плеер с музыкой! Можешь включить там музыку! На этом всё, удачи!
+            7/7 Так-же тут есть плеер с музыкой! Можешь включить там музыку! На
+            этом всё, удачи!
           </p>
           <p
             onClick={() => {

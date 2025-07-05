@@ -13,6 +13,7 @@ import "./App.scss";
 
 function App() {
   const [difficult, setDifficult] = useState<number>(1);
+  const [difficultGame, setDifficultGame] = useState<number>(1);
   const [allGold, setAllGold] = useState<number>(0);
   const [turn, setTurn] = useState<number>(0);
   const [showMap, setShowMap] = useState<boolean>(true);
@@ -69,6 +70,8 @@ function App() {
         setAllInstruction={setAllInstruction}
         setShowChooseAlly={setShowChooseAlly}
         setShowCity={setShowCity}
+        difficultGame={difficultGame}
+        setDifficultGame={setDifficultGame}
       />
       <Battle
         difficult={difficult}
@@ -80,6 +83,7 @@ function App() {
         setTurn={setTurn}
         quest={quest}
         setQuest={setQuest}
+        difficultGame={difficultGame}
       />
       {showCity && (
         <City setShowCity={setShowCity} allGold={allGold} setQuest={setQuest} />

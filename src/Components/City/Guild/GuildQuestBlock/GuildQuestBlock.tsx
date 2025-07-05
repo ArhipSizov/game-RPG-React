@@ -22,7 +22,6 @@ export default function GuildQuestBlock({ item, setQuest }: type) {
   const [styleImg] = useState<React.CSSProperties>({
     marginLeft: getRandomInt(150) + "px",
   });
-  console.log(getRandomInt(100) + 200);
 
   return (
     <div>

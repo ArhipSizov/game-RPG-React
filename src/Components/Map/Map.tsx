@@ -7,7 +7,12 @@ interface tipe {
   setShowCity: (boolean: boolean) => void;
 }
 
-export default function Map({ setDifficult, setShowMap, showMap, setShowCity }: tipe) {
+export default function Map({
+  setDifficult,
+  setShowMap,
+  showMap,
+  setShowCity,
+}: tipe) {
   return (
     <div>
       {showMap && (
@@ -37,12 +42,22 @@ export default function Map({ setDifficult, setShowMap, showMap, setShowCity }: 
               <img src="/map/lake.png" alt="" />
             </div>
             <div
-              onClick={() => (setDifficult(0), setShowMap(false), 
-        setShowCity(true))}
+              onClick={() => (
+                setDifficult(0), setShowMap(false), setShowCity(true)
+              )}
               className="castle"
             >
               <img className="mark" src="/mark.svg" alt="" />
               <img src="/map/castle.png" alt="" />
+            </div>
+            <div
+              onClick={() => (
+                setDifficult(-1), setShowMap(false)
+              )}
+              className="big_forest"
+            >
+              <img className="mark" src="/mark.svg" alt="" />
+              <img src="/map/big_forest.png" alt="" />
             </div>
           </div>
         </div>

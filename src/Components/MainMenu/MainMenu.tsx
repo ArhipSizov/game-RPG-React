@@ -8,6 +8,8 @@ interface tipe {
   setShowChooseAlly: (boolean: boolean) => void;
   setAllInstruction: (boolean: boolean[]) => void;
   setShowCity: (boolean: boolean) => void;
+  setDifficultGame: (number: number) => void;
+  difficultGame: number;
 }
 export default function MainMenu({
   difficult,
@@ -15,12 +17,18 @@ export default function MainMenu({
   setAllInstruction,
   setShowChooseAlly,
   setShowCity,
+  setDifficultGame,
+  difficultGame,
 }: tipe) {
   const [difficultText, setDifficultText] = useState<string>("средне");
+  const [difficultGameText, setDifficultGameText] = useState<string>("легко");
   const [showMenu, setShowMenu] = useState<boolean>(false);
 
   useEffect(() => {
     switch (difficult) {
+      case -1:
+        setDifficultText("густой лес");
+        break;
       case 0:
         setDifficultText("город");
         break;
@@ -36,6 +44,21 @@ export default function MainMenu({
     }
   }, [difficult]);
 
+  const changeDifficultGame = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newDifficult = parseFloat(e.target.value);
+    setDifficultGame(newDifficult);
+    switch (newDifficult) {
+      case 1:
+        setDifficultGameText("легко");
+        break;
+      case 2:
+        setDifficultGameText("средне");
+        break;
+      case 3:
+        setDifficultGameText("сложно");
+        break;
+    }
+  };
   return (
     <div>
       {(showMenu && (
@@ -48,6 +71,17 @@ export default function MainMenu({
             <h1>Главное меню</h1>
             <div className="difficult">
               <p>Текущая локация: {difficultText}</p>
+            </div>
+            <div>
+              <p>Текущая сложность: {difficultGameText}</p>
+              <input
+                type="range"
+                min="1"
+                max="3"
+                step="1"
+                value={difficultGame}
+                onChange={changeDifficultGame}
+              />
             </div>
             <p
               onClick={() => (

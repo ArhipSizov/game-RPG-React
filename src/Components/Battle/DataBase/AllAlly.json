@@ -4,6 +4,7 @@
     "lv": 1,
     "exp": 0,
     "name": "Игний",
+    "img": "/battle/FireMage.png",
     "hp": 16,
     "maxHp": 16,
     "defaultDamage": 2,

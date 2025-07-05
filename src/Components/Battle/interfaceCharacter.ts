@@ -26,6 +26,7 @@ export interface Character {
   exp: number;
   gold?: number;
   name: string;
+  img?: string;
   hp: number;
   maxHp: number;
   defaultDamage: number;

@@ -61,6 +61,13 @@
       width: 278px;
       margin: 30px 0 0 720px;
     }
+    .tavern {
+      width: 400px;
+      margin: 200px 0 0 116px;
+      .mark {
+        margin-top: 20px;
+      }
+    }
   }
   @media (max-width: 1440px) {
     .city_map_all {
@@ -90,6 +97,10 @@
       .castle {
         width: 139px;
         margin: 15px 0 0 360px;
+      }
+      .tavern {
+        width: 200px;
+        margin: 100px 0 0 58px;
       }
     }
   }
@@ -126,6 +137,10 @@
       .castle {
         width: 83px;
         margin: 9px 0 0 216px;
+      }
+      .tavern {
+        width: 120px;
+        margin: 60px 0 0 35px;
       }
     }
   }

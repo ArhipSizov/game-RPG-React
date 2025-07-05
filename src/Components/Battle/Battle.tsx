@@ -22,6 +22,7 @@ interface tipe {
   turn: number;
   quest?: quest;
   setQuest: (quest?: quest) => void;
+  difficultGame: number;
 }
 
 import type { Ability, Character, Effects } from "./interfaceCharacter.ts";
@@ -36,6 +37,7 @@ export default function Battle({
   turn,
   quest,
   setQuest,
+  difficultGame,
 }: tipe) {
   const [round, setRound] = useState<number>(0);
   const [defaultDifficult, setDefaultDifficult] = useState<number>(1);
@@ -188,10 +190,22 @@ export default function Battle({
     for (let i = 1; i < 5; i++) {
       const ArrAllEnemys = Object.values(AllEnemyDB);
       let enemyTrue = { ...ArrAllEnemys[getRandomInt(ArrAllEnemys.length)] };
-      const difficultTrue = Math.round((difficult * defaultDifficult) / 2);
+      let difficultTrue = Math.round((difficult * defaultDifficult) / 2);
+      if (difficult == -1) {
+        difficultTrue = getRandomInt(6) + 1;
+      }
       while (enemyTrue.difficult != difficultTrue) {
         enemyTrue = { ...ArrAllEnemys[getRandomInt(ArrAllEnemys.length)] };
       }
+      const difficultGameModifier = eval("1." + difficultGame);
+      enemyTrue.hp = Math.round(enemyTrue.hp * difficultGameModifier);
+      enemyTrue.maxHp = Math.round(
+        enemyTrue.maxHp * eval("1." + difficultGame)
+      );
+      if (enemyTrue.gold) {
+        enemyTrue.gold = Math.round(enemyTrue.gold / difficultGameModifier);
+      }
+      enemyTrue.exp = Math.round(enemyTrue.gold / difficultGameModifier);
       const setEnemyTrue = eval("setEnemy" + i);
       enemyTrue.id = i.toString();
       setEnemyTrue(enemyTrue);
@@ -204,7 +218,7 @@ export default function Battle({
   useEffect(() => {
     addEnemy();
     setEnemy(["1", "persone active_persone", "persone", "persone", "persone"]);
-  }, [difficult]);
+  }, [difficult, difficultGame]);
 
   //fix TS bug with uncorrect error, for deploy
   useEffect(() => {
