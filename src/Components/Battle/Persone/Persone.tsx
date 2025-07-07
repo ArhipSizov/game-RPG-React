@@ -144,7 +144,7 @@ export default function Persone(item: ItemCharacter) {
 
   return (
     <div className={item.persone[Number(item.id)]}>
-      {/* <img className="persone_img" src={item.img} alt="" /> */}
+      <img className="persone_img" src={item.img} alt="" />
       <img
         className="description_open"
         onClick={() => setIsDescriptionOpen(true)}

@@ -900,6 +900,7 @@ export default function Battle({
   //site
   return (
     <div className="battle">
+      <img className="ground" src="/battle/ground.png" alt="" />
       {showChooseAlly && (
         <ChooseAlly
           allAlly={allAlly}
