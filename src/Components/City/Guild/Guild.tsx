@@ -21,6 +21,7 @@ export default function Guild({ setShowGuild, setQuest }: type) {
     for (let i = 0; i < getRandomInt(4) + 3; i++) {
       const newArr: quest = {
         reward: 0,
+        reward_favor: 0,
         time: 0,
         enemy_name: "",
         enemy_count: 0,
@@ -42,6 +43,8 @@ export default function Guild({ setShowGuild, setQuest }: type) {
       newArr.difficult = Math.round(
         (randEnemy.difficult * (newArr.enemy_count / 3)) / 1.3
       );
+      newArr.reward_favor = (newArr.reward * randEnemy.difficult) / 100;
+        
       newArrAll[i] = newArr;
     }
     setShowQuests(newArrAll);
@@ -49,7 +52,7 @@ export default function Guild({ setShowGuild, setQuest }: type) {
 
   return (
     <div onClick={() => setShowGuild(false)} className="guild_quests">
-      <img className="guild_table" src="/city/guild_table.png" alt="" />
+      <img className="guild_table" src="/city/guild/guild_table.png" alt="" />
       <p className="button_leave">Выйти</p>
       <div
         onClick={(event) => event.stopPropagation()}

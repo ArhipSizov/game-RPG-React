@@ -14,14 +14,16 @@ import "./App.scss";
 function App() {
   const [difficult, setDifficult] = useState<number>(1);
   const [difficultGame, setDifficultGame] = useState<number>(1);
-  const [allGold, setAllGold] = useState<number>(0);
+  const [allGold, setAllGold] = useState<number>(4);
+  const [allFavor, setAllFavor] = useState<number>(0);
   const [turn, setTurn] = useState<number>(0);
   const [showMap, setShowMap] = useState<boolean>(true);
   const [showChooseAlly, setShowChooseAlly] = useState<boolean>(false);
   const [showCity, setShowCity] = useState<boolean>(false);
   const [allInstruction, setAllInstruction] = useState<boolean[]>([true, true]);
+  const [earningsGold, setEarningsGold] = useState<number>(-4);
 
-  // quest time
+  // time
   const [showQuest, setShowQuest] = useState<boolean>(true);
   const [quest, setQuest] = useState<quest>();
 
@@ -32,10 +34,19 @@ function App() {
         setQuest(undefined);
       }
     }
+    if (Math.floor(turn / 24) == turn / 24) {
+      setAllGold(allGold + earningsGold);
+    }
   }, [turn]);
 
   return (
     <div className="app">
+      <img
+        onClick={() => setShowMap(true)}
+        className="litl_map"
+        src="/map.png"
+        alt=""
+      />
       {quest &&
         ((showQuest && (
           <div onClick={() => setShowQuest(false)} className="quest_now">
@@ -84,9 +95,19 @@ function App() {
         quest={quest}
         setQuest={setQuest}
         difficultGame={difficultGame}
+        allFavor={allFavor}
+        setAllFavor={setAllFavor}
       />
       {showCity && (
-        <City setShowCity={setShowCity} allGold={allGold} setQuest={setQuest} />
+        <City
+          setShowCity={setShowCity}
+          allGold={allGold}
+          setQuest={setQuest}
+          allFavor={allFavor}
+          setAllGold={setAllGold}
+          earningsGold={earningsGold}
+          setEarningsGold={setEarningsGold}
+        />
       )}
     </div>
   );

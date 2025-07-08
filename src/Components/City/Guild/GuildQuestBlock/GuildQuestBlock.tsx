@@ -40,9 +40,11 @@ export default function GuildQuestBlock({ item, setQuest }: type) {
           <h2>Убить "{item.enemy_name}"</h2>
           <p>Необходимо {item.enemy_count} шт.</p>
           <p>Выполнить за {item.time} ч.</p>
-          <p>Награда {item.reward} золотых</p>
+          <p>
+            Награда {item.reward} золотых и {item.reward_favor} репутации
+          </p>
           <p>Сложность {item.difficult}</p>
-          <img src="/city/approved.png" style={styleImg} alt="" />
+          <img src="/city/guild/approved.png" style={styleImg} alt="" />
         </div>
       )}
     </div>

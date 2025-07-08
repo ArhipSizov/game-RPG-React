@@ -23,6 +23,8 @@ interface tipe {
   quest?: quest;
   setQuest: (quest?: quest) => void;
   difficultGame: number;
+  allFavor: number;
+  setAllFavor: (number: number) => void;
 }
 
 import type { Ability, Character, Effects } from "./interfaceCharacter.ts";
@@ -38,6 +40,8 @@ export default function Battle({
   quest,
   setQuest,
   difficultGame,
+  setAllFavor,
+  allFavor,
 }: tipe) {
   const [round, setRound] = useState<number>(0);
   const [defaultDifficult, setDefaultDifficult] = useState<number>(1);
@@ -49,7 +53,7 @@ export default function Battle({
   //Difficult up
 
   useEffect(() => {
-    if (Math.floor(turn / 24) % 3 == 2) {
+    if (Math.floor(turn / 24) % 2 == 1) {
       if (defaultDifficult !== 5) {
         setDefaultDifficult(defaultDifficult + 1);
       }
@@ -527,6 +531,9 @@ export default function Battle({
           quest.enemy_count -= 1;
           if (quest.enemy_count <= 0) {
             addGold += quest.reward;
+            setAllFavor(
+              Math.round((allFavor + quest.reward_favor) * 100) / 100
+            );
             setQuest(undefined);
           }
         }

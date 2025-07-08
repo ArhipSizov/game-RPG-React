@@ -22,6 +22,7 @@ export default function PersoneChoose({ item, setPersone, idChoose }: type) {
 
   return (
     <div onClick={() => setPersone(item)} className={choose}>
+      <img src={item.img} alt="" />
       <hr id={item.id} className="hp_bar" />
       <p className="persone_hp">
         {item.hp}/{item.maxHp}

@@ -1,0 +1,30 @@
+[
+  {
+    "id": 0,
+    "name": "малый дом",
+    "cost_gold": 20,
+    "cost_favor": 0.1,
+    "add_gold": 1
+  },
+  {
+    "id": 1,
+    "name": "малый цех",
+    "cost_gold": 50,
+    "cost_favor": 1,
+    "add_gold": 3
+  },
+  {
+    "id": 2,
+    "name": "большой дом",
+    "cost_gold": 150,
+    "cost_favor": 5,
+    "add_gold": 10
+  },
+  {
+    "id": 3,
+    "name": "баронство",
+    "cost_gold": 500,
+    "cost_favor": 10,
+    "add_gold": 35
+  }
+]

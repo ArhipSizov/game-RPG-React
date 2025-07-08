@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import Guild from "./Guild/Guild";
+import Castle from "./Castle/Castle";
 import type { quest } from "./Guild/Quest";
 
 import "./City.scss";
@@ -9,39 +10,62 @@ interface type {
   setQuest: (quest: quest) => void;
   setShowCity: (boolean: boolean) => void;
   allGold: number;
+  allFavor: number;
+  setAllGold: (number: number) => void;
+  setEarningsGold: (number: number) => void;
+  earningsGold: number
 }
 
-export default function City({ setShowCity, allGold, setQuest }: type) {
-    const [showGuild, setShowGuild] = useState<boolean>(false);
+export default function City({
+  setShowCity,
+  allGold,
+  setQuest,
+  setAllGold,
+  allFavor,
+  earningsGold,
+  setEarningsGold
+}: type) {
+  const [showGuild, setShowGuild] = useState<boolean>(false);
+  const [showCastle, setShowCastle] = useState<boolean>(false);
 
   return (
     <div className="city">
-      {showGuild && <Guild setShowGuild={setShowGuild} setQuest={setQuest}/>}
+      {showGuild && <Guild setShowGuild={setShowGuild} setQuest={setQuest} />}
+      {showCastle && (
+        <Castle
+          setShowCastle={setShowCastle}
+          allGold={allGold}
+          allFavor={allFavor}
+          setAllGold={setAllGold}
+          earningsGold={earningsGold}
+          setEarningsGold={setEarningsGold}
+        />
+      )}
       <div className="city_map_all">
-        <img className="city_map" src="/city/city.png" alt="" />
+        <img className="city_map" src="/city/city_map/city.png" alt="" />
         <div onClick={() => setShowCity(false)} className="train">
           <img className="mark" src="/mark.svg" alt="" />
-          <img src="/city/train.png" alt="" />
+          <img src="/city/city_map/train.png" alt="" />
         </div>
-        <div onClick={() => alert("Ваше золото: " + allGold)} className="bank">
+        <div onClick={() => alert("Ваше золото: " + allGold + "\nВаш пасивный доход: " + earningsGold)} className="bank">
           <img className="mark" src="/mark.svg" alt="" />
-          <img src="/city/bank.png" alt="" />
+          <img src="/city/city_map/bank.png" alt="" />
         </div>
         <div className="mage">
           <img className="mark" src="/mark.svg" alt="" />
-          <img src="/city/mage.png" alt="" />
+          <img src="/city/city_map/mage.png" alt="" />
         </div>
         <div onClick={() => setShowGuild(true)} className="guild">
           <img className="mark" src="/mark.svg" alt="" />
-          <img src="/city/guild.png" alt="" />
+          <img src="/city/city_map/guild.png" alt="" />
         </div>
-        <div className="castle">
+        <div onClick={() => setShowCastle(true)} className="castle">
           <img className="mark" src="/mark.svg" alt="" />
-          <img src="/city/castle.png" alt="" />
+          <img src="/city/city_map/castle.png" alt="" />
         </div>
         <div className="tavern">
           <img className="mark" src="/mark.svg" alt="" />
-          <img src="/city/tavern.png" alt="" />
+          <img src="/city/city_map/tavern.png" alt="" />
         </div>
       </div>
     </div>
