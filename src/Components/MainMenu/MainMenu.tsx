@@ -10,6 +10,7 @@ interface tipe {
   setShowCity: (boolean: boolean) => void;
   setDifficultGame: (number: number) => void;
   difficultGame: number;
+  setIsReset: (boolean: boolean) => void;
 }
 export default function MainMenu({
   difficult,
@@ -19,10 +20,12 @@ export default function MainMenu({
   setShowCity,
   setDifficultGame,
   difficultGame,
+  setIsReset,
 }: tipe) {
   const [difficultText, setDifficultText] = useState<string>("средне");
   const [difficultGameText, setDifficultGameText] = useState<string>("легко");
   const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [showResetVerify, setShowResetVerify] = useState<boolean>(false);
 
   useEffect(() => {
     switch (difficult) {
@@ -61,6 +64,24 @@ export default function MainMenu({
   };
   return (
     <div>
+      {showResetVerify && (
+        <div onClick={() => setShowResetVerify(false)} className="resetVerify">
+          <h2>Вы уверены?</h2>
+          <p>
+            При нажатии на кнопку подтвердить вы потеряете ВЕСЬ прогресс без
+            возможности восстановления
+          </p>
+          <div>
+            <p
+              onClick={() => (setIsReset(true), location.reload())}
+              className="reset_true"
+            >
+              Удалить ВСЕ данные
+            </p>
+            <p className="reset_false">Сохранить данные</p>
+          </div>
+        </div>
+      )}
       {(showMenu && (
         <div onClick={() => setShowMenu(!showMenu)} className="main_menu">
           <p className="close_menu">Закрыть меню</p>
@@ -69,6 +90,9 @@ export default function MainMenu({
             className="main_menu_block"
           >
             <h1>Главное меню</h1>
+            <p onClick={() => setShowResetVerify(true)} className="open_reset">
+              Сбросить прогресс
+            </p>
             <div className="difficult">
               <p>Текущая локация: {difficultText}</p>
             </div>

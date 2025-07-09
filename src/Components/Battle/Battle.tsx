@@ -25,6 +25,8 @@ interface tipe {
   difficultGame: number;
   allFavor: number;
   setAllFavor: (number: number) => void;
+  allAlly: Character[];
+  setAllAlly: (CharacterAll: Character[]) => void;
 }
 
 import type { Ability, Character, Effects } from "./interfaceCharacter.ts";
@@ -42,6 +44,8 @@ export default function Battle({
   difficultGame,
   setAllFavor,
   allFavor,
+  allAlly,
+  setAllAlly,
 }: tipe) {
   const [round, setRound] = useState<number>(0);
   const [defaultDifficult, setDefaultDifficult] = useState<number>(1);
@@ -53,9 +57,9 @@ export default function Battle({
   //Difficult up
 
   useEffect(() => {
-    if (Math.floor(turn / 24) % 2 == 1) {
-      if (defaultDifficult !== 5) {
-        setDefaultDifficult(defaultDifficult + 1);
+    if (Math.floor(turn / 24) % 2 == 0) {
+      if (Math.floor(turn / 48) + 1 !== 5) {
+        setDefaultDifficult(Math.floor(turn / 48) + 1);
       }
     }
   }, [round]);
@@ -141,12 +145,12 @@ export default function Battle({
     ],
   });
 
-  const [allAlly, setAllAlly] = useState<Character[]>([Ally5]);
-
   const [Ally6, setAlly6] = useState<Character | undefined>();
   const [Ally7, setAlly7] = useState<Character | undefined>();
   const [Ally8, setAlly8] = useState<Character | undefined>();
-  if (Ally5.name === "none") {
+  if (allAlly.length == 1 && Ally5.name === "none") {
+    const allAllyNewArr = [];
+    console.log(allAlly);
     for (let i = 5; i < 9; i++) {
       const ArrAllyTrue = Object.values(AllAllyDB);
       const allyTrue = { ...ArrAllyTrue[getRandomInt(ArrAllyTrue.length)] };
@@ -156,7 +160,10 @@ export default function Battle({
       allyTrue.skills = [];
       allyTrue.skills[0] = firstSkill;
       setAllyTrue(allyTrue);
+      allAllyNewArr.push(allyTrue);
     }
+    console.log(allAllyNewArr);
+    setAllAlly(allAllyNewArr);
   }
 
   //declare enemy
@@ -429,6 +436,10 @@ export default function Battle({
     "persone",
   ]);
 
+  useEffect(() => {
+    changeAllyActive(Number(ally[0]));
+  }, []);
+
   function changeAbilityActive(num: number) {
     const numString = num.toString();
     const newArrAbility = [];
@@ -442,7 +453,28 @@ export default function Battle({
   }
 
   useEffect(() => {
-    changeAllyActive(Number(ally[0]));
+    const newArr = [
+      "5",
+      "",
+      "",
+      "",
+      "",
+      "persone",
+      "persone",
+      "persone",
+      "persone",
+    ];
+    newArr[5] = "persone active_persone";
+    if (allAlly.length != 1) {
+      for (let i = 5; i < 9; i++) {
+        if (allAlly[i - 5].hp <= 0) {
+          newArr[i] = "none_true";
+        }
+      }
+    }
+    setTimeout(() => {
+      setAlly(newArr);
+    }, 100);
   }, [allAlly]);
 
   //ally active
@@ -521,8 +553,8 @@ export default function Battle({
         });
       }
     }
+    let addGold = allGold;
     function killEnemy(enemyChoose: Character, isEffect?: boolean) {
-      let addGold = 0;
       if (enemyChoose.gold) {
         addGold += enemyChoose.gold;
       }
@@ -538,7 +570,7 @@ export default function Battle({
           }
         }
       }
-      setAllGold(allGold + addGold);
+      setAllGold(addGold);
       enemyChoose.effect = undefined;
       newArrEnemy[Number(enemyChoose.id)] = "none_true";
       for (let i = 1; i < 5; i++) {

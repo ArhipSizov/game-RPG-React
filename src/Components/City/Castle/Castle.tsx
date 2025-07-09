@@ -78,7 +78,7 @@ export default function Castle({
         <div>
           {canBeBuyCastle !== undefined &&
             canBeBuyCastle.map((item) => (
-              <CastleBlock item={item} buyFunc={buyFunc} />
+              <CastleBlock item={item} buyFunc={buyFunc} key={item.id} />
             ))}
         </div>
       </div>

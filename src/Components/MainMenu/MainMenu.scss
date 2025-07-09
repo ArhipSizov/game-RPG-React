@@ -16,6 +16,42 @@
 .close_menu:hover {
   transform: scale(1.05);
 }
+.resetVerify {
+  position: absolute;
+  top: 20vh;
+  left: 10%;
+  width: 80%;
+  height: 60vh;
+  background-color: #e6e6e6;
+  border-radius: 18px;
+  padding: 12px;
+  z-index: 1001;
+  h2 {
+    color: #ff3131;
+    font-size: 36px;
+    text-align: center;
+  }
+  p {
+    font-size: 24px;
+  }
+  div {
+    display: flex;
+    justify-content: space-between;
+    p {
+      border-radius: 8px;
+      padding: 6px;
+      cursor: pointer;
+    }
+    .reset_true {
+      background-color: #ff3131;
+      color: #e6e6e6;
+    }
+    .reset_false {
+      background-color: #31ff3b;
+      font-weight: 600;
+    }
+  }
+}
 .main_menu {
   position: absolute;
   top: 0;
@@ -66,6 +102,15 @@
     .open_choose_ally:hover {
       transform: scale(1.02);
     }
+    .open_reset{
+      position: absolute;
+      right: 30%;
+      cursor: pointer;
+    }
+    .open_reset:hover {
+      transform: scale(1.02);
+      color: #ff3131;
+    }
   }
   @media (max-height: 450px) {
     .main_menu_block {
@@ -94,8 +139,18 @@
 }
 
 @media (max-width: 700px) {
+  .resetVerify {
+    p {
+      font-size: 18px;
+    }
+  }
   .close_menu {
     text-align: right;
     margin: 0 0 0 60%;
+  }
+  .open_reset{
+    right: 0 !important;
+    color: #e6e6e6;
+    font-size: 12px;
   }
 }

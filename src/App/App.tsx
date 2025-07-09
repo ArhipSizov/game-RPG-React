@@ -7,6 +7,7 @@ import Map from "../Components/Map/Map";
 import Instruction from "../Components/Instruction/Instruction";
 import City from "../Components/City/City";
 
+import type { Character } from "../Components/Battle/interfaceCharacter";
 import type { quest } from "../Components/City/Guild/Quest";
 
 import "./App.scss";
@@ -14,18 +15,76 @@ import "./App.scss";
 function App() {
   const [difficult, setDifficult] = useState<number>(1);
   const [difficultGame, setDifficultGame] = useState<number>(1);
-  const [allGold, setAllGold] = useState<number>(4);
-  const [allFavor, setAllFavor] = useState<number>(0);
-  const [turn, setTurn] = useState<number>(0);
+  const [allGold, setAllGold] = useState<number>(Number(localStorage.gold));
+  const [allFavor, setAllFavor] = useState<number>(Number(localStorage.favor));
+  const [turn, setTurn] = useState<number>(Number(localStorage.turn));
   const [showMap, setShowMap] = useState<boolean>(true);
   const [showChooseAlly, setShowChooseAlly] = useState<boolean>(false);
   const [showCity, setShowCity] = useState<boolean>(false);
   const [allInstruction, setAllInstruction] = useState<boolean[]>([true, true]);
-  const [earningsGold, setEarningsGold] = useState<number>(-4);
-
-  // time
+  const [earningsGold, setEarningsGold] = useState<number>(
+    Number(localStorage.earningsGold)
+  );
   const [showQuest, setShowQuest] = useState<boolean>(true);
   const [quest, setQuest] = useState<quest>();
+  const [isReset, setIsReset] = useState<boolean>(false);
+
+  //ally
+  const [AllyTest] = useState<Character>({
+    id: "1",
+    lv: 0,
+    exp: 0,
+    name: "none",
+    hp: 20,
+    maxHp: 20,
+    defaultDamage: 0,
+    description: "",
+    difficult: 0,
+    effect: [],
+    skills: [
+      {
+        id: "1",
+        name: "Firebol",
+        position: ["1"],
+        effect: ["1"],
+        min_damage: 1,
+        max_damage: 1,
+        description:
+          "very long textvery long textvery long textvery long textvery long textvery long text",
+        crit: 0,
+        health: false,
+      },
+    ],
+  });
+
+  const [allAlly, setAllAlly] = useState<Character[]>([AllyTest]);
+  //save
+  useEffect(() => {
+    if (isReset == true || localStorage.turn == "NaN") {
+      setIsReset(false);
+      localStorage.gold = 0;
+      setAllGold(0);
+      localStorage.turn = 0;
+      setTurn(0);
+      localStorage.favor = 0;
+      setAllFavor(0);
+      localStorage.earningsGold = -4;
+      setEarningsGold(-4);
+      localStorage.allAlly = JSON.stringify(allAlly);
+      setAllAlly([AllyTest]);
+    }
+  }, [isReset]);
+
+  //auto save
+
+  useEffect(() => {
+    localStorage.gold = allGold;
+    localStorage.favor = allFavor;
+    localStorage.earningsGold = earningsGold;
+    localStorage.allAlly = JSON.stringify(allAlly);
+  }, [allGold]);
+
+  // time
 
   useEffect(() => {
     if (quest) {
@@ -37,6 +96,7 @@ function App() {
     if (Math.floor(turn / 24) == turn / 24) {
       setAllGold(allGold + earningsGold);
     }
+    localStorage.turn = turn;
   }, [turn]);
 
   return (
@@ -83,6 +143,7 @@ function App() {
         setShowCity={setShowCity}
         difficultGame={difficultGame}
         setDifficultGame={setDifficultGame}
+        setIsReset={setIsReset}
       />
       <Battle
         difficult={difficult}
@@ -97,6 +158,8 @@ function App() {
         difficultGame={difficultGame}
         allFavor={allFavor}
         setAllFavor={setAllFavor}
+        allAlly={allAlly}
+        setAllAlly={setAllAlly}
       />
       {showCity && (
         <City
