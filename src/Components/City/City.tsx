@@ -2,7 +2,9 @@ import { useState } from "react";
 
 import Guild from "./Guild/Guild";
 import Castle from "./Castle/Castle";
+import Tavern from "./Tavern/Tavern";
 import type { quest } from "./Guild/Quest";
+import type { Character } from "../Battle/interfaceCharacter";
 
 import "./City.scss";
 
@@ -13,7 +15,8 @@ interface type {
   allFavor: number;
   setAllGold: (number: number) => void;
   setEarningsGold: (number: number) => void;
-  earningsGold: number
+  earningsGold: number;
+  allAlly: Character[]
 }
 
 export default function City({
@@ -23,13 +26,16 @@ export default function City({
   setAllGold,
   allFavor,
   earningsGold,
-  setEarningsGold
+  setEarningsGold,
+  allAlly
 }: type) {
   const [showGuild, setShowGuild] = useState<boolean>(false);
   const [showCastle, setShowCastle] = useState<boolean>(false);
+  const [showTavern, setShowTavern] = useState<boolean>(false);
 
   return (
     <div className="city">
+      {showTavern && <Tavern setShowTavern={setShowTavern} allAlly={allAlly}/>}
       {showGuild && <Guild setShowGuild={setShowGuild} setQuest={setQuest} />}
       {showCastle && (
         <Castle
@@ -47,7 +53,17 @@ export default function City({
           <img className="mark" src="/mark.svg" alt="" />
           <img src="/city/city_map/train.png" alt="" />
         </div>
-        <div onClick={() => alert("Ваше золото: " + allGold + "\nВаш пасивный доход: " + earningsGold)} className="bank">
+        <div
+          onClick={() =>
+            alert(
+              "Ваше золото: " +
+                allGold +
+                "\nВаш пасивный доход: " +
+                earningsGold
+            )
+          }
+          className="bank"
+        >
           <img className="mark" src="/mark.svg" alt="" />
           <img src="/city/city_map/bank.png" alt="" />
         </div>
@@ -63,7 +79,7 @@ export default function City({
           <img className="mark" src="/mark.svg" alt="" />
           <img src="/city/city_map/castle.png" alt="" />
         </div>
-        <div className="tavern">
+        <div onClick={() => setShowTavern(true)} className="tavern">
           <img className="mark" src="/mark.svg" alt="" />
           <img src="/city/city_map/tavern.png" alt="" />
         </div>

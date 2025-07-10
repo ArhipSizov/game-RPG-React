@@ -19,7 +19,6 @@ function App() {
   const [allFavor, setAllFavor] = useState<number>(Number(localStorage.favor));
   const [turn, setTurn] = useState<number>(Number(localStorage.turn));
   const [showMap, setShowMap] = useState<boolean>(true);
-  const [showChooseAlly, setShowChooseAlly] = useState<boolean>(false);
   const [showCity, setShowCity] = useState<boolean>(false);
   const [allInstruction, setAllInstruction] = useState<boolean[]>([true, true]);
   const [earningsGold, setEarningsGold] = useState<number>(
@@ -60,7 +59,26 @@ function App() {
   const [allAlly, setAllAlly] = useState<Character[]>([AllyTest]);
   //save
   useEffect(() => {
-    if (isReset == true || localStorage.turn == "NaN") {
+    if (localStorage.allAlly) {
+      if (eval(localStorage.allAlly).length == 4) {
+        const oldAlly = eval(localStorage.allAlly);
+        setTimeout(() => {
+          localStorage.allAlly = JSON.stringify(oldAlly);
+          setAllAlly(oldAlly);
+          setTurn(turn + 1);
+        }, 100);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log(localStorage.turn);
+
+    if (
+      isReset == true ||
+      localStorage.turn == "NaN" ||
+      localStorage.turn == undefined
+    ) {
       setIsReset(false);
       localStorage.gold = 0;
       setAllGold(0);
@@ -70,19 +88,18 @@ function App() {
       setAllFavor(0);
       localStorage.earningsGold = -4;
       setEarningsGold(-4);
-      localStorage.allAlly = JSON.stringify(allAlly);
+      localStorage.allAlly = JSON.stringify([AllyTest]);
       setAllAlly([AllyTest]);
     }
   }, [isReset]);
 
-  //auto save
-
-  useEffect(() => {
+  function save() {
+    localStorage.turn = turn;
     localStorage.gold = allGold;
     localStorage.favor = allFavor;
     localStorage.earningsGold = earningsGold;
     localStorage.allAlly = JSON.stringify(allAlly);
-  }, [allGold]);
+  }
 
   // time
 
@@ -93,14 +110,19 @@ function App() {
         setQuest(undefined);
       }
     }
-    if (Math.floor(turn / 24) == turn / 24) {
+    if (turn % 24 == 23) {
       setAllGold(allGold + earningsGold);
     }
-    localStorage.turn = turn;
+    if (turn % 12 == 0) {
+      save();
+    }
   }, [turn]);
 
   return (
     <div className="app">
+      <p className="fast_save" onClick={() => save()}>
+        Быстр. сохр
+      </p>
       <img
         onClick={() => setShowMap(true)}
         className="litl_map"
@@ -139,7 +161,6 @@ function App() {
         difficult={difficult}
         setShowMap={setShowMap}
         setAllInstruction={setAllInstruction}
-        setShowChooseAlly={setShowChooseAlly}
         setShowCity={setShowCity}
         difficultGame={difficultGame}
         setDifficultGame={setDifficultGame}
@@ -147,8 +168,6 @@ function App() {
       />
       <Battle
         difficult={difficult}
-        showChooseAlly={showChooseAlly}
-        setShowChooseAlly={setShowChooseAlly}
         setAllGold={setAllGold}
         allGold={allGold}
         turn={turn}
@@ -160,6 +179,8 @@ function App() {
         setAllFavor={setAllFavor}
         allAlly={allAlly}
         setAllAlly={setAllAlly}
+        showCity={showCity}
+        showMap={showMap}
       />
       {showCity && (
         <City
@@ -170,6 +191,7 @@ function App() {
           setAllGold={setAllGold}
           earningsGold={earningsGold}
           setEarningsGold={setEarningsGold}
+          allAlly={allAlly}
         />
       )}
     </div>

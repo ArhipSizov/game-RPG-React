@@ -3,6 +3,15 @@
   background-color: slategray;
   position: relative;
   z-index: 0;
+  .fast_save{
+    position: absolute;
+    color: #e6e6e6;
+    margin-left: 220px;
+    cursor: pointer;
+  }
+  .fast_save:hover{
+    transform: scale(1.05);
+  }
   .litl_map {
     position: absolute;
     width: 70px;

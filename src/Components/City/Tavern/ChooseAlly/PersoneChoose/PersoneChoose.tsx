@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import "./PersoneChoose.scss";
 
-import type { Character } from "../../interfaceCharacter";
+import type { Character } from "../../../../Battle/interfaceCharacter";
 
 interface type {
   item: Character;

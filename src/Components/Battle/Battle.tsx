@@ -6,7 +6,6 @@ import AllAllyDB from "./DataBase/AllAlly.json";
 import EffectsDB from "./DataBase/Effects.json";
 import Persone from "./Persone/Persone.tsx";
 import SkillTree from "./SkillTree/SkillTree.tsx";
-import ChooseAlly from "./ChooseAlly/ChooseAlly.tsx";
 
 import getRandomInt from "../../Utils/Random.ts";
 
@@ -14,8 +13,6 @@ import type { quest } from "../City/Guild/Quest.ts";
 
 interface tipe {
   difficult: number;
-  showChooseAlly: boolean;
-  setShowChooseAlly: (boolean: boolean) => void;
   setAllGold: (number: number) => void;
   allGold: number;
   setTurn: (number: number) => void;
@@ -27,14 +24,14 @@ interface tipe {
   setAllFavor: (number: number) => void;
   allAlly: Character[];
   setAllAlly: (CharacterAll: Character[]) => void;
+  showCity: boolean;
+  showMap: boolean;
 }
 
 import type { Ability, Character, Effects } from "./interfaceCharacter.ts";
 
 export default function Battle({
   difficult,
-  showChooseAlly,
-  setShowChooseAlly,
   setAllGold,
   allGold,
   setTurn,
@@ -46,6 +43,8 @@ export default function Battle({
   allFavor,
   allAlly,
   setAllAlly,
+  showCity,
+  showMap,
 }: tipe) {
   const [round, setRound] = useState<number>(0);
   const [defaultDifficult, setDefaultDifficult] = useState<number>(1);
@@ -150,7 +149,6 @@ export default function Battle({
   const [Ally8, setAlly8] = useState<Character | undefined>();
   if (allAlly.length == 1 && Ally5.name === "none") {
     const allAllyNewArr = [];
-    console.log(allAlly);
     for (let i = 5; i < 9; i++) {
       const ArrAllyTrue = Object.values(AllAllyDB);
       const allyTrue = { ...ArrAllyTrue[getRandomInt(ArrAllyTrue.length)] };
@@ -162,7 +160,6 @@ export default function Battle({
       setAllyTrue(allyTrue);
       allAllyNewArr.push(allyTrue);
     }
-    console.log(allAllyNewArr);
     setAllAlly(allAllyNewArr);
   }
 
@@ -437,8 +434,14 @@ export default function Battle({
   ]);
 
   useEffect(() => {
-    changeAllyActive(Number(ally[0]));
-  }, []);
+    for (let i = 0; i < 4; i++) {
+      if (allAlly[i].hp > 0) {
+        changeAllyActive(i + 5);
+        break;
+      }
+    }
+    changeAbilityActive(1);
+  }, [showCity, showMap]);
 
   function changeAbilityActive(num: number) {
     const numString = num.toString();
@@ -940,14 +943,6 @@ export default function Battle({
   return (
     <div className="battle">
       <img className="ground" src="/battle/ground.png" alt="" />
-      {showChooseAlly && (
-        <ChooseAlly
-          allAlly={allAlly}
-          setShowChooseAlly={setShowChooseAlly}
-          abilityNum={ability}
-          changeEnemyActive={changeEnemyActive}
-        />
-      )}
       {showSkillTree && (
         <SkillTree
           notLearnSkill={notLearnSkill}
