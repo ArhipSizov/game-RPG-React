@@ -10,23 +10,35 @@ import type { Character } from "../../../Battle/interfaceCharacter.ts";
 interface tipe {
   allAlly: Character[];
   setShowChooseAlly: (boolean: boolean) => void;
+  allGold: number;
+  setAllGold: (number: number) => void;
 }
-export default function ChooseAlly({ allAlly, setShowChooseAlly }: tipe) {
+export default function ChooseAlly({
+  allAlly,
+  setShowChooseAlly,
+  allGold,
+  setAllGold,
+}: tipe) {
   const [persone, setPersone] = useState<Character>();
   const [personeForEditing, setPersoneForEditing] = useState<Character>();
+  const [showError, setShowError] = useState<boolean>(false);
 
   //hp %
   function changeAlly() {
+    if (allGold < 10) {
+      setShowError(true);
+      setTimeout(() => {
+        setShowError(false);
+      }, 3000);
+      return;
+    }
     if (personeForEditing && persone) {
-      const hpPecent = persone.hp / persone.maxHp;
       allAlly[Number(persone.id) - 5] = { ...personeForEditing };
       allAlly[Number(persone.id) - 5].id = persone.id;
-      allAlly[Number(persone.id) - 5].hp = Math.round(
-        allAlly[Number(persone.id) - 5].hp * hpPecent
-      );
       const firstSkill = allAlly[Number(persone.id) - 5].skills[0];
       allAlly[Number(persone.id) - 5].skills = [];
       allAlly[Number(persone.id) - 5].skills[0] = firstSkill;
+      setAllGold(allGold - 10);
     }
     setPersone(undefined);
     setPersoneForEditing(undefined);
@@ -57,9 +69,10 @@ export default function ChooseAlly({ allAlly, setShowChooseAlly }: tipe) {
           />
         ))}
       </div>
+      {showError && <p className="error">Недостаточно золота!</p>}
       {persone && personeForEditing && (
         <p onClick={() => changeAlly()} className="button">
-          Заменить
+          Заменить (10золота)
         </p>
       )}
     </div>

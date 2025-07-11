@@ -72,8 +72,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log(localStorage.turn);
-
     if (
       isReset == true ||
       localStorage.turn == "NaN" ||

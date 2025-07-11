@@ -441,6 +441,7 @@ export default function Battle({
       }
     }
     changeAbilityActive(1);
+    changeEnemyActive(1);
   }, [showCity, showMap]);
 
   function changeAbilityActive(num: number) {

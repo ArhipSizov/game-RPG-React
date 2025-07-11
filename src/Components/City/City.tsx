@@ -16,7 +16,7 @@ interface type {
   setAllGold: (number: number) => void;
   setEarningsGold: (number: number) => void;
   earningsGold: number;
-  allAlly: Character[]
+  allAlly: Character[];
 }
 
 export default function City({
@@ -27,7 +27,7 @@ export default function City({
   allFavor,
   earningsGold,
   setEarningsGold,
-  allAlly
+  allAlly,
 }: type) {
   const [showGuild, setShowGuild] = useState<boolean>(false);
   const [showCastle, setShowCastle] = useState<boolean>(false);
@@ -35,7 +35,14 @@ export default function City({
 
   return (
     <div className="city">
-      {showTavern && <Tavern setShowTavern={setShowTavern} allAlly={allAlly}/>}
+      {showTavern && (
+        <Tavern
+          setShowTavern={setShowTavern}
+          allAlly={allAlly}
+          allGold={allGold}
+          setAllGold={setAllGold}
+        />
+      )}
       {showGuild && <Guild setShowGuild={setShowGuild} setQuest={setQuest} />}
       {showCastle && (
         <Castle
