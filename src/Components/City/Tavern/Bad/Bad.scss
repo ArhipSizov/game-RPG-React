@@ -1,0 +1,29 @@
+.bad {
+  margin-top: -30px;
+  left: 0;
+  width: 100%;
+  border-radius: 36px;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  h1{
+    padding-top: 100px;
+    text-align: center;
+    color: #e6e6e6;
+  }
+  input{
+    width: 300px;
+    display: block;
+    margin: 0 auto;
+  }
+  .button{
+    text-align: center;
+    padding: 6px;
+    border-radius: 8px;
+    margin: 6px auto;
+    background-color: rgb(17, 85, 0);
+    width: 200px;
+    color: #e6e6e6;
+    cursor: pointer;
+  }
+}

@@ -190,6 +190,7 @@ function App() {
           earningsGold={earningsGold}
           setEarningsGold={setEarningsGold}
           allAlly={allAlly}
+          setTurn={setTurn}
         />
       )}
     </div>

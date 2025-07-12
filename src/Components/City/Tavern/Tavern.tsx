@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import "./Tavern.scss";
 import ChooseAlly from "./ChooseAlly/ChooseAlly";
+import Bad from "./Bad/Bad";
 
 import type { Character } from "../../Battle/interfaceCharacter";
 
@@ -10,6 +11,7 @@ interface type {
   allAlly: Character[];
   allGold: number;
   setAllGold: (number: number) => void;
+  setTurn: (number: number) => void;
 }
 
 export default function Tavern({
@@ -17,8 +19,10 @@ export default function Tavern({
   allAlly,
   allGold,
   setAllGold,
+  setTurn,
 }: type) {
   const [showChooseAlly, setShowChooseAlly] = useState<boolean>(false);
+  const [showBad, setShowBad] = useState<boolean>(false);
 
   return (
     <div onClick={() => setShowTavern(false)} className="tavern_open_back">
@@ -31,6 +35,10 @@ export default function Tavern({
           <img className="mark" src="/mark.svg" alt="" />
           <img src="/city/tavern/choose_ally.png" alt="" />
         </div>
+        <div onClick={() => setShowBad(true)} className="bad_img">
+          <img className="mark" src="/mark.svg" alt="" />
+          <img src="/city/tavern/bad.png" alt="" />
+        </div>
         {showChooseAlly && (
           <ChooseAlly
             allAlly={allAlly}
@@ -39,6 +47,7 @@ export default function Tavern({
             setAllGold={setAllGold}
           />
         )}
+        {showBad && <Bad setTurn={setTurn} setShowBad={setShowBad}/>}
       </div>
     </div>
   );
