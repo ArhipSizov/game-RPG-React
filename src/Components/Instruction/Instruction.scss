@@ -29,6 +29,17 @@
   }
   .instruction_start {
     padding: 20vh;
+    .change_name {
+      h3 {
+        text-align: center;
+        color: #e6e6e6;
+      }
+      input{
+        display: block;
+        margin: 0 auto;
+        width: 300px;
+      }
+    }
     h1 {
       text-align: center;
       color: #e6e6e6;
@@ -201,13 +212,13 @@
         width: 300px;
       }
     }
-  .instruction_7 {
-    padding: 20vh;
-    p {
+    .instruction_7 {
+      padding: 20vh;
+      p {
         margin-left: 120px;
-      width: 200px;
+        width: 200px;
+      }
     }
-  }
   }
 }
 i {

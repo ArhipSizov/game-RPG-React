@@ -1,10 +1,18 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+
 import castleBD from "./Castle.json";
 import CastleBlock from "./CastleBlock/CastleBlock";
 
 import "./Castle.scss";
 
 import type { castleType } from "./CastleType";
+
+import type allData from "../../../Services/TypeAllData";
+
+interface state {
+  allData: allData;
+}
 
 interface type {
   setShowCastle: (boolean: boolean) => void;
@@ -28,6 +36,10 @@ export default function Castle({
   >();
   const [notEnoughGold, setNotEnoughGold] = useState<boolean>(false);
   const [notEnoughFavor, setNotEnoughFavor] = useState<boolean>(false);
+
+  const userArr = useSelector((state: state) => state.allData.allData);
+
+  const [name] = useState<string>(userArr[userArr.length - 1].name);
 
   if (canBeBuyCastle == undefined) {
     const newArr: castleType[] = [];
@@ -72,7 +84,7 @@ export default function Castle({
         onClick={(event) => event.stopPropagation()}
       >
         <img className="background_img" src="/city/castle/castle.png" alt="" />
-        <h1>Твоя репутация {allFavor}</h1>
+        <h1>Здравствуте, {name}, ваша репутация {allFavor}</h1>
         {notEnoughGold && <p className="error">Недостаточно золота!</p>}
         {notEnoughFavor && <p className="error">Недостаточно репутации!</p>}
         <div>

@@ -1,4 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+import { useDispatch } from "react-redux";
+import { addAllData } from "../../Services/store/Slice";
 
 import getCookie from "../../Utils/getCookie";
 import "./Instruction.scss";
@@ -14,6 +17,13 @@ export default function Instruction({
   setAllInstruction,
   setShowMap,
 }: tipe) {
+  const [name, setName] = useState<string>("Господин");
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(addAllData({ name }));
+  }, [allInstruction[1]]);
+  
   useEffect(() => {
     if (getCookie("first_time") == "true") {
       setAllInstruction([]);
@@ -34,6 +44,14 @@ export default function Instruction({
     <div className="instruction">
       {allInstruction[1] && (
         <div className="instruction_base instruction_start">
+          <div className="change_name">
+            <h3>Как вас зовут?</h3>
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              type="text"
+            />
+          </div>
           <h1>Хотите пройти обучение?</h1>
           <div
             onClick={() => {

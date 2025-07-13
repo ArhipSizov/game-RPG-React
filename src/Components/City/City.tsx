@@ -1,10 +1,10 @@
 import { useState } from "react";
+import type { quest } from "./Guild/Quest";
+import type { Character } from "../Battle/interfaceCharacter";
 
 import Guild from "./Guild/Guild";
 import Castle from "./Castle/Castle";
 import Tavern from "./Tavern/Tavern";
-import type { quest } from "./Guild/Quest";
-import type { Character } from "../Battle/interfaceCharacter";
 
 import "./City.scss";
 
@@ -29,7 +29,7 @@ export default function City({
   earningsGold,
   setEarningsGold,
   allAlly,
-  setTurn
+  setTurn,
 }: type) {
   const [showGuild, setShowGuild] = useState<boolean>(false);
   const [showCastle, setShowCastle] = useState<boolean>(false);
