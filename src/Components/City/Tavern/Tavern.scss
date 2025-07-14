@@ -18,7 +18,8 @@
     left: 50%;
     transform: translate(-50%, 0);
     .choose_ally_img,
-    .bad_img {
+    .bad_img,
+    .man_img {
       position: absolute;
       transition: 0.5s;
       border-radius: 80px;
@@ -34,7 +35,8 @@
       }
     }
     .choose_ally_img:hover,
-    .bad_img:hover {
+    .bad_img:hover,
+    .man_img:hover {
       transform: scale(1.02);
       z-index: 10;
       background-color: rgba(255, 255, 255, 0.3);
@@ -52,6 +54,15 @@
     width: 340px;
     margin: 10px 0 0 640px;
   }
+  .man_img {
+    width: 110px;
+    margin: 280px 0 0 630px;
+    z-index: 11;
+    .mark {
+      margin-left: 20% !important;
+      margin-top: -20px;
+    }
+  }
   @media (max-width: 1440px) {
     .background_img,
     .tavern_open {
@@ -64,6 +75,10 @@
     .bad_img {
       width: 170px;
       margin: 5px 0 0 320px;
+    }
+    .man_img {
+      width: 55px;
+      margin: 140px 0 0 315px;
     }
   }
   @media (max-width: 768px) {
@@ -81,6 +96,10 @@
     .bad_img {
       width: 136px;
       margin: 4px 0 0 256px;
+    }
+    .man_img {
+      width: 44px;
+      margin: 112px 0 0 252px;
     }
   }
 }

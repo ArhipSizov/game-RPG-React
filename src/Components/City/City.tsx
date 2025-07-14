@@ -17,6 +17,7 @@ interface type {
   setEarningsGold: (number: number) => void;
   earningsGold: number;
   allAlly: Character[];
+  turn: number
   setTurn: (number: number) => void;
 }
 
@@ -29,6 +30,7 @@ export default function City({
   earningsGold,
   setEarningsGold,
   allAlly,
+  turn,
   setTurn,
 }: type) {
   const [showGuild, setShowGuild] = useState<boolean>(false);
@@ -43,6 +45,7 @@ export default function City({
           allAlly={allAlly}
           allGold={allGold}
           setAllGold={setAllGold}
+          turn={turn}
           setTurn={setTurn}
         />
       )}
@@ -92,6 +95,10 @@ export default function City({
         <div onClick={() => setShowTavern(true)} className="tavern">
           <img className="mark" src="/mark.svg" alt="" />
           <img src="/city/city_map/tavern.png" alt="" />
+        </div>
+        <div className="workshop">
+          <img className="mark" src="/mark.svg" alt="" />
+          <img src="/city/city_map/workshop.png" alt="" />
         </div>
       </div>
     </div>

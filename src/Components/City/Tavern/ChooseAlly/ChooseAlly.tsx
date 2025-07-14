@@ -46,7 +46,7 @@ export default function ChooseAlly({
 
   return (
     <div className="choose_ally">
-      <h1 onClick={() => setShowChooseAlly(false)}>Выход из редактора</h1>
+      <h1 onClick={() => setShowChooseAlly(false)}>Вернуться</h1>
       <h2>Ваши персонажи</h2>
       <div className="all_persone">
         {allAlly.map((item) => (

@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./Tavern.scss";
 import ChooseAlly from "./ChooseAlly/ChooseAlly";
 import Bad from "./Bad/Bad";
+import Man from "./Man/Man";
 
 import type { Character } from "../../Battle/interfaceCharacter";
 
@@ -11,6 +12,7 @@ interface type {
   allAlly: Character[];
   allGold: number;
   setAllGold: (number: number) => void;
+  turn: number;
   setTurn: (number: number) => void;
 }
 
@@ -19,13 +21,24 @@ export default function Tavern({
   allAlly,
   allGold,
   setAllGold,
+  turn,
   setTurn,
 }: type) {
   const [showChooseAlly, setShowChooseAlly] = useState<boolean>(false);
   const [showBad, setShowBad] = useState<boolean>(false);
+  const [showMan, setShowMan] = useState<boolean>(false);
 
   return (
     <div onClick={() => setShowTavern(false)} className="tavern_open_back">
+      <div onClick={(event) => event.stopPropagation()}>
+        {showMan && (
+          <Man
+            setShowMan={setShowMan}
+            allGold={allGold}
+            setAllGold={setAllGold}
+          />
+        )}
+      </div>
       <div onClick={(event) => event.stopPropagation()} className="tavern_open">
         <img className="background_img" src="/city/tavern/tavern.png" alt="" />
         <div
@@ -39,6 +52,10 @@ export default function Tavern({
           <img className="mark" src="/mark.svg" alt="" />
           <img src="/city/tavern/bad.png" alt="" />
         </div>
+        <div onClick={() => setShowMan(true)} className="man_img">
+          <img className="mark" src="/mark.svg" alt="" />
+          <img src="/city/tavern/man.png" alt="" />
+        </div>
         {showChooseAlly && (
           <ChooseAlly
             allAlly={allAlly}
@@ -47,7 +64,9 @@ export default function Tavern({
             setAllGold={setAllGold}
           />
         )}
-        {showBad && <Bad setTurn={setTurn} setShowBad={setShowBad}/>}
+        {showBad && (
+          <Bad setTurn={setTurn} setShowBad={setShowBad} turn={turn} />
+        )}
       </div>
     </div>
   );

@@ -225,7 +225,15 @@ export default function Battle({
   }
   useEffect(() => {
     addEnemy();
-    setEnemy(["1", "persone active_persone", "persone", "persone", "persone"]);
+    setTimeout(() => {
+      setEnemy([
+        "1",
+        "persone active_persone",
+        "persone",
+        "persone",
+        "persone",
+      ]);
+    }, 100);
   }, [difficult, difficultGame]);
 
   //fix TS bug with uncorrect error, for deploy
@@ -434,12 +442,14 @@ export default function Battle({
   ]);
 
   useEffect(() => {
-    for (let i = 0; i < 4; i++) {
-      if (allAlly[i].hp > 0) {
-        changeAllyActive(i + 5);
-        break;
+    setTimeout(() => {
+      for (let i = 0; i < 4; i++) {
+        if (allAlly[i].hp > 0) {
+          changeAllyActive(i + 5);
+          break;
+        }
       }
-    }
+    }, 10);
     changeAbilityActive(1);
     changeEnemyActive(1);
   }, [showCity, showMap]);
@@ -887,7 +897,9 @@ export default function Battle({
             randomEnemyNumNewChoise = getRandomInt(4);
           }
           randomEnemyNumNewChoise += 1;
-          killEnemy(chooseEnemy);
+          if (!skillAlly.mass) {
+            killEnemy(chooseEnemy);
+          }
           newArrEnemy[0] = randomEnemyNumNewChoise.toString();
         }
       }

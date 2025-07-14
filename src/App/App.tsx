@@ -108,13 +108,12 @@ function App() {
         setQuest(undefined);
       }
     }
-    if (turn % 24 == 23) {
-      setAllGold(allGold + earningsGold);
-    }
-    if (turn % 12 == 0) {
-      save();
-    }
   }, [turn]);
+
+  useEffect(() => {
+    setAllGold(allGold + earningsGold);
+    save();
+  }, [Math.floor(turn / 24)]);
 
   return (
     <div className="app">
@@ -190,6 +189,7 @@ function App() {
           earningsGold={earningsGold}
           setEarningsGold={setEarningsGold}
           allAlly={allAlly}
+          turn={turn}
           setTurn={setTurn}
         />
       )}

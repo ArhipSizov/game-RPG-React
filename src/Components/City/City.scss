@@ -69,6 +69,10 @@
         margin-top: 20px;
       }
     }
+    .workshop {
+      width: 135px;
+      margin: 315px 0 0 474px;
+    }
   }
   @media (max-width: 1440px) {
     .city_map_all {
@@ -102,6 +106,13 @@
       .tavern {
         width: 200px;
         margin: 100px 0 0 58px;
+      }
+      .workshop {
+        width: 67px;
+        margin: 157px 0 0 237px;
+        .mark {
+          margin-left: 10px;
+        }
       }
     }
   }
@@ -142,6 +153,10 @@
       .tavern {
         width: 120px;
         margin: 60px 0 0 35px;
+      }
+      .workshop {
+        width: 40px;
+        margin: 94px 0 0 142px;
       }
     }
   }
