@@ -7,7 +7,7 @@ interface type {
   closeDialogue: (boolean: boolean) => void;
   img: string;
   dialogue: Dialogue[][];
-  func: () => void;
+  func: (numDialogue: number) => void;
   dialogueNumberStart: number;
 }
 
@@ -20,7 +20,7 @@ export default function Dialogue({
 }: type) {
   const [dialogueNumber, setDialogueNumber] = useState<number>(dialogueNumberStart);
   const [textNumber, setTextNumber] = useState<number>(0);
-
+  
   function nextText() {
     if (dialogue[dialogueNumber].length - 1 > textNumber) {
       setTextNumber(textNumber + 1);
@@ -31,7 +31,7 @@ export default function Dialogue({
 
   function chooseDialogue(item: choose) {
     if (item.func == true) {
-      func();
+      func(dialogueNumber);
     }
     setDialogueNumber(item.do);
     setTextNumber(0);

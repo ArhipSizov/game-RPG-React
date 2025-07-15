@@ -14,17 +14,24 @@ interface type {
 }
 
 export default function Man({ setShowMan, allGold, setAllGold }: type) {
-  const [dialogueNumber, setDialogueNumber] = useState<number>(
-    Number(getCookie("dialogue_man"))
-  );
+  const [dialogueNumber, setDialogueNumber] = useState<number>(0);
   if (!getCookie("dialogue_man")) {
     setDialogueNumber(0);
     document.cookie = "dialogue_man=0; max-age=604800";
   }
 
-  function func() {
-    document.cookie = "dialogue_man=4; max-age=604800";
-    setAllGold(allGold + 5);
+  function func(numDialogue: number) {
+    switch (numDialogue) {
+      case 1:
+        document.cookie = "dialogue_man=4; max-age=604800";
+        setAllGold(allGold - 1);
+        break;
+
+      case 3:
+        document.cookie = "dialogue_man=4; max-age=604800";
+        setAllGold(allGold + 5);
+        break;
+    }
   }
 
   return (
