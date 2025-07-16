@@ -42,6 +42,7 @@
           font-weight: 600;
           cursor: pointer;
           transition: 0.1s;
+          padding: 6px;
         }
         p:hover {
             transform: scale(1.1);
@@ -81,6 +82,11 @@
       height: 200px;
       .dialogue_text {
         width: 230px;
+        p {
+          border: #6e6e6e60 1px solid;
+          border-top: 0;
+          border-bottom: 0;
+        }
       }
     }
   }

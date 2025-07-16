@@ -4,7 +4,7 @@ export interface choose {
   func?: boolean
 }
 
-export interface Dialogue {
+export interface DialogueType {
   text: string;
   choose?: choose[];
 }

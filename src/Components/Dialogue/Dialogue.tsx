@@ -1,12 +1,12 @@
 import { useState } from "react";
 
 import "./Dialogue.scss";
-import type { choose, Dialogue } from "./DialogueType";
+import type { choose, DialogueType } from "./DialogueType";
 
 interface type {
   closeDialogue: (boolean: boolean) => void;
   img: string;
-  dialogue: Dialogue[][];
+  dialogue: DialogueType[][];
   func: (numDialogue: number) => void;
   dialogueNumberStart: number;
 }

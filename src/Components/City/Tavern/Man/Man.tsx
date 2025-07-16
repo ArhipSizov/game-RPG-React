@@ -14,7 +14,9 @@ interface type {
 }
 
 export default function Man({ setShowMan, allGold, setAllGold }: type) {
-  const [dialogueNumber, setDialogueNumber] = useState<number>(0);
+  const [dialogueNumber, setDialogueNumber] = useState<number>(
+    Number(getCookie("dialogue_man"))
+  );
   if (!getCookie("dialogue_man")) {
     setDialogueNumber(0);
     document.cookie = "dialogue_man=0; max-age=604800";
