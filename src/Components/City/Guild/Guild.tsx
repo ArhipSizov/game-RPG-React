@@ -44,7 +44,7 @@ export default function Guild({ setShowGuild, setQuest }: type) {
         (randEnemy.difficult * (newArr.enemy_count / 3)) / 1.3
       );
       newArr.reward_favor = (newArr.reward * randEnemy.difficult) / 100;
-        
+
       newArrAll[i] = newArr;
     }
     setShowQuests(newArrAll);
@@ -60,8 +60,8 @@ export default function Guild({ setShowGuild, setQuest }: type) {
       >
         <h1>Доска поручений</h1>
         <div className="guild_quests_all_block_grid">
-          {allQuests.map((item) => (
-            <GuildQuestBlock item={item} setQuest={setQuest} />
+          {allQuests.map((item, index) => (
+            <GuildQuestBlock key={index} item={item} setQuest={setQuest} />
           ))}
         </div>
       </div>

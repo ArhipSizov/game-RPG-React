@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import Dialogue from "../../Dialogue/Dialogue";
 import castleBD from "./Castle.json";
-import startDialogueKing from "./dialogue.json";
+import startDialogueKing from "./Dialogue.json";
 
 import "./Castle.scss";
 
@@ -37,7 +37,6 @@ export default function Castle({
   const [notEnoughGold, setNotEnoughGold] = useState<boolean>(false);
   const [notEnoughFavor, setNotEnoughFavor] = useState<boolean>(false);
   const [showDialogueKing, setShowDialogueKing] = useState<boolean>(false);
-  const [dialogueKingNumber] = useState<number>(6);
   const [dialogueKing, setDialogueKing] = useState<
     DialogueType[][] | undefined
   >(undefined);
@@ -119,7 +118,7 @@ export default function Castle({
             img="/city/castle/king.png"
             dialogue={dialogueKing}
             func={func}
-            dialogueNumberStart={dialogueKingNumber}
+            dialogueNumberStart={6}
           />
         )}
       </div>
@@ -132,7 +131,7 @@ export default function Castle({
           <img src="/city/castle/king.png" alt="" />
         </div>
         <img className="background_img" src="/city/castle/castle.png" alt="" />
-        <h1></h1>
+        <h1 onClick={() => setShowCastle(false)}>Выход</h1>
         {notEnoughGold && <p className="error">Недостаточно золота!</p>}
         {notEnoughFavor && <p className="error">Недостаточно репутации!</p>}
       </div>

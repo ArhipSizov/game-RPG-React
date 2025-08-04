@@ -7,7 +7,7 @@ interface type {
   closeDialogue: (boolean: boolean) => void;
   img: string;
   dialogue: DialogueType[][];
-  func: (numDialogue: number) => void;
+  func: (numDialogue: number, numChoose?: number) => void;
   dialogueNumberStart: number;
 }
 
@@ -29,9 +29,9 @@ export default function Dialogue({
     }
   }
 
-  function chooseDialogue(item: choose) {
+  function chooseDialogue(item: choose, index: number) {
     if (item.func == true) {
-      func(dialogueNumber);
+      func(dialogueNumber, index);
     }
     setDialogueNumber(item.do);
     setTextNumber(0);
@@ -46,7 +46,7 @@ export default function Dialogue({
           <div className="dialogue_choose">
             {dialogue[dialogueNumber][textNumber].choose &&
               dialogue[dialogueNumber][textNumber].choose.map((item, index) => (
-                <p key={index} onClick={() => chooseDialogue(item)}>
+                <p key={index} onClick={() => chooseDialogue(item, index)}>
                   {item.text}
                 </p>
               ))}

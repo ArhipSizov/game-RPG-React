@@ -48,9 +48,7 @@ export default function Persone(item: ItemCharacter) {
 
   useEffect(() => {
     setTimeout(() => {
-      if (!item.effect || item.hp <= 0) {
-        setEffectVieDb([]);
-      }
+      setEffectVieDb([]);
       //hp bar update
       if (!personeAlly) {
         if (item.id !== "0") {

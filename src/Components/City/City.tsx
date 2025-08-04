@@ -5,6 +5,7 @@ import type { Character } from "../Battle/interfaceCharacter";
 import Guild from "./Guild/Guild";
 import Castle from "./Castle/Castle";
 import Tavern from "./Tavern/Tavern";
+import Mage from "./Mage/Mage";
 
 import "./City.scss";
 
@@ -17,7 +18,7 @@ interface type {
   setEarningsGold: (number: number) => void;
   earningsGold: number;
   allAlly: Character[];
-  turn: number
+  turn: number;
   setTurn: (number: number) => void;
 }
 
@@ -36,6 +37,7 @@ export default function City({
   const [showGuild, setShowGuild] = useState<boolean>(false);
   const [showCastle, setShowCastle] = useState<boolean>(false);
   const [showTavern, setShowTavern] = useState<boolean>(false);
+  const [showMage, setShowMage] = useState<boolean>(false);
 
   return (
     <div className="city">
@@ -47,6 +49,14 @@ export default function City({
           setAllGold={setAllGold}
           turn={turn}
           setTurn={setTurn}
+        />
+      )}
+      {showMage && (
+        <Mage
+          setShowMage={setShowMage}
+          allAlly={allAlly}
+          allGold={allGold}
+          setAllGold={setAllGold}
         />
       )}
       {showGuild && <Guild setShowGuild={setShowGuild} setQuest={setQuest} />}
@@ -80,7 +90,7 @@ export default function City({
           <img className="mark" src="/mark.svg" alt="" />
           <img src="/city/city_map/bank.png" alt="" />
         </div>
-        <div className="mage">
+        <div onClick={() => setShowMage(true)} className="mage">
           <img className="mark" src="/mark.svg" alt="" />
           <img src="/city/city_map/mage.png" alt="" />
         </div>
