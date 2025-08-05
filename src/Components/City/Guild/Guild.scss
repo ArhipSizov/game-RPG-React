@@ -12,9 +12,6 @@
     font-size: 38px;
     margin-top: -24px;
   }
-  .button_leave {
-    display: none;
-  }
   .guild_table,
   .guild_quests_all_block {
     position: absolute;
@@ -41,13 +38,7 @@
   }
   @media (max-width: 1000px) {
     .button_leave {
-      position: absolute;
-      display: inline-block;
-      color: #e6e6e6;
-      font-size: 34px;
-      font-weight: 600;
-      margin: 6px;
-      cursor: pointer;
+      margin: 6px !important;
     }
     .guild_table {
       display: none;
@@ -71,10 +62,10 @@
     }
   }
   @media (max-width: 600px) {
-  h1 {
-    margin-top: 2px;
-    font-size: 28px
-  }
+    h1 {
+      margin-top: 2px;
+      font-size: 28px;
+    }
     .guild_quests_all_block {
       .guild_quests_all_block_grid {
         height: 85vh;

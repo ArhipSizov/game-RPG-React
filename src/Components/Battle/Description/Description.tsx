@@ -42,25 +42,38 @@ export default function Description(item: ItemCharacter) {
         newNameAbility.textContent = item.skills[i].name;
         newDescriptionAbility = document.createElement("p");
         newDescriptionAbility.textContent = item.skills[i].description;
-        newPosition = document.createElement("p");
-        newPosition.textContent = "Возможная позиция - ";
         newEffect = document.createElement("p");
         newBlock = document.createElement("p");
-        if (item.skills[i].position) {
-          item.skills[i].position.forEach((element) => {
-            newPosition.textContent += element + " ";
-          });
+        newPosition = document.createElement("p");
+        if (item.who == "ally") {
+          newPosition.textContent = "Возможная позиция - ";
+          if (item.skills[i].position) {
+            item.skills[i].position.forEach((element) => {
+              newPosition.textContent += element + " ";
+            });
+          }
         }
         const effect = item.skills[i].effect;
         if (effect) {
           Object.values(EffectsDB).forEach((element) => {
             if (element.id == effect[0]) {
+              let type: string = "";
+              if (element.type == "damage") {
+                if (element.count >= 0) {
+                  type = "урон -";
+                } else {
+                  type = "исцеление ";
+                }
+              } else if (element.type == "shield_buff") {
+                type = "уменьшение брони х";
+              } else if (element.type == "damage_buff") {
+                type = "множитель урона х";
+              }
               if (effect[1] !== effect[2]) {
                 newEffect.textContent =
                   element.name +
                   ", " +
-                  element.type +
-                  ", " +
+                  type +
                   element.count +
                   ", длительность - " +
                   effect[1] +
@@ -70,8 +83,7 @@ export default function Description(item: ItemCharacter) {
                 newEffect.textContent =
                   element.name +
                   ", " +
-                  element.type +
-                  ", " +
+                  type +
                   element.count +
                   ", длительность - " +
                   effect[1];
@@ -126,8 +138,8 @@ export default function Description(item: ItemCharacter) {
           {item.effect && item.effect[0] && (
             <div>
               <h2>Эффекты</h2>
-              {item.effect.map((item) => (
-                <div className="all_effects_description_block">
+              {item.effect.map((item, index) => (
+                <div key={index} className="all_effects_description_block">
                   <div>
                     <img src={item.img} alt="" />
                     <p>{item.name}</p>

@@ -24,6 +24,7 @@ export default function Map({
               onClick={() => (setDifficult(3), setShowMap(false))}
               className="mountain"
             >
+              <p>Сложно</p>
               <img className="mark" src="/mark.svg" alt="" />
               <img src="/map/mountain.png" alt="" />
             </div>
@@ -31,6 +32,7 @@ export default function Map({
               onClick={() => (setDifficult(2), setShowMap(false))}
               className="forest"
             >
+              <p>Средне</p>
               <img className="mark" src="/mark.svg" alt="" />
               <img src="/map/forest.png" alt="" />
             </div>
@@ -38,6 +40,7 @@ export default function Map({
               onClick={() => (setDifficult(1), setShowMap(false))}
               className="lake"
             >
+              <p>Легко</p>
               <img className="mark" src="/mark.svg" alt="" />
               <img src="/map/lake.png" alt="" />
             </div>
@@ -47,6 +50,7 @@ export default function Map({
               )}
               className="castle"
             >
+              <p>Замок</p>
               <img className="mark" src="/mark.svg" alt="" />
               <img src="/map/castle.png" alt="" />
             </div>
@@ -56,6 +60,7 @@ export default function Map({
               )}
               className="big_forest"
             >
+              <p>Случайно</p>
               <img className="mark" src="/mark.svg" alt="" />
               <img src="/map/big_forest.png" alt="" />
             </div>

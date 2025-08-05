@@ -143,10 +143,14 @@ export default function Battle({
       },
     ],
   });
-
+  void setAlly5;
   const [Ally6, setAlly6] = useState<Character | undefined>();
+  void setAlly6;
   const [Ally7, setAlly7] = useState<Character | undefined>();
+  void setAlly7;
   const [Ally8, setAlly8] = useState<Character | undefined>();
+  void setAlly8;
+
   if (allAlly.length == 1 && Ally5.name === "none") {
     const allAllyNewArr = [];
     for (let i = 5; i < 9; i++) {
@@ -188,9 +192,13 @@ export default function Battle({
       },
     ],
   });
+  void setEnemy1;
   const [Enemy2, setEnemy2] = useState<Character | undefined>();
+  void setEnemy2;
   const [Enemy3, setEnemy3] = useState<Character | undefined>();
+  void setEnemy3;
   const [Enemy4, setEnemy4] = useState<Character | undefined>();
+  void setEnemy4;
 
   const [allEnemy, setAllEnemy] = useState<Character[]>([Enemy1]);
 
@@ -235,22 +243,6 @@ export default function Battle({
       ]);
     }, 100);
   }, [difficult, difficultGame]);
-
-  //fix TS bug with uncorrect error, for deploy
-  useEffect(() => {
-    console.log(
-      "\n!!!fix TS bug with uncorrect error, it`s need for deploy!!!\n\n\n",
-      setEnemy1,
-      setEnemy2,
-      setEnemy3,
-      setEnemy4,
-      setAlly5,
-      setAlly6,
-      setAlly7,
-      setAlly8
-    );
-  }, []);
-  // end fix
 
   //update persone
 

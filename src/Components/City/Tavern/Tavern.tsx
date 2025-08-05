@@ -30,6 +30,7 @@ export default function Tavern({
 
   return (
     <div onClick={() => setShowTavern(false)} className="tavern_open_back">
+      <h1 className="button_leave">Выйти</h1>
       <div onClick={(event) => event.stopPropagation()}>
         {showMan && (
           <Man

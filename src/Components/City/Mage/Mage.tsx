@@ -76,6 +76,7 @@ export default function Mage({
   }
   return (
     <div className="mage_open" onClick={() => setShowMage(false)}>
+      <h1 className="button_leave">Выйти</h1>
       <div onClick={(event) => event.stopPropagation()}>
         {showDialogue && (
           <Dialogue

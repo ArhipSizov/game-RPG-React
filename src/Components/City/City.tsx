@@ -106,10 +106,6 @@ export default function City({
           <img className="mark" src="/mark.svg" alt="" />
           <img src="/city/city_map/tavern.png" alt="" />
         </div>
-        <div className="workshop">
-          <img className="mark" src="/mark.svg" alt="" />
-          <img src="/city/city_map/workshop.png" alt="" />
-        </div>
       </div>
     </div>
   );

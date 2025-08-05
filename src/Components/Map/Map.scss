@@ -26,6 +26,16 @@
       transition: 0.5s;
       border-radius: 80px;
       cursor: pointer;
+      p {
+        transition: 0.5s;
+        position: absolute;
+        text-align: center;
+        width: 100%;
+        margin-top: 50px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #e6e6e600;
+      }
       .mark {
         width: 40px;
         margin-left: 40%;
@@ -41,6 +51,10 @@
       z-index: 10;
       .mark {
         transform: scale(1.5);
+      }
+      p {
+        font-size: 24px;
+        color: #e6e6e6;
       }
     }
     .mountain:hover {

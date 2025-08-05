@@ -5,6 +5,15 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
+  .button_leave {
+    position: absolute;
+    display: inline-block;
+    color: #e6e6e6;
+    font-size: 34px;
+    font-weight: 600;
+    margin: 24px;
+    cursor: pointer;
+  }
   .city_map_all {
     width: 1000px;
     display: block;
@@ -47,7 +56,7 @@
     .bank {
       width: 180px;
       margin: 280px 0 0 820px;
-      z-index: 1;
+      z-index: 2;
     }
     .mage {
       width: 125px;
