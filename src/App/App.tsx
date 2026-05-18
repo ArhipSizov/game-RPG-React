@@ -118,6 +118,16 @@ function App() {
       localStorage.turn == "NaN" ||
       localStorage.turn == undefined
     ) {
+      setIsReset(false);
+      localStorage.gold = 0;
+      setAllGold(0);
+      localStorage.turn = 0;
+      setTurn(0);
+      localStorage.favor = 0;
+      setAllFavor(0);
+      localStorage.earningsGold = -4;
+      setEarningsGold(-4);
+      changeAllAllys();
       setTimeout(() => {
         setIsReset(false);
         localStorage.gold = 0;
