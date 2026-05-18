@@ -23,7 +23,6 @@ interface tipe {
   allFavor: number;
   setAllFavor: (number: number) => void;
   allAlly: Character[];
-  setAllAlly: (CharacterAll: Character[]) => void;
   showCity: boolean;
   showMap: boolean;
 }
@@ -42,7 +41,6 @@ export default function Battle({
   setAllFavor,
   allFavor,
   allAlly,
-  setAllAlly,
   showCity,
   showMap,
 }: tipe) {
@@ -114,57 +112,6 @@ export default function Battle({
       selectedAlly().hp = selectedAlly().maxHp;
       changeAbilityActive(Number(ability[0]));
     }
-  }
-
-  //declare ally
-  const [Ally5, setAlly5] = useState<Character>({
-    id: "1",
-    lv: 0,
-    exp: 0,
-    name: "none",
-    hp: 20,
-    maxHp: 20,
-    defaultDamage: 0,
-    description: "",
-    difficult: 0,
-    effect: [],
-    skills: [
-      {
-        id: "1",
-        name: "Firebol",
-        position: ["1"],
-        effect: ["1"],
-        min_damage: 1,
-        max_damage: 1,
-        description:
-          "very long textvery long textvery long textvery long textvery long textvery long text",
-        crit: 0,
-        health: false,
-      },
-    ],
-  });
-  void setAlly5;
-  const [Ally6, setAlly6] = useState<Character | undefined>();
-  void setAlly6;
-  const [Ally7, setAlly7] = useState<Character | undefined>();
-  void setAlly7;
-  const [Ally8, setAlly8] = useState<Character | undefined>();
-  void setAlly8;
-
-  if (allAlly.length == 1 && Ally5.name === "none") {
-    const allAllyNewArr = [];
-    for (let i = 5; i < 9; i++) {
-      const ArrAllyTrue = Object.values(AllAllyDB);
-      const allyTrue = { ...ArrAllyTrue[getRandomInt(ArrAllyTrue.length)] };
-      const setAllyTrue = eval("setAlly" + i);
-      const firstSkill = allyTrue.skills[0];
-      allyTrue.id = i.toString();
-      allyTrue.skills = [];
-      allyTrue.skills[0] = firstSkill;
-      setAllyTrue(allyTrue);
-      allAllyNewArr.push(allyTrue);
-    }
-    setAllAlly(allAllyNewArr);
   }
 
   //declare enemy
@@ -251,11 +198,6 @@ export default function Battle({
       setAllEnemy([Enemy1, Enemy2, Enemy3, Enemy4]);
     }
   }, [Enemy1, Enemy2, Enemy3, Enemy4]);
-  useEffect(() => {
-    if (Ally6 != undefined && Ally7 != undefined && Ally8 != undefined) {
-      setAllAlly([Ally5, Ally6, Ally7, Ally8]);
-    }
-  }, [Ally5, Ally6, Ally7, Ally8]);
 
   //enemy active
   const [enemy, setEnemy] = useState<string[]>([

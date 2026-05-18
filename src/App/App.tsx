@@ -6,6 +6,9 @@ import MainMenu from "../Components/MainMenu/MainMenu";
 import Map from "../Components/Map/Map";
 import Instruction from "../Components/Instruction/Instruction";
 import City from "../Components/City/City";
+import AllAllyDB from "../Components/Battle/DataBase/AllAlly.json";
+
+import getRandomInt from "../Utils/Random.ts";
 
 import type { Character } from "../Components/Battle/interfaceCharacter";
 import type { quest } from "../Components/City/Guild/Quest";
@@ -22,14 +25,15 @@ function App() {
   const [showCity, setShowCity] = useState<boolean>(false);
   const [allInstruction, setAllInstruction] = useState<boolean[]>([true, true]);
   const [earningsGold, setEarningsGold] = useState<number>(
-    Number(localStorage.earningsGold)
+    Number(localStorage.earningsGold),
   );
   const [showQuest, setShowQuest] = useState<boolean>(true);
   const [quest, setQuest] = useState<quest>();
   const [isReset, setIsReset] = useState<boolean>(false);
+  const [saveAcceptText, setSaveAcceptText] = useState<boolean>(false);
 
-  //ally
-  const [AllyTest] = useState<Character>({
+  //declare ally
+  const [Ally5, setAlly5] = useState<Character>({
     id: "1",
     lv: 0,
     exp: 0,
@@ -55,8 +59,44 @@ function App() {
       },
     ],
   });
+  void setAlly5;
 
-  const [allAlly, setAllAlly] = useState<Character[]>([AllyTest]);
+  const [allAlly, setAllAlly] = useState<Character[]>([Ally5]);
+
+  const [Ally6, setAlly6] = useState<Character | undefined>();
+  void setAlly6;
+  const [Ally7, setAlly7] = useState<Character | undefined>();
+  void setAlly7;
+  const [Ally8, setAlly8] = useState<Character | undefined>();
+  void setAlly8;
+
+  if (!localStorage.allAlly) {
+    changeAllAllys();
+  }
+
+  function changeAllAllys() {
+    const allAllyNewArr = [];
+    for (let i = 5; i < 9; i++) {
+      const ArrAllyTrue = Object.values(AllAllyDB);
+      const allyTrue = { ...ArrAllyTrue[getRandomInt(ArrAllyTrue.length)] };
+      const setAllyTrue = eval("setAlly" + i);
+      const firstSkill = allyTrue.skills[0];
+      allyTrue.id = i.toString();
+      allyTrue.skills = [];
+      allyTrue.skills[0] = firstSkill;
+      setAllyTrue(allyTrue);
+      allAllyNewArr.push(allyTrue);
+    }
+    localStorage.allAlly = JSON.stringify(allAllyNewArr);
+    setAllAlly(allAllyNewArr);
+  }
+
+  useEffect(() => {
+    if (Ally6 != undefined && Ally7 != undefined && Ally8 != undefined) {
+      setAllAlly([Ally5, Ally6, Ally7, Ally8]);
+    }
+  }, [Ally5, Ally6, Ally7, Ally8]);
+
   //save
   useEffect(() => {
     if (localStorage.allAlly) {
@@ -78,17 +118,18 @@ function App() {
       localStorage.turn == "NaN" ||
       localStorage.turn == undefined
     ) {
-      setIsReset(false);
-      localStorage.gold = 0;
-      setAllGold(0);
-      localStorage.turn = 0;
-      setTurn(0);
-      localStorage.favor = 0;
-      setAllFavor(0);
-      localStorage.earningsGold = -4;
-      setEarningsGold(-4);
-      localStorage.allAlly = JSON.stringify([AllyTest]);
-      setAllAlly([AllyTest]);
+      setTimeout(() => {
+        setIsReset(false);
+        localStorage.gold = 0;
+        setAllGold(0);
+        localStorage.turn = 0;
+        setTurn(0);
+        localStorage.favor = 0;
+        setAllFavor(0);
+        localStorage.earningsGold = -4;
+        setEarningsGold(-4);
+        changeAllAllys();
+      }, 100);
     }
   }, [isReset]);
 
@@ -98,6 +139,10 @@ function App() {
     localStorage.favor = allFavor;
     localStorage.earningsGold = earningsGold;
     localStorage.allAlly = JSON.stringify(allAlly);
+    setSaveAcceptText(true);
+    setTimeout(() => {
+      setSaveAcceptText(false);
+    }, 2000);
   }
 
   // time
@@ -118,9 +163,12 @@ function App() {
 
   return (
     <div className="app">
-      <p className="fast_save" onClick={() => save()}>
-        Быстр. сохр
-      </p>
+      {(saveAcceptText && <p className="fast_save_accept">Сохранено!</p>) || (
+        <p className="fast_save" onClick={() => save()}>
+          Быстр. сохр
+        </p>
+      )}
+
       <img
         onClick={() => setShowMap(true)}
         className="litl_map"
@@ -176,7 +224,6 @@ function App() {
         allFavor={allFavor}
         setAllFavor={setAllFavor}
         allAlly={allAlly}
-        setAllAlly={setAllAlly}
         showCity={showCity}
         showMap={showMap}
       />
